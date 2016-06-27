@@ -1,7 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Agent.create(name: 'Thomas', slack_id: 'U0AUD2XK4')
+Agent.create(name: 'Edouard', slack_id: 'U0BDES7NZ')
+Agent.create(name: 'Guillaume', slack_id: 'U0C03E7N3')
+Agent.create(name: 'Vincent', slack_id: 'U0ARWTYAK')
+
