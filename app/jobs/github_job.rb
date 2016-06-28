@@ -4,17 +4,15 @@ require 'json'
 require 'csv'
 require 'date'
 
-# Extracts messages from a Slack team identified via its authentification
-# token, from the channel identified via its unique channel ID.
-# Default Slack channels.history API settings are used.
+#TODO COMMENT
 
-class SlackJob < ActiveJob::Base
+class GithubJob < ActiveJob::Base
   queue_as :default
 
-  def perform(token, channel)
+  def perform(token = "", channel = "")
     @token = token
     @channel = channel
-    @filename = "#{Time.now.getutc.to_i.to_s}_slack.csv"
+    @filename = "#{Time.now.getutc.to_i.to_s}_github.csv"
     json = retrieve_json
     write_csv(json)
     return @filename
@@ -23,10 +21,7 @@ class SlackJob < ActiveJob::Base
   private
 
   def retrieve_json
-    token = "token=#{@token}"
-    channel = "channel=#{@channel}"
-    pretty = "pretty=1"
-    url = "https://slack.com/api/channels.history?#{token}&#{pretty}&#{channel}"
+    url = "https://api.github.com/repos/thomasvds/datacruncher/events"
     uri = URI.parse(url)
     response = Net::HTTP.get(uri)
     json = JSON.parse(response)
@@ -46,18 +41,20 @@ class SlackJob < ActiveJob::Base
         'hour',
         'minute']}
     CSV.open(@filename, "w", csv_options) do |csv| #open new file for write
-      json["messages"].each do |msg| #open json to parse
+      json.each do |event| #open json to parse
         #Extract event characteristics
-        time = Time.at(msg["ts"].match(/\d+/)[0].to_i)
-        source_agent_id = msg['user']
+        time = event['created_at']
+        #TODO: use a real datetime object instead of github created_at
+        time_match = time.scan(/[^A-Z:]*/)
+        source_agent_id = event['actor']['id']
         extraction_time = extracted
-        agent_id = Agent.where(slack_id: source_agent_id).first.id
-        category = 'communication'
-        date = time.to_date
-        hour = time.hour
-        minute = time.min
+        agent_id = Agent.where(github_id: source_agent_id).first.id
+        category = 'production'
+        date = time_match[0]
+        hour = time_match[2]
+        minute = time_match[4]
         #Append event as new row to CSV file
-        csv << ['slack',
+        csv << ['github',
         @channel,
         source_agent_id,
         extraction_time,
