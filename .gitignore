@@ -15,4 +15,4 @@
 # Ignore application configuration
 /config/application.yml
 /config/gmail-ruby-quickstart.yml
-/client_secret.json
+client_secret.json
