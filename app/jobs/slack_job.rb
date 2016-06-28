@@ -49,19 +49,17 @@ class SlackJob < ActiveJob::Base
       json["messages"].each do |msg| #open json to parse
         #Extract event characteristics
         time = Time.at(msg["ts"].match(/\d+/)[0].to_i)
-        source = 'slack',
-        source_channel = @channel,
-        source_agent_id = msg['user'],
-        extraction_time = extracted,
-        agent_id = Agent.where(slack_id: msg['user']).first.id,
-        category = 'communication',
-        time = time,
-        date = time.to_date,
-        hour = time.hour,
+        source_agent_id = msg['user']
+        extraction_time = extracted
+        agent_id = Agent.where(slack_id: msg['user']).first.id
+        category = 'communication'
+        time = time
+        date = time.to_date
+        hour = time.hour
         minute = time.min
         #Append event as new row to CSV file
-        csv << [source,
-        source_channel,
+        csv << ['slack',
+        @channel,
         source_agent_id,
         extraction_time,
         agent_id, category,
