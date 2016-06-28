@@ -21,7 +21,7 @@ class GithubJob < ActiveJob::Base
   private
 
   def retrieve_json
-    url = "https://api.github.com/repos/thomasvds/datacruncher/events"
+    url = "https://api.github.com/repos/Guaker13/SportyMe/events"
     uri = URI.parse(url)
     response = Net::HTTP.get(uri)
     json = JSON.parse(response)
