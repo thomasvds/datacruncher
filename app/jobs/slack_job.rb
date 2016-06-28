@@ -4,36 +4,46 @@ require 'json'
 require 'csv'
 require 'date'
 
-class SlackController < ApplicationController
-  def extract
-    @json = retrieve_json
-    # write_csv
-    create_events
+# Extracts messages from a Slack team identified via its authentification
+# token, from the channel identified via its unique channel ID.
+# Default Slack channels.history API settings are used.
+
+class SlackJob < ActiveJob::Base
+  queue_as :default
+
+  def perform(token, channel)
+    json = retrieve_json(token, channel)
+    create_events(json, channel)
   end
 
   private
 
-  def retrieve_json
-    token = "token=#{ENV['SLACK_TEST_TOKEN']}"
+  def retrieve_json(token, channel)
+    token = "token=#{token}"
+    channel = "channel=#{channel}"
     pretty = "pretty=1"
-    channel = "channel=C0ARU9CHZ"
     url = "https://slack.com/api/channels.history?#{token}&#{pretty}&#{channel}"
     uri = URI.parse(url)
     response = Net::HTTP.get(uri)
     json = JSON.parse(response)
   end
 
-  def create_events
+  def create_events(json, channel)
     extracted = Time.now
-    @json["messages"].each do |msg|
+    time =
+    json["messages"].each do |msg|
+      time = Time.at(msg["ts"].match(/\d+/)[0].to_i)
       Event.create(
         source: 'slack',
-        source_channel: 'C0ARU9CHZ',
+        source_channel: channel,
         source_agent_id: msg['user'],
         extraction_time: extracted,
         agent: Agent.where(slack_id: msg['user']).first,
         category: 'communication',
-        time: Time.at(msg["ts"].match(/\d+/)[0].to_i)
+        time: time,
+        date: time.to_date,
+        hour: time.hour,
+        minute: time.min
         )
     end
   end

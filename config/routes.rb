@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'slack', to: 'slack#extract'
+  get 'extractor/slack', to: 'extractor#slack'
   get 'events', to: 'event#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -8,6 +8,9 @@ class CreateEvents < ActiveRecord::Migration
       t.references :agent, index: true, foreign_key: true
       t.string :category
       t.datetime :time
+      t.date :date
+      t.integer :hour
+      t.integer :minute
 
       t.timestamps null: false
     end

@@ -35,6 +35,9 @@ ActiveRecord::Schema.define(version: 20160627143847) do
     t.integer  "agent_id"
     t.string   "category"
     t.datetime "time"
+    t.date     "date"
+    t.integer  "hour"
+    t.integer  "minute"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

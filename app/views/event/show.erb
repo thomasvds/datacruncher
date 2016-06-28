@@ -1,4 +1,4 @@
-<canvas id="myChart" width="50" height="50">
+<!-- <canvas id="myChart" width="50" height="50">
 <script>
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
@@ -38,17 +38,17 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
-</canvas>
-<!--
+</canvas> -->
+
 <table>
   <thead>
-    <td>Agent</td><td>Category</td><td>Time</td>
+    <td>Agent</td><td>Category</td><td>Date</td><td>Hour</td>
   </thead>
   <tbody>
     <% @events.each do |e|%>
-    <tr><td><%=e.agent.name%></td><td><%=e.category%></td><td><%=e.time%></td></tr>
+    <tr><td><%=e.agent.name%></td><td><%=e.category%></td><td><%=e.date%></td><td><%=e.hour%></td></tr>
     <% end %>
   </tbody>
 </table>
- -->
+
 
