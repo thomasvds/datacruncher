@@ -1,0 +1,41 @@
+<div id="<%= chart_id %>" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<script type="text/javascript">
+  $(function () {
+    $('#<%= chart_id %>').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: '<%= title %>',
+        x: -20 //center
+      },
+      xAxis: {
+        categories: <%= raw(xaxis) %>
+      },
+      yAxis: {
+        title: {
+          text: '<%= yaxistitle %>'
+        },
+        plotLines: [{
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+      },
+      series: [
+      <% data.each do |k, v| %>
+      {
+        name: '<%= k %>',
+        data: <%= v %>
+      },
+      <% end %>
+      ]
+    });
+  });
+</script>
