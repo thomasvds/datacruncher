@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627143847) do
+ActiveRecord::Schema.define(version: 20160630142045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,20 @@ ActiveRecord::Schema.define(version: 20160627143847) do
   end
 
   add_index "events", ["agent_id"], name: "index_events_on_agent_id", using: :btree
+
+  create_table "policies", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.float    "weight"
+    t.boolean  "enabled"
+    t.string   "category"
+    t.string   "verb"
+    t.string   "adverb"
+    t.integer  "firstparam"
+    t.integer  "secondparam"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   add_foreign_key "events", "agents"
 end

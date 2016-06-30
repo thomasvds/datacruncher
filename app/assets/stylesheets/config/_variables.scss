@@ -2,13 +2,17 @@
  * Fonts
  * ------------------------------------- */
 // Google fonts
-@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,400,300,700|Raleway:400,100,300,700,500');
+@import url('https://fonts.googleapis.com/css?family=HelveticaNeue:100,200,400,300,500,700');
 $base-font: "HelveticaNeue", "Helvetica", "sans-serif";
 $header-font: "HelveticaNeue", "Helvetica", "sans-serif";
 
 // Font-size and line-height
 $base-size: 14px;
 $base-height: 1.4;
+
+h3 {
+  font-weight: 500px;
+}
 
 /* -------------------------------------
  * Colors
@@ -18,9 +22,9 @@ $base-height: 1.4;
 $primary-dark: darken(#3E92CC,10%);
 $primary: #3E92CC;
 $primary-light: lighten(#3E92CC, 10%);
-$yellow: #FFD166;
-$green: #23F0C7;
-$red: #F03A47;
+$yellow: #F0AD4E;
+$green: #5CB85C;
+$red: #D9534F;
 
 // Gray scale
 $gray-darker:  lighten(#000, 13.5%); // #222

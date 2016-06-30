@@ -9,7 +9,7 @@ Agent.create(name: 'Adrien', github_id: '15191401')
 Agent.create(name: 'Gauthier', github_id: '14982869')
 
 
-date_from  = Date.parse('2016-06-01')
+date_from  = Date.parse('2016-04-01')
 
 date_range = date_from..Date.today
 
@@ -45,3 +45,7 @@ date_range.each do |d|
     end
   end
 end
+
+Policy.create(name: "No work on Sundays", weight: 0.35, enabled: true, verb: "IS NOT", adverb: "ON", firstparam: 7)
+Policy.create(name: "No work on Saturdays", weight: 0.35, enabled: true, verb: "IS NOT", adverb: "ON", firstparam: 6)
+Policy.create(name: "No work after 8PM", weight: 0.3, enabled: true, verb: "IS NOT", adverb: "AFTER", firstparam: 20)

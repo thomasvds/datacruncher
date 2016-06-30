@@ -1,26 +1,45 @@
-
-<div class="page-header">
-  <h1><%= @agent.name %> <small>Developer, Team XYZ</small></h1>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-3">
-    <div style="padding-top: 40px;"">
-        <ul class="fa-ul">
-          <li><i class="fa-li fa fa-check-circle" style="color: green; font-size: 16px;"></i>No work on week-ends</li>
-          <li><i class="fa-li fa fa-times-circle" style="color: red; font-size: 16px;"></i>Preferably no work after 8PM</li>
-          <li><i class="fa-li fa fa-exclamation-circle" style="color: orange; font-size: 16px;"></i>No work after 10PM</li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-xs-9">
-      <%= render 'charts/areachart', chart_id: "second_chart", title: '2-weeks late night activity', yaxistitle: 'Hour of last Slack / Github actions', xaxis: @xaxis, data: @hour_of_last_action %>
+<div class="row">
+  <div class="col-lg-10 col-md-8">
+    <div class="page-header">
+      <h1><%= @agent.name %> <small>Developer, Team XYZ</small></h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <%= render 'charts/areachart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Hour of last Slack / Github actions', xaxis: @xaxis, data: @hour_of_last_action %>
+  <div class="col-lg-2 col-md-4">
+    <%= render 'scorebox' %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <i class="fa fa-clock-o fa-1x"></i>
+      &nbsp; This week
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-3">
+        <%= render 'policybox', score: @score, compliance: @compliance %>
+      </div>
+      <div class="col-xs-9">
+      <%= render 'charts/areachart', chart_id: "second_chart", title: 'Last week late night activity', yaxistitle: 'Hour of last actions', xaxis: @xaxis, data: @hour_of_last_action %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <i class="fa fa-calendar fa-1x"></i>
+      &nbsp; All time
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <%= render 'charts/areachart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score (%)', xaxis: @week_xaxis.to_a, data: @all_time_score %>
+      </div>
     </div>
   </div>
 </div>

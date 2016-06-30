@@ -1,0 +1,16 @@
+.scorebox {
+  max-height: 70px;
+  margin-left: 10px;
+  padding: 5px;
+  background-color: $green;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  .score {
+    font-size: 30px;
+    font-style: bold;
+  }
+  .percentile {
+    font-size: 10px;
+  }
+}
