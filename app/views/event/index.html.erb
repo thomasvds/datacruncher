@@ -1,0 +1,22 @@
+
+<%= render 'barchart', chart_id: "first_chart", title: 'Volume of activity', yaxistitle: 'Number of Slack / Github actions', xaxis: @xaxis, data: @volume %>
+
+<%= render 'barchart', chart_id: "second_chart", title: 'Late-night activity', yaxistitle: 'Hour of last Slack / Github actions', xaxis: @xaxis, data: @hour_of_last_action %>
+
+
+<div class="container">
+  <div class="row">
+    <% @time_split.each do |a, v| %>
+    <div class="col-xs-6">
+      <%= render 'doughnut', chart_id: "chart_#{a}", title: a, yaxistitle: 'Period share', data: @time_split[a] %>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<% end %>
+
+

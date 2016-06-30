@@ -1,0 +1,31 @@
+
+<div class="page-header">
+  <h1><%= @agent.name %> <small>Developer, Team XYZ</small></h1>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+    <div style="padding-top: 40px;"">
+        <ul class="fa-ul">
+          <li><i class="fa-li fa fa-check-circle" style="color: green; font-size: 16px;"></i>No work on week-ends</li>
+          <li><i class="fa-li fa fa-times-circle" style="color: red; font-size: 16px;"></i>Preferably no work after 8PM</li>
+          <li><i class="fa-li fa fa-exclamation-circle" style="color: orange; font-size: 16px;"></i>No work after 10PM</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-9">
+      <%= render 'charts/areachart', chart_id: "second_chart", title: '2-weeks late night activity', yaxistitle: 'Hour of last Slack / Github actions', xaxis: @xaxis, data: @hour_of_last_action %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= render 'charts/areachart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Hour of last Slack / Github actions', xaxis: @xaxis, data: @hour_of_last_action %>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<% end %>

@@ -3,7 +3,7 @@
   $(function () {
     $('#<%= chart_id %>').highcharts({
       chart: {
-        type: 'column'
+        type: 'area'
       },
       title: {
         text: '<%= title %>',
@@ -22,6 +22,11 @@
           color: '#808080'
         }]
       },
+      plotOptions: {
+        area: {
+          fillOpacity: 0.2
+        }
+      },
       legend: {
         layout: 'vertical',
         align: 'right',
@@ -32,7 +37,7 @@
       <% data.each do |k, v| %>
       {
         name: '<%= k %>',
-        data: <%= v %>
+        data: <%= v.to_json %>
       },
       <% end %>
       ]
