@@ -13,16 +13,16 @@
   <div class="panel-heading">
     <div class="panel-title">
       <i class="fa fa-clock-o fa-1x"></i>
-      &nbsp; This week
+      &nbsp; Last week
     </div>
   </div>
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-3">
-        <%= render 'policybox', score: @score, compliance: @compliance %>
+        <%= render 'policybox', score: @score, policies_check_list: @policies_check_list %>
       </div>
       <div class="col-xs-9">
-      <%= render 'charts/areachart', chart_id: "second_chart", title: 'Last week late night activity', yaxistitle: 'Hour of last actions', xaxis: @xaxis, data: @hour_of_last_action %>
+      <%= render 'charts/latenightchart', chart_id: "latenight", title: 'Last week late night activity', yaxistitle: 'Hour of last actions', xaxis: @list_of_dates, data: @hour_of_last_event_by_date %>
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12">
-        <%= render 'charts/areachart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score (%)', xaxis: @week_xaxis.to_a, data: @all_time_score %>
+        <%= render 'charts/scorechart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score (%)', xaxis: @list_of_weeks.to_a, data: @all_time_score %>
       </div>
     </div>
   </div>

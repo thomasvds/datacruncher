@@ -1,12 +1,12 @@
 <div class="policybox">
   <div class="total-score">
     <div class="label label-success">
-      This week's score: <%= score %> %
+      Last week score: <%= score %> %
     </div>
   </div>
   <div class="checks">
     <ul class="fa-ul">
-      <% compliance.each do |policy, compliant| %>
+      <% policies_check_list.each do |policy, compliant| %>
       <li>
         <% if compliant %>
         <i class="fa-li fa fa-check-circle good"></i>

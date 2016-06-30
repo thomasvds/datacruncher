@@ -1,0 +1,78 @@
+<div id="<%= chart_id %>" style="min-width: 310px; height: 220px; margin: 0 auto"></div>
+<script type="text/javascript">
+  $(function () {
+    $('#<%= chart_id %>').highcharts({
+      chart: {
+        type: 'area'
+      },
+      title: {
+        text: '<%= title %>',
+        x: -20 //center
+      },
+      xAxis: {
+        categories: <%= raw(xaxis) %>
+      },
+      yAxis: {
+        min: 16,
+        max: 24,
+        tickInterval: 2,
+        title: {
+          text: '<%= yaxistitle %>'
+        },
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        alternateGridColor: null,
+            plotBands: [{ // Light air
+              from: 16,
+              to: 20,
+              color: 'rgba(68, 170, 213, 0.1)',
+              label: {
+                text: 'Normal working hours',
+                style: {
+                  color: '#606060'
+                }
+              }
+            }, { // Gentle breeze
+              from: 20,
+              to: 22,
+              color: '#F0AD4E',
+              label: {
+                text: 'Late night',
+                style: {
+                  color: 'white'
+                }
+              }
+            }, { // Moderate breeze
+              from: 22,
+              to: 25,
+              color: '#D9534F',
+              label: {
+                text: 'Danger zone',
+                style: {
+                  color: 'white'
+                }
+              }
+            }]
+          },
+          plotOptions: {
+            area: {
+              fillOpacity: 0.2
+            }
+          },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+          },
+          series: [
+          <% data.each do |k, v| %>
+          {
+            name: '<%= k %>',
+            data: <%= v.to_json %>
+          },
+          <% end %>
+          ]
+        });
+  });
+</script>
