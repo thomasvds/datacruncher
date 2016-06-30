@@ -15,7 +15,7 @@ class AgentController < ApplicationController
     @list_of_dates = date_range.map {|d| d.strftime '%a %d/%m' }
     @hour_of_last_event_by_date = Event.hour_of_last_event_by_date(@agent, date_range)
 
-    @list_of_weeks, @all_time_score , @lists = all_time_score
+    @list_of_weeks, @all_time_score = all_time_score
   end
 
   private
@@ -52,6 +52,16 @@ class AgentController < ApplicationController
       week += 1
     end
 
-    return week_xaxis, {"score" => scores}
+    averages = []
+    averages[0] = scores[0]
+    averages[1] = 0.5 * (scores[0] + scores[1])
+    averages[2] = 0.33333 * (scores[0] + scores[1] + scores[2])
+    (3...scores.count).each do |i|
+      averages[i] = 0.25 * (scores[i-3] + scores[i-2] + scores[i-1] + scores[i])
+    end
+
+
+
+    return week_xaxis, {"score" => scores, "4-wks avg." => averages}
   end
 end
