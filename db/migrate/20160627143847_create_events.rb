@@ -9,9 +9,9 @@ class CreateEvents < ActiveRecord::Migration
       t.string :category
       t.datetime :time
       t.date :date
+      t.integer :day
       t.integer :hour
       t.integer :minute
-
       t.timestamps null: false
     end
   end

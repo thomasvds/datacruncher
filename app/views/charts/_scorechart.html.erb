@@ -3,7 +3,7 @@
   $(function () {
     $('#<%= chart_id %>').highcharts({
       chart: {
-        type: 'area'
+        type: 'line'
       },
       title: {
         text: '<%= title %>',
@@ -25,7 +25,7 @@
             plotBands: [{ // Light air
               from: 0,
               to: 40,
-              color: '#D9534F',
+              color: 'rgba(217, 83, 79, 0.65)',
               label: {
                 text: 'Danger',
                 style: {
@@ -35,7 +35,7 @@
             }, { // Light air
               from: 40,
               to: 60,
-              color: '#F0AD4E',
+              color: 'rgba(240, 173, 78, 0.65)',
               label: {
                 text: 'Warning',
                 style: {
@@ -49,13 +49,13 @@
               label: {
                 text: 'Good',
                 style: {
-                  color: 'white'
+                  color: 'grey'
                 }
               }
             }, { // Moderate breeze
               from: 80,
               to: 100,
-              color: '#5CB85C',
+              color: 'rgba(92, 184, 92, 0.65)',
               label: {
                 text: 'Great',
                 style: {

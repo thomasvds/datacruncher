@@ -62,6 +62,6 @@ class AgentController < ApplicationController
 
 
 
-    return week_xaxis, {"score" => scores, "4-wks avg." => averages}
+    return week_xaxis, {"weekly" => scores, "4-wks avg." => averages}
   end
 end

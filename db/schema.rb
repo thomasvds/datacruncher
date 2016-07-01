@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160630142045) do
     t.string   "category"
     t.datetime "time"
     t.date     "date"
+    t.integer  "day"
     t.integer  "hour"
     t.integer  "minute"
     t.datetime "created_at",      null: false
@@ -49,13 +50,12 @@ ActiveRecord::Schema.define(version: 20160630142045) do
     t.string   "description"
     t.float    "weight"
     t.boolean  "enabled"
-    t.string   "category"
-    t.string   "verb"
+    t.string   "category",    default: "work"
+    t.string   "timeframe"
     t.string   "adverb"
-    t.integer  "firstparam"
-    t.integer  "secondparam"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "hour"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_foreign_key "events", "agents"

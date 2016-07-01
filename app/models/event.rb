@@ -71,7 +71,7 @@ class Event < ActiveRecord::Base
 
   def self.any_event_on?(events, wday)
     events.each do |e|
-      if e.date.wday == wday
+      if e.day == wday
         return true
       end
     end

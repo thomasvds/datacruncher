@@ -15,7 +15,7 @@ date_range = date_from..Date.today
 
 date_range.each do |d|
   if (d.saturday? || d.sunday?)
-    p = 0.2 #less likely that agents will work on week-ends
+    p = 0.1 #less likely that agents will work on week-ends
     q = 0.3 #even if there is work on the week-end, it is less than during the week
   else
     p = 1
@@ -27,25 +27,39 @@ date_range.each do |d|
       (9..18).each do |h|
         if rand(0) < 0.5 * q
           if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, hour: h)
+          Event.create(source: 'seed',category: category, agent: a, date: d, day: d.wday, hour: h)
         end
       end
       (19..20).each do |h|
         if rand(0) < 0.3 * q
           if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, hour: h)
+          Event.create(source: 'seed',category: category, agent: a, date: d, day: d.wday, hour: h)
         end
       end
       (21..23).each do |h|
         if rand(0) < 0.1 * q
           if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, hour: h)
+          Event.create(source: 'seed',category: category, agent: a, date: d, day: d.wday, hour: h)
         end
       end
     end
   end
 end
 
-Policy.create(name: "No work on Sundays", weight: 0.35, enabled: true, verb: "IS NOT", adverb: "ON", firstparam: 0)
-Policy.create(name: "No work on Saturdays", weight: 0.35, enabled: true, verb: "IS NOT", adverb: "ON", firstparam: 6)
-Policy.create(name: "No work after 8PM", weight: 0.3, enabled: true, verb: "IS NOT", adverb: "AFTER", firstparam: 20)
+Policy.create(name: "No work on weekends",
+  weight: 0.5, enabled: true, timeframe: "on weekends", adverb: "at all")
+Policy.create(name: "No work after 8PM",
+  weight: 0.125, enabled: true, timeframe: "on weekdays", adverb: "after", hour: 20)
+Policy.create(name: "No work after 10PM",
+  weight: 0.125, enabled: true, timeframe: "on weekdays", adverb: "after", hour: 22)
+Policy.create(name: "Early Friday night",
+  weight: 0.125, enabled: true, timeframe: "on Fridays", adverb: "after", hour: 18)
+Policy.create(name: "One free night per week",
+  weight: 0.125, enabled: true, timeframe: "at least once from Monday to Thursday", adverb: "after", hour: 19)
+
+
+
+
+
+
+
