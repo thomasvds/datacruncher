@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="col-lg-2 col-md-4">
-    <%= render 'scorebox', score: @all_time_score["4-wks avg."].last %>
+    <%= render 'scorebox', score: @current_average_score, score_range: @current_average_score_range %>
   </div>
 </div>
 
@@ -19,7 +19,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-3">
-        <%= render 'policybox', score: @score, policies_check_list: @policies_check_list %>
+        <%= render 'policybox', score: @week_score, score_range: @week_score_range, policies_check_list: @policies_check_list %>
       </div>
       <div class="col-xs-9">
       <%= render 'charts/latenightchart', chart_id: "latenight", title: 'Last week late night activity', yaxistitle: 'Hour of last actions', xaxis: @list_of_dates, data: @hour_of_last_event_by_date %>
@@ -38,7 +38,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12">
-        <%= render 'charts/scorechart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks.to_a, data: @all_time_score %>
+        <%= render 'charts/scorechart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks.to_a, data: @score_by_week %>
       </div>
     </div>
   </div>
