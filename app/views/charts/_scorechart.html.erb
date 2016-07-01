@@ -10,22 +10,32 @@
         x: -20 //center
       },
       xAxis: {
-        categories: <%= raw(xaxis) %>
+        categories: <%= raw(xaxis) %>,
+        labels: {
+          formatter: function() {
+           return "W"+this.value;
+         }
+       },
       },
       yAxis: {
         min: 0,
         max: 100,
         tickInterval: 20,
-        title: {
-          text: '<%= yaxistitle %>'
-        },
-        minorGridLineWidth: 0,
-        gridLineWidth: 0,
-        alternateGridColor: null,
+        labels: {
+          formatter: function() {
+           return this.value+"%";
+         }
+       },
+       title: {
+        text: '<%= yaxistitle %>'
+      },
+      minorGridLineWidth: 0,
+      gridLineWidth: 0,
+      alternateGridColor: null,
             plotBands: [{ // Light air
               from: 0,
               to: 40,
-              color: 'rgba(217, 83, 79, 0.65)',
+              color: 'rgba(217, 83, 79, 0.5)',
               label: {
                 text: 'Danger',
                 style: {
@@ -35,7 +45,7 @@
             }, { // Light air
               from: 40,
               to: 60,
-              color: 'rgba(240, 173, 78, 0.65)',
+              color: 'rgba(240, 173, 78, 0.5)',
               label: {
                 text: 'Warning',
                 style: {
@@ -55,7 +65,7 @@
             }, { // Moderate breeze
               from: 80,
               to: 100,
-              color: 'rgba(92, 184, 92, 0.65)',
+              color: 'rgba(92, 184, 92, 0.5)',
               label: {
                 text: 'Great',
                 style: {

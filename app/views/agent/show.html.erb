@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-10 col-md-8">
     <div class="page-header">
-      <h1><%= @agent.name %> <small>Developer, Team XYZ</small></h1>
+      <h1><%= @agent.name %> <small>Associate Consultant, Team XYZ</small></h1>
     </div>
   </div>
   <div class="col-lg-2 col-md-4">
@@ -38,7 +38,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12">
-        <%= render 'charts/scorechart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score (%)', xaxis: @list_of_weeks.to_a, data: @all_time_score %>
+        <%= render 'charts/scorechart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks.to_a, data: @all_time_score %>
       </div>
     </div>
   </div>

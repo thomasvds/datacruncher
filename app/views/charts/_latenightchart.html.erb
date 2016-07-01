@@ -19,6 +19,11 @@
         title: {
           text: '<%= yaxistitle %>'
         },
+        labels: {
+          formatter: function() {
+           return this.value+":00";
+         }
+       },
         minorGridLineWidth: 0,
         gridLineWidth: 0,
         alternateGridColor: null,
@@ -35,7 +40,7 @@
             }, { // Gentle breeze
               from: 20,
               to: 22,
-              color: 'rgba(240, 173, 78, 0.65)',
+              color: 'rgba(240, 173, 78, 0.5)',
               label: {
                 text: 'Late night',
                 style: {
@@ -45,7 +50,7 @@
             }, { // Moderate breeze
               from: 22,
               to: 25,
-              color: 'rgba(217, 83, 79, 0.65)',
+              color: 'rgba(217, 83, 79, 0.5)',
               label: {
                 text: 'Danger zone',
                 style: {

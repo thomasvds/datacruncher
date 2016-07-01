@@ -1,12 +1,12 @@
 <!-- Sidebar -->
 <div id="sidebar-wrapper">
-  <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+  <ul class="sidebar-nav nav-stacked" id="menu">
 
-    <li class="active">
+    <li>
       <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Dashboard</a>
     </li>
 
-    <li>
+    <li class="active">
       <%= link_to agent_path(1) do %>
       <span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x "></i></span>Individual reports
       <% end %>
@@ -22,7 +22,7 @@
 
     <li>
       <%= link_to policies_path do %>
-      <span class="fa-stack fa-lg pull-left"><i class="fa fa-sliders fa-stack-1x "></i></span>Policies
+      <span class="fa-stack fa-lg pull-left"><i class="fa fa-list fa-stack-1x "></i></span>Policies
       <% end %>
     </li>
 
