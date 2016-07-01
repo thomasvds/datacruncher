@@ -39,8 +39,6 @@ gem 'figaro'
 # Speed up bulk imports into DB
 gem 'activerecord-import'
 
-gem 'google-api-client'
-
 gem 'bootstrap-sass'
 
 gem 'font-awesome-sass'
