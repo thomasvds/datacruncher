@@ -16,22 +16,25 @@
            return "W"+this.value;
          }
        },
-      },
-      yAxis: {
-        min: 0,
-        max: 100,
-        tickInterval: 20,
-        labels: {
-          formatter: function() {
-           return this.value+"%";
-         }
-       },
-       title: {
-        text: '<%= yaxistitle %>'
-      },
-      minorGridLineWidth: 0,
-      gridLineWidth: 0,
-      alternateGridColor: null,
+     },
+     exporting: {
+       enabled: false
+     },
+     yAxis: {
+      min: 0,
+      max: 100,
+      tickInterval: 20,
+      labels: {
+        formatter: function() {
+         return this.value+"%";
+       }
+     },
+     title: {
+      text: '<%= yaxistitle %>'
+    },
+    minorGridLineWidth: 0,
+    gridLineWidth: 0,
+    alternateGridColor: null,
             plotBands: [{ // Light air
               from: 0,
               to: 40,

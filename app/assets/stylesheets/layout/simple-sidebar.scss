@@ -71,17 +71,18 @@
   color: #999999;
 }
 
-.sidebar-nav li a:hover {
+.sidebar-nav .active,
+.sidebar-nav li:hover {
   text-decoration: none;
-  color: #fff;
   background: rgba(255,255,255,0.2);
-  // border-left: blue 2px solid;
+  a {
+    color: #fff;
+  }
 }
 
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-  text-decoration: none;
-}
+// .sidebar-nav li a:focus {
+//   text-decoration: none;
+// }
 
 .sidebar-nav > .sidebar-brand {
   height: 65px;

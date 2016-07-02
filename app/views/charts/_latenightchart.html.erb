@@ -12,29 +12,32 @@
       xAxis: {
         categories: <%= raw(xaxis) %>
       },
-      yAxis: {
-        min: 16,
-        max: 24,
-        tickInterval: 2,
-        title: {
-          text: '<%= yaxistitle %>'
-        },
-        labels: {
-          formatter: function() {
-           return this.value+":00";
-         }
-       },
-        minorGridLineWidth: 0,
-        gridLineWidth: 0,
-        alternateGridColor: null,
+      exporting: {
+       enabled: false
+     },
+     yAxis: {
+      min: 16,
+      max: 24,
+      tickInterval: 2,
+      title: {
+        text: '<%= yaxistitle %>'
+      },
+      labels: {
+        formatter: function() {
+         return this.value+":00";
+       }
+     },
+     minorGridLineWidth: 0,
+     gridLineWidth: 0,
+     alternateGridColor: null,
             plotBands: [{ // Light air
               from: 16,
               to: 20,
               color: 'rgba(68, 170, 213, 0.1)',
               label: {
-                text: 'Normal working hours',
+                text: 'Standard hours',
                 style: {
-                  color: '#606060'
+                  color: 'grey'
                 }
               }
             }, { // Gentle breeze

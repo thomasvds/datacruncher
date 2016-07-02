@@ -2,12 +2,14 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav nav-stacked" id="menu">
 
-    <li>
-      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Dashboard</a>
+    <li id="reports-dashboard">
+      <%= link_to dashboard_path do %>
+      <span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Dashboard
+      <% end %>
     </li>
 
-    <li class="active">
-      <%= link_to agent_path(1) do %>
+    <li id="reports-individual">
+      <%= link_to individual_report_path(1) do %>
       <span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x "></i></span>Individual reports
       <% end %>
     </li>
@@ -20,7 +22,7 @@
       <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>Follow-up</a>
     </li>
 
-    <li>
+    <li id="policies-index">
       <%= link_to policies_path do %>
       <span class="fa-stack fa-lg pull-left"><i class="fa fa-list fa-stack-1x "></i></span>Policies
       <% end %>
@@ -40,3 +42,16 @@
 
   </ul>
 </div><!-- /#sidebar-wrapper -->
+
+<% content_for :javascript do %>
+<script>
+$(function() {
+        $('#menu li a').click(function() {
+           $('#menu li').removeClass('active');
+           $(this).parent().addClass('active');
+        });
+     });
+
+$("#<%="#{params[:controller]}-#{params[:action]}".gsub('_', '-')%>").addClass('active');
+</script>
+<% end %>

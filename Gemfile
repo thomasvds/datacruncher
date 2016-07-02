@@ -46,6 +46,8 @@ gem 'font-awesome-sass'
 # for methods on dates
 gem 'activesupport'
 
+gem 'simple_form'
+
 group :development, :test do
   gem 'binding_of_caller'
   gem 'better_errors'

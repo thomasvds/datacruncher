@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Individual scores</div>
+  <div class="panel-body">
+    <p>Find here the individual scores for all your employees. Note that you can only consult the low-scores details.</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Last week</th>
+      <th>Last 4 weeks</th>
+    </thead>
+    <tbody>
+      <% @per_agents.each do |name, values| %>
+        <tr>
+          <td><%= name %></td>
+          <td><div class="label label-<%= values["last week"]["score_range"]%>"><%=values["last week"]["score"]%>%</div></td>
+          <td><div class="label label-<%= values["all time"]["score_range"]%>"><%=values["all time"]["score"]%>%</div></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
