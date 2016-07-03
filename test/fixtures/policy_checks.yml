@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  policy_id: 
   agent_id: 
-  value: 1
+  checked: false
   week: 1
 
 two:
+  policy_id: 
   agent_id: 
-  value: 1
+  checked: false
   week: 1

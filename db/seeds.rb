@@ -46,20 +46,17 @@ date_range.each do |d|
   end
 end
 
-Policy.create(name: "No work on weekends",
-  weight: 0.5, enabled: true, timeframe: "on weekends", adverb: "at all")
-Policy.create(name: "No work after 8PM",
-  weight: 0.125, enabled: true, timeframe: "on weekdays", adverb: "after", hour: 20)
-Policy.create(name: "No work after 10PM",
-  weight: 0.125, enabled: true, timeframe: "on weekdays", adverb: "after", hour: 22)
-Policy.create(name: "Early Friday night",
-  weight: 0.125, enabled: true, timeframe: "on Fridays", adverb: "after", hour: 18)
-Policy.create(name: "One free night per week",
-  weight: 0.125, enabled: true, timeframe: "at least once from Monday to Thursday", adverb: "after", hour: 19)
+p = Policy.create(name: "No work on weekends", timeframe: "on weekends", adverb: "at all")
+PolicySetting.create(policy: p, weight: 0.5, enabled: true)
 
+p = Policy.create(name: "No work after 8PM", timeframe: "on weekdays", adverb: "after", hour: 20)
+PolicySetting.create(policy: p, weight: 0.125, enabled: true)
 
+p = Policy.create(name: "No work after 10PM", timeframe: "on weekdays", adverb: "after", hour: 22)
+PolicySetting.create(policy: p, weight: 0.125, enabled: true)
 
+p = Policy.create(name: "Early Friday night", timeframe: "on Fridays", adverb: "after", hour: 18)
+PolicySetting.create(policy: p, weight: 0.125, enabled: true)
 
-
-
-
+p = Policy.create(name: "One free night per week", timeframe: "at least once from Monday to Thursday", adverb: "after", hour: 19)
+PolicySetting.create(policy: p, weight: 0.125, enabled: true)

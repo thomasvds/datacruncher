@@ -1,18 +1,6 @@
 class Policy < ActiveRecord::Base
-
-  def self.check_list(events)
-    score = 0
-    check_list_output = {}
-    where(enabled: true).each do |policy|
-      enforced = policy.enforced?(events)
-      check_list_output[policy.name] = enforced
-      enforced ? increment = 1 : increment = 0
-      score += policy.weight * increment
-    end
-    score = (score * 100).round
-
-    return check_list_output, score, score_range(score)
-  end
+  has_one :policy_setting
+  has_many :policy_checks
 
   def self.all_time_scores(agent)
     start_date  = Date.parse('2016-04-01')
@@ -51,8 +39,12 @@ class Policy < ActiveRecord::Base
     return week_xaxis, {"weekly" => scores, "4-wks avg." => averages}, current_average_score, score_range(current_average_score)
   end
 
+  # This method checks whether a series of events complies with the policy,
+  # and should be used on a weekly basis only. That is, events provided in input
+  # should only belong to one specific week.
+  # This method is used by the PoliciesCheckJob to compute compliance for each
+  # week for each agent.
   def enforced?(events)
-    # events = events.where(category: @category)
     case self.timeframe
     when "at least once from Monday to Thursday"
       check = []

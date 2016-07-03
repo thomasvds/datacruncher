@@ -3,8 +3,6 @@ class CreatePolicies < ActiveRecord::Migration
     create_table :policies do |t|
       t.string :name
       t.string :description
-      t.float :weight
-      t.boolean :enabled
       t.string :category, default: "work"
       t.string :timeframe
       t.string :adverb
