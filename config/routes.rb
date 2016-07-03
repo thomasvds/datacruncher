@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'policies/index', to: 'policies#index', as: 'policies'
   get 'reports/individual/:id', to: 'reports#individual', as: 'individual_report'
   get 'reports/dashboard', to: 'reports#dashboard', as: 'dashboard'
+  get 'tasks/index', to: 'tasks#index', as: 'tasks'
 
   root to: 'policies#index'
 end

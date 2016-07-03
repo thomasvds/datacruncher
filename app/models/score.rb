@@ -1,5 +1,6 @@
 class Score < ActiveRecord::Base
   belongs_to :agent
+  has_one :task
 
   def self.moving_average(values)
     if values.count < 4
@@ -23,14 +24,14 @@ class Score < ActiveRecord::Base
   end
 
   def self.range(value)
-    case value
+    case value.round
     when 0..40
       "danger"
     when 41..60
       "warning"
     when 61..80
       "primary"
-    else
+    when 81..100
       "success"
     end
   end

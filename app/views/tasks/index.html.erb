@@ -1,0 +1,31 @@
+
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Overview of tasks</div>
+  <div class="panel-body">
+    <p>Some explanations</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+      <th>Owner</th>
+      <th>Description</th>
+      <th>Employee</th>
+      <th>Related score</th>
+      <th>Status</th>
+    </thead>
+    <tbody>
+      <% @tasks.each do |t| %>
+        <tr>
+          <td><%= t.owner %></td>
+          <td><%= t.description %></td>
+          <td><%= t.agent.name %></td>
+          <td><%= t.score.value %></td>
+          <td><%= t.done %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

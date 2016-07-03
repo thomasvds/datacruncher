@@ -7,6 +7,13 @@ Agent.create(name: 'Guillaume', slack_id: 'U0C03E7N3')
 Agent.create(name: 'Vincent', slack_id: 'U0ARWTYAK')
 Agent.create(name: 'Adrien', github_id: '15191401')
 Agent.create(name: 'Gauthier', github_id: '14982869')
+Agent.create(name: 'John', github_id: '14982869')
+Agent.create(name: 'Sam', github_id: '14982869')
+Agent.create(name: 'Claire', github_id: '14982869')
+Agent.create(name: 'Cécile', github_id: '14982869')
+Agent.create(name: 'Alice', github_id: '14982869')
+Agent.create(name: 'Eric', github_id: '14982869')
+Agent.create(name: 'Mark', github_id: '14982869')
 
 
 date_from  = Date.parse('2016-04-01')

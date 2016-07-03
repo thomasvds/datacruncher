@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703103433) do
+ActiveRecord::Schema.define(version: 20160703135135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,9 +89,24 @@ ActiveRecord::Schema.define(version: 20160703103433) do
 
   add_index "scores", ["agent_id"], name: "index_scores_on_agent_id", using: :btree
 
+  create_table "tasks", force: :cascade do |t|
+    t.string   "description"
+    t.string   "owner"
+    t.boolean  "done",        default: false
+    t.integer  "score_id"
+    t.integer  "agent_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "tasks", ["agent_id"], name: "index_tasks_on_agent_id", using: :btree
+  add_index "tasks", ["score_id"], name: "index_tasks_on_score_id", using: :btree
+
   add_foreign_key "events", "agents"
   add_foreign_key "policy_checks", "agents"
   add_foreign_key "policy_checks", "policies"
   add_foreign_key "policy_settings", "policies"
   add_foreign_key "scores", "agents"
+  add_foreign_key "tasks", "agents"
+  add_foreign_key "tasks", "scores"
 end

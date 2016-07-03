@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  owner: MyString
+  done: false
+  agent_id: 
+
+two:
+  description: MyString
+  owner: MyString
+  done: false
+  agent_id: 

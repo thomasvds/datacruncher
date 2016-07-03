@@ -18,8 +18,10 @@
       <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>Team reports</a>
     </li>
 
-    <li>
-      <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>Follow-up</a>
+    <li id="tasks-index">
+      <%= link_to tasks_path do %>
+      <span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>Tasks
+      <% end %>
     </li>
 
     <li id="policies-index">
