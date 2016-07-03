@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630142045) do
+ActiveRecord::Schema.define(version: 20160703103433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160630142045) do
     t.string   "category"
     t.datetime "time"
     t.date     "date"
+    t.integer  "week"
     t.integer  "day"
     t.integer  "hour"
     t.integer  "minute"
@@ -48,8 +49,6 @@ ActiveRecord::Schema.define(version: 20160630142045) do
   create_table "policies", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.float    "weight"
-    t.boolean  "enabled"
     t.string   "category",    default: "work"
     t.string   "timeframe"
     t.string   "adverb"
@@ -58,5 +57,41 @@ ActiveRecord::Schema.define(version: 20160630142045) do
     t.datetime "updated_at",                   null: false
   end
 
+  create_table "policy_checks", force: :cascade do |t|
+    t.integer  "policy_id"
+    t.integer  "agent_id"
+    t.boolean  "enforced"
+    t.integer  "week"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "policy_checks", ["agent_id"], name: "index_policy_checks_on_agent_id", using: :btree
+  add_index "policy_checks", ["policy_id"], name: "index_policy_checks_on_policy_id", using: :btree
+
+  create_table "policy_settings", force: :cascade do |t|
+    t.float    "weight"
+    t.boolean  "enabled"
+    t.integer  "policy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "policy_settings", ["policy_id"], name: "index_policy_settings_on_policy_id", using: :btree
+
+  create_table "scores", force: :cascade do |t|
+    t.integer  "agent_id"
+    t.float    "value"
+    t.integer  "week"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "scores", ["agent_id"], name: "index_scores_on_agent_id", using: :btree
+
   add_foreign_key "events", "agents"
+  add_foreign_key "policy_checks", "agents"
+  add_foreign_key "policy_checks", "policies"
+  add_foreign_key "policy_settings", "policies"
+  add_foreign_key "scores", "agents"
 end

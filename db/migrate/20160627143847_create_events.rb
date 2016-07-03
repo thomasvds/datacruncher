@@ -9,6 +9,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :category
       t.datetime :time
       t.date :date
+      t.integer :week
       t.integer :day
       t.integer :hour
       t.integer :minute

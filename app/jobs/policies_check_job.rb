@@ -10,9 +10,9 @@ class PoliciesCheckJob < ActiveJob::Base
     end_week = ordered_events.last.week
     (start_week..end_week).each do |w|
       week_events = ordered_events.where(week: w)
-      Agents.each do |a|
+      Agent.all.each do |a|
         agent_week_events = week_events.where(agent: a)
-        Policy.each do |p|
+        Policy.all.each do |p|
           enforced = p.enforced?(agent_week_events)
           PolicyCheck.create(policy: p, agent: a, week: w, enforced: enforced)
         end

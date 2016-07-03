@@ -10,14 +10,16 @@
     <thead>
       <th>Name</th>
       <th>Last week</th>
+      <th>Week before last</th>
       <th>Last 4 weeks</th>
     </thead>
     <tbody>
       <% @per_agents.each do |name, values| %>
         <tr>
           <td><%= name %></td>
-          <td><div class="label label-<%= values["last week"]["score_range"]%>"><%=values["last week"]["score"]%>%</div></td>
-          <td><div class="label label-<%= values["all time"]["score_range"]%>"><%=values["all time"]["score"]%>%</div></td>
+          <% values.each do |v| %>
+            <td><div class="label label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

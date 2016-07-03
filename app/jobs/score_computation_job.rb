@@ -3,23 +3,25 @@
 # policy compliance results for each week, and computes the sustainability
 # score for each agent for this week.
 class ScoreComputationJob < ActiveJob::Base
-  def perform
-    start_week =
-    end_week =
+  def perform(events)
+    ordered_events = events.order(:week)
+    start_week = ordered_events.first.week
+    end_week = ordered_events.last.week
     (start_week..end_week).each do |w|
       week_policy_checks = PolicyCheck.where(week: w)
-      Agent.each do |a|
+      Agent.all.each do |a|
         agent_week_policy_checks = week_policy_checks.where(agent: a)
         value = 0
-        Policy.each do |p|
-          settings = PolicySettings.where(policy: p)
+        Policy.all.each do |p|
+          settings = PolicySetting.where(policy: p).first
           if settings.enabled
-            enforced = agent_week_policy_checks.where(policy: p).enforced
-            if p.enforced
-            value += settings.weight
+            enforced = agent_week_policy_checks.where(policy: p).first.enforced
+            if enforced
+              value += settings.weight
+            end
           end
         end
-        Score.create(agent: a, week: w, value: value)
+        Score.create(agent: a, week: w, value: value * 100)
       end
     end
   end
