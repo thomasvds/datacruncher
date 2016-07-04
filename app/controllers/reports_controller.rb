@@ -35,6 +35,19 @@ class ReportsController < ApplicationController
         }
       }
     end
+    # Retrieve events for last week, to be made parameterizable
+    end_date    = Date.parse('2016-07-03')
+    # Chart of all time sustainability score
+    @list_of_weeks = 13..end_date.cweek
+    # Retrieve all scores for the team, for the weeks in scope
+    office_scores = Score.where(week: @list_of_weeks).order(:week)
+    # Retrieve the team average score
+    office_average = []
+    @list_of_weeks.each do |w|
+      values = office_scores.where(week: w).pluck(:weekly_value)
+      office_average << (values.reduce(:+).to_f / values.size).round(2)
+    end
+    @office_score_by_week = {"Company average" => office_average}
   end
 
   def team
@@ -67,10 +80,32 @@ class ReportsController < ApplicationController
         }
       }
     end
+    # Retrieve events for last week, to be made parameterizable
+    start_date  = Date.parse('2016-06-27')
+    end_date    = Date.parse('2016-07-03')
+    week = start_date.cweek
+    date_range = start_date..end_date
+    # Chart of all time sustainability score
+    @list_of_weeks = 13..end_date.cweek
+    # Retrieve all scores for the team, for the weeks in scope
+    team_scores = Score.where(agent: members, week: @list_of_weeks).order(:week)
+    # Retrieve the team average score
+    team_average = []
+    @list_of_weeks.each do |w|
+      values = team_scores.where(week: w).pluck(:weekly_value)
+      team_average << values.reduce(:+).to_f / values.size
+    end
+    # Retrieve the individual weekly scores
+    score = {}
+    members.each do |m|
+      score[m.name] = team_scores.where(agent: m).pluck(:weekly_value)
+    end
+    @team_score_by_week = {"Team average" => team_average}.merge(score)
+    @teams = Team.all
   end
 
   def individual
-    # Retrieve events for last week, to be made parameterizable
+    # Retrieve dates for last week, to be made parameterizable
     start_date  = Date.parse('2016-06-27')
     end_date    = Date.parse('2016-07-03')
     week = start_date.cweek

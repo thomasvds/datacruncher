@@ -1,3 +1,38 @@
+<div class="row">
+  <div class="col-lg-10 col-md-8">
+    <div class="page-header">
+      <div class="individual-header">
+        <div class="individual-header">
+          <div>
+            <h1>
+              <%= @team.name %> <small> (manager: <%= @team.agents.where(position: "Manager").first.name %>)</small>
+            </h1>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Select another team<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <% @teams.each do |t|%>
+            <li>
+              <%= link_to t.name, team_report_path(t.id) %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-4">
+    <h1><div class="label label-lg label-primary">
+        <small style="color: white">last: </small><%= @team_score_by_week["Team average"][-1].round %>%
+</div></h1>
+  </div>
+</div>
+
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
@@ -9,7 +44,7 @@
     <div class="row">
       <%@team_results.each do |k, v| %>
       <div class="col-xs-4">
-      <% if (v["scores"]["last week"]["range"] == "danger" || v["scores"]["last week"]["range"] == "warning")%>
+        <% if (v["scores"]["last week"]["range"] == "danger" || v["scores"]["last week"]["range"] == "warning")%>
         <%= link_to individual_report_path(v["employee"]["id"]) do %>
         <%= render 'individual_small_card',
         name: v["employee"]["name"],
@@ -31,3 +66,20 @@
     </div>
   </div>
 </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <i class="fa fa-user fa-1x"></i>
+      &nbsp; Average Team score
+    </div>
+  </div>
+  <div class="panel-body">
+  <%= render 'charts/scorechart', chart_id: "team_chart", title: 'Team sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks.to_a, data: @team_score_by_week %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<% end %>

@@ -8,7 +8,7 @@
           </div>
           <div>
             <h1>
-              <%= @agent.name %> <small><%= @agent.position %>, Team XYZ</small>
+            <%= @agent.name %> <small><%= @agent.position%>, Team XYZ</small>
             </h1>
           </div>
         </div>
@@ -60,11 +60,7 @@
     </div>
   </div>
   <div class="panel-body">
-    <div class="row">
-      <div class="col-xs-12">
-        <%= render 'charts/scorechart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks.to_a, data: @scores_by_week %>
-      </div>
-    </div>
+    <%= render 'charts/scorechart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks.to_a, data: @scores_by_week %>
   </div>
 </div>
 

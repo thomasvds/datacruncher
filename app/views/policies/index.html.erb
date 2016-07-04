@@ -19,8 +19,8 @@
         <tr>
           <td><%= p.id %></td>
           <td><%= p.name %></td>
-          <td><%= p.enabled %></td>
-          <td><%= p.weight %></td>
+          <td><%= p.policy_setting.enabled %></td>
+          <td><%= p.policy_setting.weight %></td>
         </tr>
       <% end %>
     </tbody>
