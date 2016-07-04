@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
 
-  get 'orchestractor/slack', to: 'orchestractor#slack'
-  get 'orchestractor/github', to: 'orchestractor#github'
-  get 'agents/:id', to: 'agents#show', as: 'agent'
-  get 'policies/index', to: 'policies#index', as: 'policies'
-  get 'reports/individual/:id', to: 'reports#individual', as: 'individual_report'
-  get 'reports/dashboard', to: 'reports#dashboard', as: 'dashboard'
-  get 'tasks/index', to: 'tasks#index', as: 'tasks'
+  get 'teams/index', as: 'teams'
+  get 'tasks/index', as: 'tasks'
+  get 'policies/index', as: 'policies'
 
-  root to: 'policies#index'
+  get 'reports/dashboard', as: 'dashboard'
+  get 'reports/individual/:id', to: 'reports#individual', as: 'individual_report'
+  get 'reports/team/:id', to: 'reports#team', as: 'team_report'
+  get 'agents/:id', to: 'agents#show', as: 'agent'
+
+  get 'orchestractor/slack'
+  get 'orchestractor/github'
+
+  root to: 'reports#dashboard'
 end

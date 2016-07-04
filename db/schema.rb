@@ -11,20 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703135135) do
+ActiveRecord::Schema.define(version: 20160704085409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "agents", force: :cascade do |t|
     t.string   "name"
+    t.string   "position"
     t.string   "mail"
     t.string   "slack_id"
     t.string   "github_id"
     t.string   "trello_id"
     t.string   "gmail_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "picture_url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -81,13 +83,24 @@ ActiveRecord::Schema.define(version: 20160703135135) do
 
   create_table "scores", force: :cascade do |t|
     t.integer  "agent_id"
-    t.float    "value"
+    t.float    "weekly_value"
+    t.float    "moving_average_value"
     t.integer  "week"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "scores", ["agent_id"], name: "index_scores_on_agent_id", using: :btree
+
+  create_table "staffings", force: :cascade do |t|
+    t.integer  "agent_id"
+    t.integer  "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "scores", ["agent_id"], name: "index_scores_on_agent_id", using: :btree
+  add_index "staffings", ["agent_id"], name: "index_staffings_on_agent_id", using: :btree
+  add_index "staffings", ["team_id"], name: "index_staffings_on_team_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.string   "description"
@@ -102,11 +115,19 @@ ActiveRecord::Schema.define(version: 20160703135135) do
   add_index "tasks", ["agent_id"], name: "index_tasks_on_agent_id", using: :btree
   add_index "tasks", ["score_id"], name: "index_tasks_on_score_id", using: :btree
 
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "events", "agents"
   add_foreign_key "policy_checks", "agents"
   add_foreign_key "policy_checks", "policies"
   add_foreign_key "policy_settings", "policies"
   add_foreign_key "scores", "agents"
+  add_foreign_key "staffings", "agents"
+  add_foreign_key "staffings", "teams"
   add_foreign_key "tasks", "agents"
   add_foreign_key "tasks", "scores"
 end

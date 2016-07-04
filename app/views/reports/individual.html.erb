@@ -1,24 +1,35 @@
 <div class="row">
   <div class="col-lg-10 col-md-8">
     <div class="page-header">
-      <h1><%= @agent.name %> <small>Associate Consultant, Team XYZ</small>
-      <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-          Select another employee <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <% @agents.each do |a|%>
-          <li>
-            <%= link_to a.name, individual_report_path(a.id) %>
-          </li>
-          <% end %>
-        </ul>
+      <div class="individual-header">
+        <div class="individual-header">
+        <div class="picture-placeholder">
+            <img src=<%= @agent.picture_url %> class="individual-report-avatar">
+          </div>
+          <div>
+            <h1>
+              <%= @agent.name %> <small><%= @agent.position %>, Team XYZ</small>
+            </h1>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Select another employee <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <% @agents.each do |a|%>
+            <li>
+              <%= link_to a.name, individual_report_path(a.id) %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
-      </h1>
     </div>
   </div>
   <div class="col-lg-2 col-md-4">
-    <%= render 'scorebox', score: @current_average_score, score_range: @current_average_score_range %>
+    <%= render 'scorebox', score: @current_moving_average_score, score_range: @current_moving_average_score_range %>
   </div>
 </div>
 
@@ -32,7 +43,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-3">
-        <%= render 'policybox', score: @current_week_score, score_range: @current_week_score_range, policies_check_list: @policies_check_list %>
+        <%= render 'policybox', score: @current_weekly_score, score_range: @current_weekly_score_range, policies_check_list: @policies_check_list %>
       </div>
       <div class="col-xs-9">
         <%= render 'charts/latenightchart', chart_id: "latenight", title: 'Last week late night activity', yaxistitle: 'Hour of last actions', xaxis: @list_of_dates, data: @hour_of_last_event_by_date %>

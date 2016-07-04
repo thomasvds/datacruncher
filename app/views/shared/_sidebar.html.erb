@@ -14,8 +14,10 @@
       <% end %>
     </li>
 
-    <li>
-      <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>Team reports</a>
+    <li id="reports-team">
+      <%= link_to team_report_path(1) do %>
+      <span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>Team reports
+      <% end %>
     </li>
 
     <li id="tasks-index">
@@ -30,8 +32,10 @@
       <% end %>
     </li>
 
-    <li>
-      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>Teams</a>
+    <li id="teams-index">
+      <%= link_to teams_path do %>
+      <span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>Teams
+      <% end %>
     </li>
 
     <li>

@@ -1,20 +1,31 @@
 Agent.destroy_all
 Event.destroy_all
 
-Agent.create(name: 'Thomas', slack_id: 'U0AUD2XK4', github_id: '17250698')
-Agent.create(name: 'Edouard', slack_id: 'U0BDES7NZ')
-Agent.create(name: 'Guillaume', slack_id: 'U0C03E7N3')
-Agent.create(name: 'Vincent', slack_id: 'U0ARWTYAK')
-Agent.create(name: 'Adrien', github_id: '15191401')
-Agent.create(name: 'Gauthier', github_id: '14982869')
-Agent.create(name: 'John', github_id: '14982869')
-Agent.create(name: 'Sam', github_id: '14982869')
-Agent.create(name: 'Claire', github_id: '14982869')
-Agent.create(name: 'Cécile', github_id: '14982869')
-Agent.create(name: 'Alice', github_id: '14982869')
-Agent.create(name: 'Eric', github_id: '14982869')
-Agent.create(name: 'Mark', github_id: '14982869')
+# Generate random employees
+url = "https://randomuser.me/api/"
+uri = URI.parse(url)
 
+15.times do |i|
+  response = Net::HTTP.get(uri)
+  results = JSON.parse(response)["results"]
+  name = "#{results[0]["name"]["first"].capitalize} #{results[0]["name"]["last"].capitalize}"
+  picture_url = results[0]["picture"]["large"]
+  p = rand(0)
+  case p
+  when 0..0.2
+    position = "Manager"
+  when 0.2..0.5
+    position = "Consultant"
+  when 0.5..1
+    position = "Analyst"
+  end
+  Agent.create(name: name, picture_url: picture_url, position: position)
+end
+
+t = Team.create(name: "Market taskforce")
+Staffing.create(agent: Agent.first, team: t)
+Staffing.create(agent: Agent.second, team: t)
+Staffing.create(agent: Agent.third, team: t)
 
 date_from  = Date.parse('2016-04-01')
 
