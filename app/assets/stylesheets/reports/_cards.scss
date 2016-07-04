@@ -1,0 +1,36 @@
+.individual-small-card {
+  border-radius: 5px;
+  color: white;
+  margin-top: 5px;
+  padding: 5px;
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .name-and-position {
+    .name {
+      font-size: 25px;
+    }
+  }
+  .score {
+    font-size: 35px;
+  }
+}
+
+.score-danger {
+  background-color: $red;
+}
+
+.score-warning {
+  background-color: $yellow;
+}
+
+.score-primary {
+  background-color: $primary;
+}
+
+.score-success {
+  background-color: $green;
+}
+

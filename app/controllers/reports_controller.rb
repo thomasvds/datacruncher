@@ -52,7 +52,8 @@ class ReportsController < ApplicationController
         "employee" => {
           "name" => m.name,
           "id" => m.id,
-          "position" => m.position
+          "position" => m.position,
+          "picture" => m.picture_url
         },
         "scores" => {
           "last week" => {

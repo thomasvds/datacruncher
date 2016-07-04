@@ -1,28 +1,33 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Individual scores</div>
-  <div class="panel-body">
-    <p>Find here the individual scores for all your employees. Note that you can only consult the low-scores details.</p>
+  <div class="panel-heading">
+    <div class="panel-title">
+    <i class="fa fa-user fa-1x"></i>
+    &nbsp; Individual scores
   </div>
+</div>
+<div class="panel-body">
+  <p>Find here the individual scores for all your employees. Note that you can only consult the low-scores details.</p>
+</div>
 
-  <!-- Table -->
-  <table class="table">
-    <thead>
-      <th>Name</th>
-      <th>Last week</th>
-      <th>Week before last</th>
-      <th>Last 4 weeks</th>
-    </thead>
-    <tbody>
-      <% @per_agents.each do |name, values| %>
-        <tr>
-          <td><%= name %></td>
-          <% values.each do |v| %>
-            <td><div class="label label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
-          <% end %>
-        </tr>
+<!-- Table -->
+<table class="table">
+  <thead>
+    <th>Name</th>
+    <th>Last week</th>
+    <th>Week before last</th>
+    <th>Last 4 weeks</th>
+  </thead>
+  <tbody>
+    <% @per_agents.each do |name, values| %>
+    <tr>
+      <td><%= name %></td>
+      <% values.each do |v| %>
+      <td><div class="label label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
       <% end %>
-    </tbody>
-  </table>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
 

@@ -1,1 +1,33 @@
-<%= @team_results %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <i class="fa fa-user fa-1x"></i>
+      &nbsp; Team members scores (click on low scores for more details)
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <%@team_results.each do |k, v| %>
+      <div class="col-xs-4">
+      <% if (v["scores"]["last week"]["range"] == "danger" || v["scores"]["last week"]["range"] == "warning")%>
+        <%= link_to individual_report_path(v["employee"]["id"]) do %>
+        <%= render 'individual_small_card',
+        name: v["employee"]["name"],
+        position: v["employee"]["position"],
+        picture: v["employee"]["picture"],
+        score: v["scores"]["last week"]["value"],
+        range: v["scores"]["last week"]["range"]%>
+        <% end %>
+        <% else %>
+        <%= render 'individual_small_card',
+        name: v["employee"]["name"],
+        position: v["employee"]["position"],
+        picture: v["employee"]["picture"],
+        score: v["scores"]["last week"]["value"],
+        range: v["scores"]["last week"]["range"]%>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
