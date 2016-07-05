@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".range-modal"><i class="fa fa-info-circle fa-1x"></i></button>
+      &nbsp; <b>Company score ranges</b>
+    </div>
+  </div>
+  <div class="panel-body">
+    <%= render 'charts/scorerangeschart', chart_id: "ranges_chart", title: 'Evolution of number of employees per sustainability range', yaxistitle: 'Weekly share of score ranges', xaxis: xaxis, data: data %>
+  </div>
+</div>
+
+<%= render 'shared/infomodal', id: "range-modal", message: "This chart shows for each week the share and number of employees that fall in the different sustainability score ranges. Use it to monitor the overall sustainability health of your company, aiming at having the highest shares in \"Good\" and \"Great\" ranges." %>
+

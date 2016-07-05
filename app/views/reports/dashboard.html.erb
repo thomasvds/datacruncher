@@ -1,49 +1,8 @@
+<%= render 'reports/dashboard/company_average', xaxis: @list_of_weeks, data: @company_average_weekly_score_by_week %>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="panel-title">
-      <i class="fa fa-calendar fa-1x"></i>
-      &nbsp; Company average
-    </div>
-  </div>
-  <div class="panel-body">
-    <%= render 'charts/scorechart', chart_id: "long_chart", title: 'Company average sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks.to_a, data: @office_score_by_week %>
-  </div>
-</div>
+<%= render 'reports/dashboard/ranges', xaxis: @list_of_weeks, data: @company_score_ranges_share_by_week %>
 
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">
-    <div class="panel-title">
-      <i class="fa fa-user fa-1x"></i>
-      &nbsp; Individual scores
-    </div>
-  </div>
-  <div class="panel-body">
-    <p>Find here the individual scores for all your employees. Note that you can only consult the low-scores details.</p>
-  </div>
-
-  <!-- Table -->
-  <table class="table">
-    <thead>
-      <th>Name</th>
-      <th>Last week</th>
-      <th>Week before last</th>
-      <th>Last 4 weeks</th>
-    </thead>
-    <tbody>
-      <% @per_agents.each do |name, values| %>
-      <tr>
-        <td><%= name %></td>
-        <% values.each do |v| %>
-        <td><div class="label label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
-        <% end %>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
+<%= render 'reports/dashboard/individuals_table', per_agents: @per_agents %>
 
 <% content_for :javascript do %>
 <script src="https://code.highcharts.com/highcharts.js"></script>

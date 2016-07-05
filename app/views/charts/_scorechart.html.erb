@@ -58,11 +58,11 @@
             },{ // Gentle breeze
               from: 60,
               to: 80,
-              color: 'rgba(68, 170, 213, 0.1)',
+              color: 'rgba(62,146,204,0.3)',
               label: {
                 text: 'Good',
                 style: {
-                  color: 'grey'
+                  color: 'white'
                 }
               }
             }, { // Moderate breeze
@@ -92,7 +92,7 @@
           <% data.each do |k, v| %>
           {
             name: '<%= k %>',
-            data: <%= v.to_json %>
+            data: <%= v.to_json %>,
           },
           <% end %>
           ]

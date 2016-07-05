@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <div class="panel-title">
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".individuals-modal"><i class="fa fa-info-circle fa-1x"></i></button>
+      &nbsp; <b>Individual scores</b>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Last week</th>
+      <th>Week before last</th>
+      <th>Last 4 weeks</th>
+    </thead>
+    <tbody>
+      <% per_agents.each do |id, values| %>
+      <tr>
+        <td><%= link_to values["employee"]["name"], individual_report_path(id) %></td>
+        <% values["scores"].each do |v| %>
+        <td><div class="label label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'shared/infomodal', id: "individuals-modal", message: "This table shows the individual sustainability scores for all employees. You can find their detailed individual sustainability reports by clicking on any employee's name." %>
