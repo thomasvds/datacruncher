@@ -36,8 +36,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
-      <i class="fa fa-user fa-1x"></i>
-      &nbsp; Team members scores (click on low scores for more details)
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".average-members-modal"><i class="fa fa-info-circle fa-1x"></i></button>
+      &nbsp; Team members scores
     </div>
   </div>
   <div class="panel-body">
@@ -67,10 +67,13 @@
   </div>
 </div>
 
+<%= render 'shared/infomodal', id: "average-members-modal", message: "This box shows the individual score for all team tembers. You can consult the detailed individual reports for low-scoring members by clicking on their name." %>
+
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
-      <i class="fa fa-user fa-1x"></i>
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".average-team-modal"><i class="fa fa-info-circle fa-1x"></i></button>
       &nbsp; Average Team score
     </div>
   </div>
@@ -78,6 +81,8 @@
   <%= render 'charts/scorechart', chart_id: "team_chart", title: 'Team sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks, data: @team_score_by_week %>
   </div>
 </div>
+
+<%= render 'shared/infomodal', id: "average-team-modal", message: "This chart shows the evolution of weekly individual sustainability scores and the corresponding average for all team members." %>
 
 <% content_for :javascript do %>
 <script src="https://code.highcharts.com/highcharts.js"></script>

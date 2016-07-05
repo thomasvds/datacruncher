@@ -36,7 +36,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
-      <i class="fa fa-clock-o fa-1x"></i>
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".individual-score-modal"><i class="fa fa-info-circle fa-1x"></i></button>
       &nbsp; Last week
     </div>
   </div>
@@ -52,10 +52,12 @@
   </div>
 </div>
 
+<%= render 'shared/infomodal', id: "individual-score-modal", message: "The list on the left shows whether company sustainability policies were successfully enforced last week for the employee, and the corresponding score based on policies weights. The chart on the right shows the latest action accomplished by the employee everyday, by category of action." %>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
-      <i class="fa fa-calendar fa-1x"></i>
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".individual-all-time-modal"><i class="fa fa-info-circle fa-1x"></i></button>
       &nbsp; All time
     </div>
   </div>
@@ -63,6 +65,8 @@
     <%= render 'charts/scorechart', chart_id: "long_chart", title: 'All-time sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks, data: @scores_by_week %>
   </div>
 </div>
+
+<%= render 'shared/infomodal', id: "individual-all-time-modal", message: "This chart shows the weekly sustainability score for the employee, and the 4 weeks average score for longer-term scoring." %>
 
 <% content_for :javascript do %>
 <script src="https://code.highcharts.com/highcharts.js"></script>
