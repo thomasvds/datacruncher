@@ -8,7 +8,9 @@
           </div>
           <div>
             <h1>
-            <%= @agent.name %> <small><%= @agent.position%>, Team XYZ</small>
+            <% team = @agent.teams.first %>
+            <% team.nil? ? (team = '') : (team = link_to (" Team: " + team.name), team_report_path(team.id)) %>
+            <%= @agent.name %> <small><%= @agent.position%><%= team %> </small>
             </h1>
           </div>
         </div>

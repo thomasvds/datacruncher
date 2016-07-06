@@ -1,0 +1,13 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".heatmap-modal"><i class="fa fa-info-circle fa-1x"></i></button>
+      &nbsp; Enforcement of policies per team
+    </div>
+  </div>
+  <div class="panel-body">
+    <%= render 'charts/policies_heatmap', data: @data, teams: @teams_axis, policies: @policies_axis  %>
+  </div>
+</div>
+
+<%= render 'shared/infomodal', id: "heatmap-modal", message: "This chart shows for each team the share of employees that benefitted from the company sustainability policy." %>

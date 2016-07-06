@@ -5,7 +5,9 @@
         <div class="individual-header">
           <div>
             <h1>
-              <%= @team.name %> <small> (manager: <%= @team.agents.where(position: "Manager").first.name %>)</small>
+              <% manager = @team.agents.where(position: "Manager").first %>
+              <% manager.nil? ? (manager = "n.a.") : manager = manager.name %>
+              <%= @team.name %> <small> (manager: <%= manager %>)</small>
             </h1>
           </div>
         </div>
@@ -26,8 +28,8 @@
     </div>
   </div>
   <div class="col-lg-2 col-md-4">
-    <h1><div class="label label-lg label-primary">
-        <small style="color: white">last: </small><%= @team_score_by_week["Team average"][-1].round %>%
+    <h1><div class="label label-lg label-<%= @current_team_average_score["range"]%>">
+        <small style="color: white">last: </small><%= @current_team_average_score["value"] %>%
 </div></h1>
   </div>
 </div>

@@ -4,6 +4,8 @@
 
 <%= render 'reports/dashboard/company_policies_gauges', policies: @policies_enforcement%>
 
+<%= render 'reports/dashboard/teams_table', data: @data, policies: @policies_headers %>
+
 <%= render 'reports/dashboard/individuals_table', per_agents: @per_agents %>
 
 <%= render 'reports/dashboard/company_average', xaxis: @list_of_weeks, data: @company_average_weekly_score_by_week %>
@@ -13,4 +15,5 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
 <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/modules/heatmap.js"></script>
 <% end %>

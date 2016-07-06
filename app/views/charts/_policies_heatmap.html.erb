@@ -1,0 +1,81 @@
+<div id="container" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
+
+<script>
+  $(function () {
+
+    $('#container').highcharts({
+
+      chart: {
+        type: 'heatmap',
+        marginTop: 40,
+        marginBottom: 80,
+        plotBorderWidth: 1
+      },
+
+
+      title: {
+        text: 'Sales per employee per weekday'
+      },
+
+      xAxis: {
+        categories: <%= raw(policies) %>
+      },
+
+      yAxis: {
+        categories: <%= raw(teams) %>,
+        title: null
+      },
+
+      // colorAxis: {
+      //   min: 0,
+      //   minColor: '#FFFFFF',
+      //   maxColor: Highcharts.getOptions().colors[0]
+      // },
+
+      colorAxis: {
+                    dataClassColor: 'category',
+                    dataClasses: [{
+                        to: 40
+                    }, {
+                        from: 41,
+                        to: 60
+                    }, {
+                        from: 61,
+                        to: 80
+                    }, {
+                        from: 81,
+                        to: 100
+                    }]
+                },
+
+      legend: {
+        align: 'right',
+        layout: 'vertical',
+        margin: 0,
+        verticalAlign: 'top',
+        y: 25,
+        symbolHeight: 280
+      },
+
+      tooltip: {
+        formatter: function () {
+          return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> sold <br><b>' +
+          this.point.value + '</b> items on <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
+        }
+      },
+
+      series: [{
+        name: 'Sales per employee',
+        borderWidth: 1,
+        data: <%= data %>,
+        dataLabels: {
+          enabled: true,
+          color: '#000000'
+        }
+      }]
+
+    });
+  });
+
+
+</script>

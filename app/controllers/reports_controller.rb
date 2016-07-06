@@ -43,7 +43,7 @@ class ReportsController < ApplicationController
                 }
               }
             }
-    end
+          end
 
     # DATA FOR COMPANY-WIDE SUSTAINABILITY SCORE & RANGES EVOLUTION
     # Retrieve events for last week, to be made parameterizable
@@ -79,6 +79,43 @@ class ReportsController < ApplicationController
         @policies_enforcement[p.id] = { "name" => p.name, "score" => policy_enforcement_percentage, "weight" => (p.policy_setting.weight * 100).round(1) }
       end
     end
+
+    # DATA FOR POLICIES TABLE PER TEAM
+    @data = {}
+    @policies_headers = []
+    last_week_policy_checks = PolicyCheck.where(week: last_week)
+    Team.all.each do |t|
+      members = t.agents
+      number_of_members = members.count
+      @policies_headers = []
+      score = 0
+      values = []
+      ranges = []
+      Policy.all.each do |p|
+        @policies_headers << p.name
+        if p.policy_setting.enabled
+          number_enforced = last_week_policy_checks.where(policy: p, agent: members, enforced: true).count
+          policy_enforcement_percentage = (number_enforced.fdiv(number_of_members) * 100)
+          score +=  (policy_enforcement_percentage * p.policy_setting.weight)
+          values << policy_enforcement_percentage.round
+          ranges << Score.range(policy_enforcement_percentage)
+        end
+      end
+      @data.merge!(t.id => {
+        "team" => {
+          "id" => t.id,
+          "name" => t.name,
+        },
+        "policy scores" => {
+          "values" => values,
+          "ranges" => ranges
+        },
+        "total score" => {
+          "value" => score.round,
+          "range" => Score.range(score)
+        }
+      })
+    end
   end
 
   def team
@@ -112,7 +149,7 @@ class ReportsController < ApplicationController
               }
             }
           }
-    end
+        end
 
     # DATA FOR POLICIES GAUGES
     last_week_policy_checks = PolicyCheck.where(week: last_week, agent: members)
@@ -148,6 +185,7 @@ class ReportsController < ApplicationController
       score[m.name] = team_scores.where(agent: m).pluck(:weekly_value)
     end
     @team_score_by_week = {"Team average" => team_average}.merge(score)
+    @current_team_average_score = {"value" => team_average.last.round, "range" => Score.range(team_average.last)}
 
     # OTHER DATA
     # For drop-down enabling team selection
