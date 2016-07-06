@@ -28,22 +28,23 @@ class ReportsController < ApplicationController
           "name" => a.name,
           "position" => a.position
           },
-        "scores" => {
-          "last week" => {
-            "score" => last_week_score.round,
-            "score_range" => last_week_score_range
-            },
-          "week before last" => {
-            "score" => week_before_last_score.round,
-            "score_range" => week_before_last_score_range
-            },
-          "all time" => {
-            "score" => current_average_score.round,
-            "score_range" => current_average_score_range
+          "scores" => {
+            "last week" => {
+              "score" => last_week_score.round,
+              "score_range" => last_week_score_range
+              },
+              "week before last" => {
+                "score" => week_before_last_score.round,
+                "score_range" => week_before_last_score_range
+                },
+                "all time" => {
+                  "score" => current_average_score.round,
+                  "score_range" => current_average_score_range
+                }
+              }
             }
-          }
-        }
-      end
+    end
+
     # DATA FOR COMPANY-WIDE SUSTAINABILITY SCORE & RANGES EVOLUTION
     # Retrieve events for last week, to be made parameterizable
     end_date    = Date.parse('2016-07-03')
@@ -65,6 +66,18 @@ class ReportsController < ApplicationController
       @company_score_ranges_share_by_week["Danger"] << weekly_values.count { |v| Score.range(v) == "danger" }
       # Fill in the average across all agents for the week
       @company_average_weekly_score_by_week["Company average"] << (weekly_values.reduce(:+).to_f / weekly_values.size).round(1)
+    end
+
+    # DATA FOR POLICIES GAUGES
+    last_week_policy_checks = PolicyCheck.where(week: last_week)
+    number_of_employees = Agent.all.count
+    @policies_enforcement = {}
+    Policy.all.each do |p|
+      if p.policy_setting.enabled
+        number_enforced = last_week_policy_checks.where(policy: p, enforced: true).count
+        policy_enforcement_percentage = (number_enforced.fdiv(number_of_employees) * 100).round
+        @policies_enforcement[p.id] = { "name" => p.name, "score" => policy_enforcement_percentage, "weight" => (p.policy_setting.weight * 100).round(1) }
+      end
     end
   end
 
@@ -174,7 +187,6 @@ class ReportsController < ApplicationController
     # Retrieve list of agents for drop-down selection of employee
     @agents = Agent.all
   end
-  #Comm
 
   private
 
