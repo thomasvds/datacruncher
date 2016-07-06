@@ -33,20 +33,21 @@
 </div>
 
 
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
       <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".average-members-modal"><i class="fa fa-info-circle fa-1x"></i></button>
-      &nbsp; Team members scores
+      &nbsp; Last week team members scores
     </div>
   </div>
   <div class="panel-body">
     <div class="row">
       <%@team_results.each do |k, v| %>
-      <div class="col-xs-4">
+      <div class="col-xs-3">
         <% if (v["scores"]["last week"]["range"] == "danger" || v["scores"]["last week"]["range"] == "warning")%>
         <%= link_to individual_report_path(v["employee"]["id"]) do %>
-        <%= render 'individual_small_card',
+        <%= render 'reports/team/individual_small_card',
         name: v["employee"]["name"],
         position: v["employee"]["position"],
         picture: v["employee"]["picture"],
@@ -54,7 +55,7 @@
         range: v["scores"]["last week"]["range"]%>
         <% end %>
         <% else %>
-        <%= render 'individual_small_card',
+        <%= render 'reports/team/individual_small_card',
         name: v["employee"]["name"],
         position: v["employee"]["position"],
         picture: v["employee"]["picture"],
@@ -69,12 +70,13 @@
 
 <%= render 'shared/infomodal', id: "average-members-modal", message: "This box shows the individual score for all team tembers. You can consult the detailed individual reports for low-scoring members by clicking on their name." %>
 
+<%= render 'reports/team/team_policies_gauges', policies: @policies_enforcement%>
 
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
       <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".average-team-modal"><i class="fa fa-info-circle fa-1x"></i></button>
-      &nbsp; Average Team score
+      &nbsp; Team score evolution
     </div>
   </div>
   <div class="panel-body">
@@ -87,4 +89,6 @@
 <% content_for :javascript do %>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
 <% end %>

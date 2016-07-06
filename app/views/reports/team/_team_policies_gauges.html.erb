@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <div class="panel-title">
       <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".policies-modal"><i class="fa fa-info-circle fa-1x"></i></button>
-      &nbsp; Company sustainability drivers (policies)
+      &nbsp; Last week team sustainability drivers (policies)
     </div>
   </div>
   <div class="panel-body">
@@ -13,7 +13,7 @@
         <% policies.each do |k, v| %>
         <div class="col-xs-2">
           <% chart_id = k %>
-          <%= render 'charts/policy_gauge', chart_id: chart_id, policy: v["name"], value: v["score"], weight: v["weight"], title_suffix: "%", sub_title: "of employees" %>
+          <%= render 'charts/policy_gauge', chart_id: chart_id, policy: v["name"], value: v["score"], weight: v["weight"], title_suffix: "%", sub_title: "of members" %>
         </div>
         <% end %>
       </div>
@@ -21,4 +21,4 @@
   </div>
 </div>
 
-<%= render 'shared/infomodal', id: "policies-modal", message: "These gauges show what percentage of employees have benefitted from the company sustainability policies, for each policy." %>
+<%= render 'shared/infomodal', id: "policies-modal", message: "These gauges show what percentage of team members have benefitted from the company sustainability policies, for each policy." %>

@@ -89,7 +89,7 @@
         name: 'Enforcement',
         data: [<%= value %>],
         dataLabels: {
-          format: '<div style="text-align:center"><span style="font-size:25px;color:#222222">{y}%</span><br/><div style="font-size: 10px; color: #888888">of employees</div>'
+          format: '<div style="text-align:center"><span style="font-size:25px;color:#222222">{y}<%= title_suffix %></span><br/><div style="font-size: 10px; color: #888888"><%= sub_title %></div>'
         },
         tooltip: {
           valueSuffix: '%'

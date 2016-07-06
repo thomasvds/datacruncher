@@ -112,7 +112,19 @@ class ReportsController < ApplicationController
               }
             }
           }
-        end
+    end
+
+    # DATA FOR POLICIES GAUGES
+    last_week_policy_checks = PolicyCheck.where(week: last_week, agent: members)
+    number_of_employees = members.count
+    @policies_enforcement = {}
+    Policy.all.each do |p|
+      if p.policy_setting.enabled
+        number_enforced = last_week_policy_checks.where(policy: p, enforced: true).count
+        policy_enforcement_percentage = (number_enforced.fdiv(number_of_employees) * 100).round
+        @policies_enforcement[p.id] = { "name" => p.name, "score" => policy_enforcement_percentage, "weight" => (p.policy_setting.weight * 100).round(1) }
+      end
+    end
 
     # DATA FOR TEAM SCORE EVOLUTION
     # Retrieve events for last week, to be made parameterizable
