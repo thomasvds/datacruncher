@@ -47,7 +47,7 @@ class TrelloJob < ActiveJob::Base
         minute = time.strftime('%M')
         source_agent_id = card['id']
         extraction_time = Time.now
-        agent_id = (0..50).to_a.sample
+        agent_id = (0..50).to_a.sample.to_s
         category = "production"
         csv << [source,
         source_channel,

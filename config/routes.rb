@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get 'orchestractor/slack'
   get 'orchestractor/github'
+  get 'orchestractor/trello'
 
   root to: 'reports#dashboard'
 end
