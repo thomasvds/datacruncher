@@ -25,17 +25,25 @@ csv_options = {col_sep: ',', write_headers: false,
 
 CSV.open(filename, 'w', csv_options) do |csv|
   json['cards'].each do |card|
+    source = "trello"
+    source_channel = ""
     card_time = card['dateLastActivity'][0...-5]
-    datetime = DateTime.strptime("#{card_time}", '%Y-%m-%dT%H:%M:%S')
-    date = datetime.strftime('%Y%m%d')
-    hour = datetime.strftime('%H')
-    minute = datetime.strftime('%M')
+    time = DateTime.strptime("#{card_time}", '%Y-%m-%dT%H:%M:%S')
+    date = time.strftime('%Y%m%d')
+    hour = time.strftime('%H')
+    minute = time.strftime('%M')
     source_agent_id = card['id']
-    agent_id = Agent.where(trello_id: source_agent_id).first.id
+    extraction_time = Time.now
+    agent_id = 'nil'
     category = "production"
+    csv << [source,
+    source_channel,
+    source_agent_id,
+    extraction_time,
+    agent_id, category,
+    time, date, hour, minute]
   end
 end
-extracted = Time.now
 
 
 
