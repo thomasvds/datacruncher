@@ -9,6 +9,11 @@ class OrchestractorController < ApplicationController
     csv_to_db(csv_filename)
   end
 
+  def trello
+    csv_filename = TrelloJob.perform_now
+    csv_to_db(csv_filename)
+  end
+
   def csv_to_db(csv_filename)
     Event.transaction do
       events = CSV.read(csv_filename)
