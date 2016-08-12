@@ -40,8 +40,8 @@ current_agent_id = 1
 end
 
 # Generate events
-date_from  = Date.parse('2016-04-01')
-date_range = date_from..Date.today
+date_from  = Date.parse('2016-07-04')
+date_range = date_from..Date.parse('2016-08-14')
 
 date_range.each do |d|
   if (d.saturday? || d.sunday?)

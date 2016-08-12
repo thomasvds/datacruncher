@@ -6,8 +6,8 @@ class ReportsController < ApplicationController
 
     # Define the current timeframe, currently hardcoded by to be
     # later made parameterizable by the user to get snapshots at different times
-    week_before_last  = Date.parse('2016-06-26').cweek
-    last_week  = Date.parse('2016-07-03').cweek
+    week_before_last  = Date.parse('2016-08-01').cweek
+    last_week  = Date.parse('2016-08-08').cweek
 
     # DATA FOR INDIVIDUAL SCORES TABLE
     @per_agents = {}
@@ -48,9 +48,9 @@ class ReportsController < ApplicationController
 
     # DATA FOR COMPANY-WIDE SUSTAINABILITY SCORE & RANGES EVOLUTION
     # Retrieve events for last week, to be made parameterizable
-    end_date    = Date.parse('2016-07-03')
+    end_date    = Date.parse('2016-08-14')
     # Chart of all time sustainability score
-    @list_of_weeks = (13..end_date.cweek).to_a
+    @list_of_weeks = (27..end_date.cweek).to_a
     # Retrieve all scores for the team, for the weeks in scope
     company_scores = Score.where(week: @list_of_weeks).order(:week)
     # Instantiate the hashes that will contain the output
@@ -153,8 +153,8 @@ class ReportsController < ApplicationController
   def team
 
     # DATA FOR INDIVIDUAL TEAM MEMBERS SCORES
-    week_before_last  = Date.parse('2016-06-26').cweek
-    last_week  = Date.parse('2016-07-03').cweek
+    week_before_last  = Date.parse('2016-08-01').cweek
+    last_week  = Date.parse('2016-08-08').cweek
     members = @team.agents
     @team_results = {}
     members.each do |m|
@@ -197,12 +197,12 @@ class ReportsController < ApplicationController
 
     # DATA FOR TEAM SCORE EVOLUTION
     # Retrieve events for last week, to be made parameterizable
-    start_date  = Date.parse('2016-06-27')
-    end_date    = Date.parse('2016-07-03')
+    start_date  = Date.parse('2016-08-08')
+    end_date    = Date.parse('2016-08-14')
     week = start_date.cweek
     date_range = start_date..end_date
     # Chart of all time sustainability score
-    @list_of_weeks = (13..end_date.cweek).to_a
+    @list_of_weeks = (27..end_date.cweek).to_a
     # Retrieve all scores for the team, for the weeks in scope
     team_scores = Score.where(agent: members, week: @list_of_weeks).order(:week)
     # Retrieve the team average score
@@ -228,8 +228,8 @@ class ReportsController < ApplicationController
 
     # DATA FOR POLICY COMPLIANCE
     # Retrieve dates for last week, to be made parameterizable
-    start_date  = Date.parse('2016-06-27')
-    end_date    = Date.parse('2016-07-03')
+    start_date  = Date.parse('2016-08-08')
+    end_date    = Date.parse('2016-08-14')
     week = start_date.cweek
     date_range = start_date..end_date
     # Checklist of policies
