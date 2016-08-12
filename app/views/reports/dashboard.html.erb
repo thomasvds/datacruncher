@@ -1,12 +1,12 @@
-
-
-<%= render 'reports/dashboard/ranges', xaxis: @list_of_weeks, data: @company_score_ranges_share_by_week %>
+<%= render 'reports/dashboard/company_score_boxes', data: @score_box_data %>
 
 <%= render 'reports/dashboard/company_policies_gauges', policies: @policies_enforcement%>
 
 <%= render 'reports/dashboard/teams_table', data: @data, policies: @policies_headers %>
 
 <%= render 'reports/dashboard/individuals_table', per_agents: @per_agents %>
+
+<%= render 'reports/dashboard/ranges', xaxis: @list_of_weeks, data: @company_score_ranges_share_by_week %>
 
 <%= render 'reports/dashboard/company_average', xaxis: @list_of_weeks, data: @company_average_weekly_score_by_week %>
 

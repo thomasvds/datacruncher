@@ -1,3 +1,7 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-2.2.3/dt-1.10.12/datatables.min.css"/>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-2.2.3/dt-1.10.12/datatables.min.js"></script>
+
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
@@ -8,9 +12,9 @@
   </div>
 
   <!-- Table -->
-  <table class="table">
+  <table class="table"  id="employeestable">
     <thead>
-      <th>Name</th>
+      <th>Employee</th>
       <th>Last week</th>
       <th>Week before last</th>
       <th>Last 4 weeks</th>
@@ -27,5 +31,13 @@
     </tbody>
   </table>
 </div>
+
+
+<script>
+$(document).ready(function(){
+    $('#employeestable').DataTable();
+});
+</script>
+
 
 <%= render 'shared/infomodal', id: "individuals-modal", message: "This table shows the individual sustainability scores for all employees. You can find their detailed individual sustainability reports by clicking on any employee's name." %>

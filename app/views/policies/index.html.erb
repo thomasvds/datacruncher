@@ -20,7 +20,7 @@
           <td><%= p.id %></td>
           <td><%= p.name %></td>
           <td><%= p.policy_setting.enabled %></td>
-          <td><%= p.policy_setting.weight %></td>
+          <td><%= (p.policy_setting.weight * 100).round(1) %>%</td>
         </tr>
       <% end %>
     </tbody>

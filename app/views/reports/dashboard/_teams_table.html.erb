@@ -3,7 +3,7 @@
   <div class="panel-heading">
     <div class="panel-title">
       <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".teams-table-modal"><i class="fa fa-info-circle fa-1x"></i></button>
-      &nbsp; Enforcement of policies per team
+      &nbsp; Last week Team-level enforcement of sustainability policies
     </div>
   </div>
 
@@ -35,3 +35,8 @@
 
 <%= render 'shared/infomodal', id: "teams-table-modal", message: "This chart shows for each team the share of employees that benefitted from the company sustainability policy." %>
 
+<script>
+$(document).ready(function(){
+    $('#employeestable').DataTable();
+});
+</script>

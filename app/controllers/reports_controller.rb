@@ -4,12 +4,13 @@ class ReportsController < ApplicationController
 
   def dashboard
 
-    # DATA FOR INDIVIDUAL SCORES TABLE
-    @per_agents = {}
     # Define the current timeframe, currently hardcoded by to be
     # later made parameterizable by the user to get snapshots at different times
     week_before_last  = Date.parse('2016-06-26').cweek
     last_week  = Date.parse('2016-07-03').cweek
+
+    # DATA FOR INDIVIDUAL SCORES TABLE
+    @per_agents = {}
     Agent.all.each do |a|
       agent_score = Score.where(agent: a)
       # Retrieve score and score range for last week
@@ -105,16 +106,47 @@ class ReportsController < ApplicationController
         "team" => {
           "id" => t.id,
           "name" => t.name,
-        },
-        "policy scores" => {
-          "values" => values,
-          "ranges" => ranges
-        },
-        "total score" => {
-          "value" => score.round,
-          "range" => Score.range(score)
-        }
-      })
+          },
+          "policy scores" => {
+            "values" => values,
+            "ranges" => ranges
+            },
+            "total score" => {
+              "value" => score.round,
+              "range" => Score.range(score)
+            }
+            })
+    end
+
+    # DATA FOR NUMBER OF AGENTS PER SCORE BOX
+    @score_box_data = {
+      'great' => {
+        'values' => [81..100],
+      },
+      'good' => {
+        'values' => [61..80],
+      },
+      'warning' => {
+        'values' => [41..60],
+      },
+      'danger' => {
+        'values' => [0..40],
+      },
+    }
+    @score_box_data.each do |range|
+      range = range[1]
+      values = range['values'].to_a
+      range['last_week_count'] = Score.where(week: last_week, weekly_value: values).count
+      range['week_before_last_count'] = Score.where(week: last_week - 1, weekly_value: values).count
+      delta = range['last_week_count'] - range['week_before_last_count']
+      case
+      when delta == 0
+        range['evolution'] = 'right'
+      when delta > 0
+        range['evolution'] = 'up'
+      when delta < 0
+        range['evolution'] = 'down'
+      end
     end
   end
 

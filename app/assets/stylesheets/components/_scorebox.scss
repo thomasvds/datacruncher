@@ -14,3 +14,83 @@
     font-size: 10px;
   }
 }
+
+.huge {
+    font-size: 35px;
+}
+
+.scoreboxicon {
+  width: 70px;
+}
+
+.panel-great {
+    border-color: #5cb85c;
+}
+
+.panel-great > .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-great a {
+    color: #5cb85c;
+}
+
+.panel-great a:hover {
+    color: #3d8b3d;
+}
+
+.panel-danger {
+    border-color: #d9534f;
+}
+
+.panel-danger > .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-danger a {
+    color: #d9534f;
+}
+
+.panel-danger a:hover {
+    color: #b52b27;
+}
+
+.panel-warning {
+    border-color: #f0ad4e;
+}
+
+.panel-warning > .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-warning a {
+    color: #f0ad4e;
+}
+
+.panel-warning a:hover {
+    color: #df8a13;
+}
+
+.panel-good {
+    border-color: #3E92CC;
+}
+
+.panel-good > .panel-heading {
+    border-color: #3E92CC;
+    color: #fff;
+    background-color: #3E92CC;
+}
+
+.panel-good a {
+    color: #3E92CC;
+}
+
+.panel-good a:hover {
+    color: $primary-dark;
+}
