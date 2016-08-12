@@ -1,3 +1,7 @@
+require 'jobs/PoliciesCheckJob'
+require 'jobs/ScoreComputationJob'
+require 'jobs/TasksCreationJob'
+
 namespace :computations do
   desc "Clear checks and scores and recompute them"
   task :checks do
