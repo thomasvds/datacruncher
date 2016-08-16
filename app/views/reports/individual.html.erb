@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-10 col-md-8">
+  <div class="col-lg-9 col-md-8">
     <div class="page-header">
       <div class="individual-header">
         <div class="individual-header">
@@ -17,7 +17,7 @@
 
         <div class="btn-group">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            Select another employee <span class="caret"></span>
+            Other people <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
             <% @agents.each do |a|%>
@@ -30,8 +30,20 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-2 col-md-4">
-    <%= render 'scorebox', score: @current_moving_average_score, score_range: @current_moving_average_score_range %>
+  <div class="col-lg-3 col-md-4">
+    <div class="row">
+    <div class="col-xs-4">
+    <% if @agent.super_care %>
+    <%= render 'iconbox', score: @current_moving_average_score, score_range: "supercare", title: "Supercare" %>
+    <% end %>
+    </div>
+    <div class="col-xs-4">
+    <%= render 'iconbox', score: @current_moving_average_score, score_range: @current_moving_average_score_range, title: "Last month" %>
+    </div>
+    <div class="col-xs-4">
+    <%= render 'iconbox', score: @current_weekly_score, score_range: @current_weekly_score_range, title: "Last week" %>
+    </div>
+    </div>
   </div>
 </div>
 

@@ -1,3 +1,48 @@
+.iconbox {
+  height: 73px;
+  width: 75px;
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: -10px;
+  .iconbox-title {
+    font-size: 14px;
+  }
+  .iconbox-icon {
+    width: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .iconbox-subtext {
+    font-size: 10px;
+  }
+}
+
+.iconbox-success {
+  background-color: $green;
+  color: white;
+}
+.iconbox-primary {
+  background-color: $primary;
+  color: white;
+}
+.iconbox-warning {
+  background-color: $yellow;
+  color: white;
+}
+.iconbox-danger {
+  background-color: $red;
+  color: white;
+}
+.iconbox-supercare {
+  background-color: white;
+  color: $gray-light;
+  border: 1px solid $gray-light;
+}
+
+
+
 .scorebox {
   max-height: 70px;
   margin-left: 10px;

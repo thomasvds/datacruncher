@@ -3,23 +3,23 @@
   <!-- Default panel contents -->
   <div class="panel-heading">Overview of policies</div>
   <div class="panel-body">
-    <p>Some explanations</p>
+    <p>Define here the sustainability policies that you want to implement and monitor within the company.</p>
   </div>
 
   <!-- Table -->
   <table class="table">
     <thead>
-      <th>Index</th>
+      <!-- <th>Index</th> -->
       <th>Description</th>
-      <th>Enabled</th>
-      <th>Weight</th>
+      <!-- <th>Enabled</th> -->
+      <th>Relative importance</th>
     </thead>
     <tbody>
       <% @policies.each do |p| %>
         <tr>
-          <td><%= p.id %></td>
+          <!-- <td><%= p.id %></td> -->
           <td><%= p.name %></td>
-          <td><%= p.policy_setting.enabled %></td>
+          <!-- <td><%= p.policy_setting.enabled %></td> -->
           <td><%= (p.policy_setting.weight * 100).round(1) %>%</td>
         </tr>
       <% end %>

@@ -9,6 +9,7 @@ class CreateAgents < ActiveRecord::Migration
       t.string :trello_id
       t.string :gmail_id
       t.string :picture_url
+      t.boolean :super_care, default: false
 
       t.timestamps null: false
     end
