@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'pages/employee_info'
+
+  get 'pages/employer_info'
+
+  get 'pages/about'
+
   get 'teams/index', as: 'teams'
   get 'tasks/index', as: 'tasks'
   get 'policies/index', as: 'policies'

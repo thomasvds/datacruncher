@@ -3,7 +3,7 @@
   <% data.each do |key, value| %>
   <div class="col-lg-3 col-md-6">
     <div class="panel panel-<%= key %>">
-      <div class="panel-heading">
+      <div class="panel-heading" style="height: 75px;">
         <div class="row">
           <div class="col-xs-3">
             <% icon_name = key + '-icon.png' %>
@@ -11,7 +11,7 @@
           </div>
           <div class="col-xs-9 text-right">
             <div class="huge"><%= value['last_week_count'] %></div>
-            <div>People in "<%= key %>" zone</div>
+            <div>People in <b><%= key %></b> zone</div>
           </div>
         </div>
       </div>
