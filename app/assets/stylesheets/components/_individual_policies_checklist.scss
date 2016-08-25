@@ -1,0 +1,29 @@
+.individual-policies-checklist {
+  padding: 10px;
+
+  .good{
+    color: $green;
+  }
+  .watchout{
+    color: $yellow;
+  }
+  .danger{
+    color: $red;
+  }
+
+  .checks {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    li {
+      margin: 10px;
+    }
+  }
+
+  .total-score {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+}
+

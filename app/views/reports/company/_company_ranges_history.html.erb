@@ -1,0 +1,8 @@
+<div class="panel panel-default">
+
+  <%= render 'reports/shared/panel_heading', id: "company-ranges", title: "How is the sustainability situation over time?", explanation: "This chart shows for each week the share and number of employees that fall in the different sustainability score ranges. Use it to monitor the overall sustainability health of your company, aiming at having the highest shares in \"Good\" and \"Great\" ranges." %>
+
+  <div class="panel-body">
+    <%= render 'reports/charts/chart_score_ranges_history', chart_id: "ranges_chart", title: 'Evolution of number of employees per sustainability range', yaxistitle: 'Weekly share of score ranges', xaxis: @list_of_weeks, data: @company_score_ranges_share_by_week %>
+  </div>
+</div>

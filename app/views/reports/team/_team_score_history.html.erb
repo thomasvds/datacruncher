@@ -1,0 +1,8 @@
+<div class="panel panel-default">
+
+  <%= render 'reports/shared/panel_heading', id: "average-team-modal", title: "What is the sustainability history of the team?", explanation: "This chart shows the evolution of weekly individual sustainability scores and the corresponding average for all team members." %>
+
+  <div class="panel-body">
+  <%= render 'reports/charts/chart_score_history', chart_id: "team_chart", title: 'Team sustainability score', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks, data: @team_score_by_week %>
+  </div>
+</div>

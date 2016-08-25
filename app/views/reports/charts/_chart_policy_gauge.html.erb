@@ -1,0 +1,107 @@
+<div id="<%= chart_id %>" style="width: 200px; height: 200px; float: left"></div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+  $(function () {
+
+    var gaugeOptions = {
+
+      chart: {
+        type: 'solidgauge'
+      },
+      exporting: {
+       enabled: false
+     },
+
+     title: null,
+
+     pane: {
+      center: ['50%', '85%'],
+      size: '100%',
+      startAngle: -90,
+      endAngle: 90,
+      background: {
+        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+        innerRadius: '60%',
+        outerRadius: '100%',
+        shape: 'arc'
+      }
+    },
+
+    tooltip: {
+      enabled: false
+    },
+
+        // the value axis
+        yAxis: {
+          stops: [
+          [0, 'rgba(217, 83, 79, 0.7)'],
+          [0.4, 'rgba(217, 83, 79, 0.7)'],
+          [0.4000001, 'rgba(240, 173, 78, 0.7)'],
+          [0.6, 'rgba(240, 173, 78, 0.7)'],
+          [0.6000001, 'rgba(68, 170, 213, 0.7)'],
+          [0.8, 'rgba(68, 170, 213, 0.7)'],
+          [0.8000001, 'rgba(92, 184, 92, 0.7)'],
+          [1, 'rgba(92, 184, 92, 0.7)']
+          ],
+
+          lineWidth: 0,
+          minorTickInterval: null,
+          tickPixelInterval: 400,
+          tickWidth: 0,
+          title: {
+            y: -70
+          },
+          labels: {
+            y: 16
+          }
+        },
+
+        plotOptions: {
+          solidgauge: {
+            dataLabels: {
+              y: 5,
+              borderWidth: 0,
+              useHTML: true
+            }
+          }
+        }
+      };
+
+    // gauge
+    var chart = new Highcharts.chart(Highcharts.merge(gaugeOptions, {
+      chart: {
+        renderTo: "<%= chart_id %>"
+      },
+      yAxis: {
+        min: 0,
+        max: 100,
+        title: {
+          text: '<div style="color: black; font-size: 14px;"><%= policy %></div> <br/><div style="font-size: 10px;">(weight: <%= weight %>%)</div>'
+        },
+        labels: {
+          enabled: false
+        },
+      },
+
+      credits: {
+        enabled: false
+      },
+
+      series: [{
+        name: 'Enforcement',
+        data: [<%= value %>],
+        dataLabels: {
+          format: '<div style="text-align:center"><span style="font-size:25px;color:#222222">{y}<%= title_suffix %></span><br/><div style="font-size: 10px; color: #888888"><%= sub_title %></div>'
+        },
+        tooltip: {
+          valueSuffix: '%'
+        }
+      }]
+
+    }));
+  });
+</script>
+
+<% end %>

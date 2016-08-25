@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   before_action :set_agent, only: :individual
   before_action :set_team, only: :team
 
-  def dashboard
+  def company
 
     # Define the current timeframe, currently hardcoded by to be
     # later made parameterizable by the user to get snapshots at different times

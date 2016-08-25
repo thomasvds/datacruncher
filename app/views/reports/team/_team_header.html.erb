@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-lg-10 col-md-8">
+    <div class="page-header">
+      <div class="space-between-flex">
+        <div class="space-between-flex">
+          <div>
+            <h1>
+              <% manager = @team.agents.where(position: "Manager").first %>
+              <% manager.nil? ? (manager = "n.a.") : manager = manager.name %>
+              <%= @team.name %> <small> (manager: <%= manager %>)</small>
+            </h1>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Select another team<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <% @teams.each do |t|%>
+            <li>
+              <%= link_to t.name, team_report_path(t.id) %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-4">
+    <h1><div class="label label-lg label-<%= @current_team_average_score["range"]%>">
+      <small style="color: white">last: </small><%= @current_team_average_score["value"] %>%
+    </div></h1>
+  </div>
+</div>

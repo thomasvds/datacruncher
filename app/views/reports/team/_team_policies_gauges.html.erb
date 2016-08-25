@@ -1,24 +1,17 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="panel-title">
-      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target=".policies-modal"><i class="fa fa-info-circle fa-1x"></i></button>
-      &nbsp; Last week team sustainability drivers (policies)
-    </div>
-  </div>
+
+  <%= render 'reports/shared/panel_heading', id: "individual-history", title: "How well has the team enforced the company sustainability guidelines?", explanation: "These gauges show what percentage of team members have benefitted from the company sustainability policies, for each policy." %>
+
   <div class="panel-body">
     <div class="container">
       <div class="row">
-        <!-- <div class="col-xs-1">
-        </div> -->
-        <% policies.each do |k, v| %>
+        <% @policies_enforcement.each do |k, v| %>
         <div class="col-xs-2">
           <% chart_id = k %>
-          <%= render 'charts/policy_gauge', chart_id: chart_id, policy: v["name"], value: v["score"], weight: v["weight"], title_suffix: "%", sub_title: "of members" %>
+          <%= render 'reports/charts/chart_policy_gauge', chart_id: chart_id, policy: v["name"], value: v["score"], weight: v["weight"], title_suffix: "%", sub_title: "of members" %>
         </div>
         <% end %>
       </div>
     </div>
   </div>
 </div>
-
-<%= render 'shared/infomodal', id: "policies-modal", message: "These gauges show what percentage of team members have benefitted from the company sustainability policies, for each policy." %>

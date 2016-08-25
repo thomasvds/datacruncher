@@ -1,0 +1,110 @@
+<div id="<%= chart_id %>" style="min-width: 310px; height: 220px; margin: 0 auto"></div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+  $(function () {
+    var chart = new Highcharts.chart({
+      chart: {
+        type: 'line',
+        renderTo: '<%= chart_id %>'
+      },
+      title: {
+        text: '<%= title %>',
+        x: -20 //center
+      },
+      xAxis: {
+        categories: <%= raw(xaxis) %>,
+        labels: {
+          formatter: function() {
+           return "W"+this.value;
+         }
+       },
+     },
+     credits: {
+            enabled: false
+        },
+     exporting: {
+       enabled: false
+     },
+     yAxis: {
+      min: 0,
+      max: 100,
+      tickInterval: 20,
+      labels: {
+        formatter: function() {
+         return this.value+"%";
+       }
+     },
+     title: {
+      text: '<%= yaxistitle %>'
+    },
+    minorGridLineWidth: 0,
+    gridLineWidth: 0,
+    alternateGridColor: null,
+            plotBands: [{ // Light air
+              from: 0,
+              to: 40,
+              color: 'rgba(217, 83, 79, 0.5)',
+              label: {
+                text: 'Danger',
+                style: {
+                  color: 'white'
+                }
+              }
+            }, { // Light air
+              from: 40,
+              to: 60,
+              color: 'rgba(240, 173, 78, 0.5)',
+              label: {
+                text: 'Warning',
+                style: {
+                  color: 'white'
+                }
+              }
+            },{ // Gentle breeze
+              from: 60,
+              to: 80,
+              color: 'rgba(62,146,204,0.3)',
+              label: {
+                text: 'Good',
+                style: {
+                  color: 'white'
+                }
+              }
+            }, { // Moderate breeze
+              from: 80,
+              to: 100,
+              color: 'rgba(92, 184, 92, 0.5)',
+              label: {
+                text: 'Great',
+                style: {
+                  color: 'white'
+                }
+              }
+            }]
+          },
+          plotOptions: {
+            area: {
+              fillOpacity: 0.2
+            }
+          },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+          },
+          series: [
+          <% data.each do |k, v| %>
+          {
+            name: '<%= k %>',
+            data: <%= v.to_json %>,
+          },
+          <% end %>
+          ]
+        });
+  });
+</script>
+
+<% end %>

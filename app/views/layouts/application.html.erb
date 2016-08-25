@@ -14,10 +14,16 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
 
   <%= csrf_meta_tags %>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
 </head>
 
 <body>
+
   <%= render 'shared/navbar' %>
+
   <div id="wrapper">
     <%= render 'shared/sidebar' %>
     <div id="page-content-wrapper">
@@ -26,12 +32,15 @@
       </div>
     </div>
   </div>
+
   <%= yield :javascript %>
+
   <script type="text/javascript">
     $(document).ready(function(){
       $("[rel=tooltip]").tooltip({ placement: 'bottom'});
     });
   </script>
+
 </body>
 
 </html>

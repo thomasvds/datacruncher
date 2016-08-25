@@ -1,0 +1,68 @@
+<div id="<%= chart_id %>" style="min-width: 310px; height: 260px; margin: 0 auto"></div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+  $(function () {
+    var chart = new Highcharts.chart({
+      chart: {
+        type: 'line',
+        renderTo: '<%= chart_id %>'
+      },
+      title: {
+        text: '<%= title %>'
+      },
+      xAxis: {
+        categories: <%= raw(xaxis) %>,
+        labels: {
+          formatter: function() {
+           return "W"+this.value;
+         }
+       }
+     },
+     exporting: {
+       enabled: false
+     },
+     yAxis: {
+      min: 0,
+      tickInterval: 20,
+      title: {
+        text: '<%= yaxistitle %>'
+      },
+      labels: {
+        formatter: function() {
+         return this.value+"%";
+       }
+     },
+   },
+   tooltip: {
+    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+    shared: true
+  },
+  plotOptions: {
+    column: {
+      stacking: 'percent'
+    }
+  },
+  series: [
+  <% data.each do |k, v| %>
+  {
+    name: '<%= k %>',
+    data: <%= v.to_json %>,
+    color: <% if k == "Danger" %>
+    'rgba(217, 83, 79, 0.5)'
+    <% elsif k == "Warning" %>
+    'rgba(240, 173, 78, 0.5)'
+    <% elsif k == "Good" %>
+    'rgba(62,146,204,0.3)'
+    <% else %>
+    'rgba(92, 184, 92, 0.5)'
+    <% end %>
+  },
+  <% end %>
+  ]
+});
+  });
+</script>
+
+<% end %>

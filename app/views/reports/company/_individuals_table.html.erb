@@ -1,0 +1,41 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-2.2.3/dt-1.10.12/datatables.min.css"/>
+
+<div class="panel panel-default" >
+
+ <%= render 'reports/shared/panel_heading', id: "individuals-table", title: "What is the sustainability situation per employee?", explanation: "This table shows the individual sustainability scores for all employees. You can find their detailed individual sustainability reports by clicking on any employee's name." %>
+
+  <div class="panel-content" style="padding:10px;">
+
+    <!-- Table -->
+    <table class="table"  id="employeestable">
+      <thead>
+        <th>Employee</th>
+        <th>Last week</th>
+        <th>Week before last</th>
+        <th>Last 4 weeks</th>
+      </thead>
+      <tbody>
+        <% @per_agents.each do |id, values| %>
+        <tr>
+          <td><%= link_to values["employee"]["name"], individual_report_path(id) %></td>
+          <% values["scores"].each do |v| %>
+          <td><div class="label label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-2.2.3/dt-1.10.12/datatables.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#employeestable').DataTable();
+  });
+</script>
+
+<% end %>

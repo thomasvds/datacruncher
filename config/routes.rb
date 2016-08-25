@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'tasks/index', as: 'tasks'
   get 'policies/index', as: 'policies'
 
-  get 'reports/dashboard', as: 'dashboard'
+  get 'reports/company', as: 'company'
   get 'reports/individual/:id', to: 'reports#individual', as: 'individual_report'
   get 'reports/team/:id', to: 'reports#team', as: 'team_report'
   get 'agents/:id', to: 'agents#show', as: 'agent'
@@ -18,5 +18,5 @@ Rails.application.routes.draw do
   get 'orchestractor/slack'
   get 'orchestractor/github'
 
-  root to: 'reports#dashboard'
+  root to: 'reports#company'
 end

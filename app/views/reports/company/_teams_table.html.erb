@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+
+  <%= render 'reports/shared/panel_heading', id: "teams-table", title: "What is the sustainability situation in each team this week?", explanation: "This chart shows for each team the share of employees that benefitted from the company sustainability policy." %>
+
+  <table class="table">
+    <thead>
+      <th>Team</th>
+      <th>Last week score</th>
+      <% @policies_headers.each do |p| %>
+      <th><%= p %></th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @data.each do |id, team_data| %>
+      <tr>
+        <td><%= link_to team_data["team"]["name"], team_report_path(id) %></td>
+        <td><div class="label label-<%= team_data["total score"]["range"]%>"><%= team_data["total score"]["value"]%>%</div></td>
+        <% i = 0 %>
+        <% team_data["policy scores"]["values"].each do |v| %>
+        <td><div class="label label-<%= team_data["policy scores"]["ranges"][i]%>"><%=v%>%</div></td>
+        <% i += 1 %>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
