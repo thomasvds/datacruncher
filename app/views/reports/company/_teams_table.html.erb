@@ -11,7 +11,7 @@
       <% end %>
     </thead>
     <tbody>
-      <% @data.each do |id, team_data| %>
+      <% @policies_per_team_data.each do |id, team_data| %>
       <tr>
         <td><%= link_to team_data["team"]["name"], team_report_path(id) %></td>
         <td><div class="label label-<%= team_data["total score"]["range"]%>"><%= team_data["total score"]["value"]%>%</div></td>

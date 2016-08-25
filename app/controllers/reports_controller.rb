@@ -81,28 +81,34 @@ class ReportsController < ApplicationController
       end
     end
 
+    # DATA FOR NUMBER OF AGENTS PER SCORE BOX
+    @score_ranges_boxes_data = score_range_boxes(last_week)
+
     # DATA FOR POLICIES TABLE PER TEAM
-    @data = {}
+    @policies_per_team_data = []
     @policies_headers = []
-    last_week_policy_checks = PolicyCheck.where(week: last_week)
-    Team.all.each do |t|
+
+    Team.all.each do |team|
+
+      score = team_score(team, last_week)
+      range = Score.range(score)
+
       members = t.agents
       number_of_members = members.count
-      @policies_headers = []
-      score = 0
+
       values = []
       ranges = []
-      Policy.all.each do |p|
+
+      Policy.all.each do |policy|
         @policies_headers << p.name
         if p.policy_setting.enabled
-          number_enforced = last_week_policy_checks.where(policy: p, agent: members, enforced: true).count
-          policy_enforcement_percentage = (number_enforced.fdiv(number_of_members) * 100)
-          score +=  (policy_enforcement_percentage * p.policy_setting.weight)
-          values << policy_enforcement_percentage.round
-          ranges << Score.range(policy_enforcement_percentage)
+          policy_score = team_policy_percentage(team, policy, last_week)
+          values << policy_score
+          ranges << Score.range(policy_score)
         end
       end
-      @data.merge!(t.id => {
+
+      @policies_per_team_data.merge!(t.id => {
         "team" => {
           "id" => t.id,
           "name" => t.name,
@@ -118,37 +124,10 @@ class ReportsController < ApplicationController
             })
     end
 
-    # DATA FOR NUMBER OF AGENTS PER SCORE BOX
-    @score_box_data = {
-      'great' => {
-        'values' => [81..100],
-      },
-      'good' => {
-        'values' => [61..80],
-      },
-      'warning' => {
-        'values' => [41..60],
-      },
-      'danger' => {
-        'values' => [0..40],
-      },
-    }
-    @score_box_data.each do |range|
-      range = range[1]
-      values = range['values'].to_a
-      range['last_week_count'] = Score.where(week: last_week, weekly_value: values).count
-      range['week_before_last_count'] = Score.where(week: last_week - 1, weekly_value: values).count
-      delta = range['last_week_count'] - range['week_before_last_count']
-      case
-      when delta == 0
-        range['evolution'] = 'right'
-      when delta > 0
-        range['evolution'] = 'up'
-      when delta < 0
-        range['evolution'] = 'down'
-      end
-    end
   end
+
+
+
 
   def team
 
@@ -278,6 +257,52 @@ class ReportsController < ApplicationController
 
   def set_team
     @team = Team.find(params[:id])
+  end
+
+  def team_score(team, week)
+    members_scores = Score.where(agents: team.agents, week: week).pluck[:weekly_value]
+    return members_scores.sum.fdiv(members_scores.count).round
+  end
+
+  def team_policy_percentage(team, policy, week)
+    number_enforced = PolicyCheck.where(week: week, policy: p, agent: team.agents, enforced: true).count
+    return (number_enforced.fdiv(team.agents.count) * 100).round
+  end
+
+  def score_range_boxes(week)
+    ranges = ['great', 'good', 'warning', 'danger']
+    response = []
+    ranges.each do |range|
+      element = {}
+      element['range_name'] = range
+      element['week_count'] = count_per_score_range(range, week)
+      element['previous_week_count'] = count_per_score_range(range, week - 1)
+      delta = element['week_count'] - element['previous_week_count']
+      case
+      when delta == 0
+        element['evolution'] = 'right'
+      when delta > 0
+        element['evolution'] = 'up'
+      when delta < 0
+        element['evolution'] = 'down'
+      end
+      response << element
+    end
+    return response
+  end
+
+  def count_per_score_range(range, week)
+    case range
+    when 'danger'
+      values = [0..40]
+    when 'warning'
+      values = [41..60]
+    when 'good'
+      values = [61..80]
+    when 'great'
+      values = [81..100]
+    end
+    return Score.where(week: week, weekly_value: values).count
   end
 
 end
