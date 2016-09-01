@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160704085409) do
     t.string   "category"
     t.datetime "time"
     t.date     "date"
+    t.integer  "year"
     t.integer  "week"
     t.integer  "day"
     t.integer  "hour"

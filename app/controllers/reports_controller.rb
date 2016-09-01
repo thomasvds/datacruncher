@@ -1,13 +1,15 @@
+require 'date'
+
 class ReportsController < ApplicationController
   before_action :set_agent, only: :individual
   before_action :set_team, only: :team
 
   def company
 
-    # Define the current timeframe, currently hardcoded by to be
-    # later made parameterizable by the user to get snapshots at different times
-    week_before_last  = Date.parse('2016-08-01').cweek
-    last_week  = Date.parse('2016-08-08').cweek
+    # today must be a Sunday
+    params[:date].nil? ? today = Date.parse('2016-08-14') : today = Date.parse(params[:date])
+    last_week  = today.cweek
+    week_before_last = last_week - 1
 
     # DATA FOR INDIVIDUAL SCORES TABLE
     @per_agents = {}
@@ -48,9 +50,9 @@ class ReportsController < ApplicationController
 
     # DATA FOR COMPANY-WIDE SUSTAINABILITY SCORE & RANGES EVOLUTION
     # Retrieve events for last week, to be made parameterizable
-    end_date    = Date.parse('2016-08-14')
+    end_date    = today
     # Chart of all time sustainability score
-    @list_of_weeks = (27..end_date.cweek).to_a
+    @list_of_weeks = (1..end_date.cweek).to_a
     # Retrieve all scores for the team, for the weeks in scope
     company_scores = Score.where(week: @list_of_weeks).order(:week)
     # Instantiate the hashes that will contain the output
@@ -131,9 +133,11 @@ class ReportsController < ApplicationController
 
   def team
 
+    # today must be a Sunday
+    params[:date].nil? ? today = Date.parse('2016-08-14') : today = Date.parse(params[:date])
+    last_week  = today.cweek
+    week_before_last = last_week - 1
     # DATA FOR INDIVIDUAL TEAM MEMBERS SCORES
-    week_before_last  = Date.parse('2016-08-01').cweek
-    last_week  = Date.parse('2016-08-08').cweek
     members = @team.agents
     @team_results = {}
     members.each do |m|
@@ -176,8 +180,8 @@ class ReportsController < ApplicationController
 
     # DATA FOR TEAM SCORE EVOLUTION
     # Retrieve events for last week, to be made parameterizable
-    start_date  = Date.parse('2016-08-08')
-    end_date    = Date.parse('2016-08-14')
+    end_date    = today
+    start_date = today - 6 #as today is a Sunday, start_date is a Monday
     week = start_date.cweek
     date_range = start_date..end_date
     # Chart of all time sustainability score
@@ -207,8 +211,11 @@ class ReportsController < ApplicationController
 
     # DATA FOR POLICY COMPLIANCE
     # Retrieve dates for last week, to be made parameterizable
-    start_date  = Date.parse('2016-08-08')
-    end_date    = Date.parse('2016-08-14')
+    # today must be a Sunday
+    params[:date].nil? ? today = Date.parse('2016-08-14') : today = Date.parse(params[:date])
+    start_date  = today - 6
+    end_date    = today
+
     week = start_date.cweek
     date_range = start_date..end_date
     # Checklist of policies
@@ -227,7 +234,7 @@ class ReportsController < ApplicationController
 
     # DATA FOR SUSTAINABILITY SCORE EVOLUTION
     # Chart of all time sustainability score
-    @list_of_weeks = (13..end_date.cweek).to_a
+    @list_of_weeks = (1..end_date.cweek).to_a
     # Retrieve all scores for the agent, for the weeks in scope
     agent_scores_by_week = Score.where(agent: @agent, week: @list_of_weeks).order(:week)
     # Retrieve weekly scores values and ranges

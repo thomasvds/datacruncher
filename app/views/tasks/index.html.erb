@@ -1,4 +1,118 @@
+<div class="row">
+  <div class="col-lg-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <i class="fa fa-bell fa-fw"></i> Actions todo
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <div class="list-group">
+          <% 10.times do %>
+          <a href="#" class="list-group-item">
+            <i class="fa fa-comment fa-fw"></i> New Comment
+            <span class="pull-right text-muted small"><em>4 minutes ago</em>
+            </span>
+          </a>
+          <% end %>
+        </div>
+        <!-- /.list-group -->
+        <a href="#" class="btn btn-primary btn-block">Add a new action</a>
+      </div>
+      <!-- /.panel-body -->
+    </div>
 
+  </div>
+
+  <div class="col-lg-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <i class="fa fa-bell fa-fw"></i> Actions history
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <div class="list-group">
+          <% 10.times do %>
+          <a href="#" class="list-group-item">
+            <i class="fa fa-comment fa-fw"></i> New Comment
+            <span class="pull-right text-muted small"><em>4 minutes ago</em>
+            </span>
+          </a>
+          <% end %>
+        </div>
+        <!-- /.list-group -->
+        <a href="#" class="btn btn-primary btn-block">Add a new action</a>
+      </div>
+      <!-- /.panel-body -->
+    </div>
+
+  </div>
+
+
+
+  <div class="col-lg-4">
+    <!-- /.panel -->
+    <div class="chat-panel panel panel-default">
+      <div class="panel-heading">
+        <i class="fa fa-comments fa-fw"></i> Notes
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <ul class="dropdown-menu slidedown">
+            <li>
+              <a href="#">
+                <i class="fa fa-refresh fa-fw"></i> Share
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-refresh fa-fw"></i> Export
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <ul class="chat">
+          <% 10.times do %>
+          <li class="left clearfix">
+            <span class="chat-img pull-left">
+              <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+            </span>
+            <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">Jack Sparrow</strong>
+                <small class="pull-right text-muted">
+                  <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                </small>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+              </p>
+            </div>
+          </li>
+          <% end %>
+
+        </ul>
+      </div>
+      <!-- /.panel-body -->
+      <div class="panel-footer">
+        <div class="input-group">
+          <textarea id="btn-input" type="text" class="form-control input-sm" rows="4" placeholder="Type your message here..." >
+          </textarea>
+          <span class="input-group-btn">
+            <button class="btn btn-primary btn-sm" id="btn-chat">
+              Add note
+            </button>
+          </span>
+        </div>
+      </div>
+      <!-- /.panel-footer -->
+    </div>
+    <!-- /.panel .chat-panel -->
+  </div>
+</div>
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -17,12 +131,12 @@
     </thead>
     <tbody>
       <% @tasks.each do |t| %>
-        <tr>
-          <td><%= t.owner %></td>
-          <td><%= t.description %></td>
-          <td><%= link_to t.agent.name, individual_report_path(t.agent) %></td>
-          <!-- <td><%= t.done %></td> -->
-        </tr>
+      <tr>
+        <td><%= t.owner %></td>
+        <td><%= t.description %></td>
+        <td><%= link_to t.agent.name, individual_report_path(t.agent) %></td>
+        <!-- <td><%= t.done %></td> -->
+      </tr>
       <% end %>
     </tbody>
   </table>
