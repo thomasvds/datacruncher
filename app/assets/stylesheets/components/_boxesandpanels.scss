@@ -1,7 +1,7 @@
 .iconbox {
   height: 73px;
   width: 75px;
-  border-radius: 5px;
+  border-radius: 0px;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -38,7 +38,7 @@
 .iconbox-supercare {
   background-color: white;
   color: $gray-light;
-  border: 1px solid $gray-light;
+  // border: 1px solid $gray-light;
 }
 
 
@@ -78,6 +78,12 @@
     background-color: #5cb85c;
 }
 
+.panel-great > .panel-footer {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: darken(#5cb85c, 10%);
+}
+
 .panel-great a {
     color: #5cb85c;
 }
@@ -94,6 +100,12 @@
     border-color: #d9534f;
     color: #fff;
     background-color: #d9534f;
+}
+
+.panel-danger > .panel-footer {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: darken(#d9534f, 10%);
 }
 
 .panel-danger a {
@@ -114,6 +126,12 @@
     background-color: #f0ad4e;
 }
 
+.panel-warning > .panel-footer {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: darken(#f0ad4e, 10%);
+}
+
 .panel-warning a {
     color: #f0ad4e;
 }
@@ -130,6 +148,12 @@
     border-color: #3E92CC;
     color: #fff;
     background-color: #3E92CC;
+}
+
+.panel-good > .panel-footer {
+    border-color: #3E92CC;
+    color: #fff;
+    background-color: darken(#3E92CC, 10%);
 }
 
 .panel-good a {

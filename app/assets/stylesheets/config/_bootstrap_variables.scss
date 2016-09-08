@@ -18,6 +18,11 @@ $brand-danger:    $red;
 $brand-warning:   $yellow;
 
 // Buttons / inputs radius
-$border-radius-base:  5px;
-$border-radius-large: 5px;
-$border-radius-small: 5px;
+$border-radius-base:  0px;
+$border-radius-large: 0px;
+$border-radius-small: 0px;
+
+.page-header {
+  border-bottom:none;
+  margin-bottom: 0px;
+}

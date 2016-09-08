@@ -1,0 +1,19 @@
+.panel{
+  border: 0px;
+  .panel-heading {
+    box-shadow: none;
+    border: none;
+
+
+  }
+  .panel-body {
+    box-shadow: none;
+    border: none;
+  }
+}
+
+.panel-default{
+  .panel-heading{
+    background-color: #E5E9EC;
+  }
+}
