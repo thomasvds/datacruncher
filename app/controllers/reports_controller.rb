@@ -87,41 +87,46 @@ class ReportsController < ApplicationController
     @score_ranges_boxes_data = score_range_boxes(last_week)
 
     # DATA FOR POLICIES TABLE PER TEAM
-    @policies_per_team_data = []
+    @policies_per_team_data = {}
     @policies_headers = []
+
+    Policy.all.each do |policy|
+      if policy.policy_setting.enabled
+        @policies_headers << policy.name
+      end
+    end
 
     Team.all.each do |team|
 
       score = team_score(team, last_week)
       range = Score.range(score)
 
-      members = t.agents
+      members = team.agents
       number_of_members = members.count
 
       values = []
       ranges = []
 
       Policy.all.each do |policy|
-        @policies_headers << p.name
-        if p.policy_setting.enabled
+        if policy.policy_setting.enabled
           policy_score = team_policy_percentage(team, policy, last_week)
           values << policy_score
           ranges << Score.range(policy_score)
         end
       end
 
-      @policies_per_team_data.merge!(t.id => {
+      @policies_per_team_data.merge!(team.id => {
         "team" => {
-          "id" => t.id,
-          "name" => t.name,
+          "id" => team.id,
+          "name" => team.name,
           },
           "policy scores" => {
             "values" => values,
             "ranges" => ranges
             },
             "total score" => {
-              "value" => score.round,
-              "range" => Score.range(score)
+              "value" => score,
+              "range" => range
             }
             })
     end
@@ -267,7 +272,7 @@ class ReportsController < ApplicationController
   end
 
   def team_score(team, week)
-    members_scores = Score.where(agents: team.agents, week: week).pluck[:weekly_value]
+    members_scores = Score.where(agent: team.agents, week: week).pluck(:weekly_value)
     return members_scores.sum.fdiv(members_scores.count).round
   end
 

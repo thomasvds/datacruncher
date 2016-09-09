@@ -1,0 +1,9 @@
+<div class="panel panel-default">
+
+  <%= render 'reports/shared/panel_heading', id: "individual-checklist", title: "DRIVERS CHECKLIST", explanation: "This list shows whether company sustainability policies were successfully enforced last week for the employee, and the corresponding score based on policies weights." %>
+
+  <div class="panel-body">
+
+    <%= render 'reports/individual/individual_policies_checklist', score: @current_weekly_score, score_range: @current_weekly_score_range, policies_check_list: @policies_check_list %>
+  </div>
+</div>

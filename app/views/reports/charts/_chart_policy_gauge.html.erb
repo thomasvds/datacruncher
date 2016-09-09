@@ -3,6 +3,10 @@
 <% content_for :javascript do %>
 
 <script type="text/javascript">
+// Apply the theme
+<%= render file: "#{Rails.root}/app/assets/javascripts/highcharts_theme.js" %>
+Highcharts.setOptions(Highcharts.theme);
+
   $(function () {
 
     var gaugeOptions = {
@@ -22,13 +26,14 @@
       startAngle: -90,
       endAngle: 90,
       background: {
-        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+        backgroundColor: '#9A9A9A',
+        // backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
         innerRadius: '60%',
         outerRadius: '100%',
-        shape: 'arc'
+        shape: 'arc',
+        borderWidth: 0
       }
     },
-
     tooltip: {
       enabled: false
     },
@@ -72,13 +77,14 @@
     // gauge
     var chart = new Highcharts.chart(Highcharts.merge(gaugeOptions, {
       chart: {
-        renderTo: "<%= chart_id %>"
+        renderTo: "<%= chart_id %>",
+        plotBorderWidth: 0
       },
       yAxis: {
         min: 0,
         max: 100,
         title: {
-          text: '<div style="color: black; font-size: 14px;"><%= policy %></div> <br/><div style="font-size: 10px;">(weight: <%= weight %>%)</div>'
+          text: '<div style="color: white; font-size: 14px;"><%= policy %></div> <br/><div style="font-size: 10px;">(weight: <%= weight %>%)</div>'
         },
         labels: {
           enabled: false
@@ -93,15 +99,14 @@
         name: 'Enforcement',
         data: [<%= value %>],
         dataLabels: {
-          format: '<div style="text-align:center"><span style="font-size:25px;color:#222222">{y}<%= title_suffix %></span><br/><div style="font-size: 10px; color: #888888"><%= sub_title %></div>'
-        },
-        tooltip: {
-          valueSuffix: '%'
+          format: '<div style="text-align:center"><span style="font-size:22px;color:white">{y}<%= title_suffix %></span><br/><div style="font-size: 10px;"><%= sub_title %></div>'
         }
       }]
 
     }));
   });
+
+
 </script>
 
 <% end %>

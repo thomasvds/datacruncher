@@ -61,7 +61,7 @@
 }
 
 .huge {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .scoreboxicon {
@@ -69,97 +69,97 @@
 }
 
 .panel-great {
-    border-color: #5cb85c;
-}
+  border-color: #5cb85c;
 
-.panel-great > .panel-heading {
+  .panel-heading {
     border-color: #5cb85c;
     color: #fff;
     background-color: #5cb85c;
-}
+  }
 
-.panel-great > .panel-footer {
+  .panel-footer {
     border-color: #5cb85c;
     color: #fff;
     background-color: darken(#5cb85c, 10%);
-}
+  }
 
-.panel-great a {
+  .panel-great a {
     color: #5cb85c;
-}
+  }
 
-.panel-great a:hover {
+  .panel-great a:hover {
     color: #3d8b3d;
+  }
 }
 
 .panel-danger {
-    border-color: #d9534f;
-}
+  border-color: #d9534f;
 
-.panel-danger > .panel-heading {
+  .panel-heading {
     border-color: #d9534f;
     color: #fff;
     background-color: #d9534f;
-}
+  }
 
-.panel-danger > .panel-footer {
+  .panel-footer {
     border-color: #d9534f;
     color: #fff;
     background-color: darken(#d9534f, 10%);
-}
+  }
 
-.panel-danger a {
+  .panel-danger a {
     color: #d9534f;
-}
+  }
 
-.panel-danger a:hover {
+  .panel-danger a:hover {
     color: #b52b27;
+  }
 }
 
 .panel-warning {
-    border-color: #f0ad4e;
-}
+  border-color: #f0ad4e;
 
-.panel-warning > .panel-heading {
+  .panel-heading {
     border-color: #f0ad4e;
     color: #fff;
     background-color: #f0ad4e;
-}
+  }
 
-.panel-warning > .panel-footer {
+  .panel-footer {
     border-color: #f0ad4e;
     color: #fff;
     background-color: darken(#f0ad4e, 10%);
-}
+  }
 
-.panel-warning a {
+  .panel-warning a {
     color: #f0ad4e;
-}
+  }
 
-.panel-warning a:hover {
+  .panel-warning a:hover {
     color: #df8a13;
+  }
 }
 
 .panel-good {
-    border-color: #3E92CC;
-}
+  border-color: #3E92CC;
 
-.panel-good > .panel-heading {
+  .panel-heading {
     border-color: #3E92CC;
     color: #fff;
     background-color: #3E92CC;
-}
+  }
 
-.panel-good > .panel-footer {
+  .panel-footer {
     border-color: #3E92CC;
     color: #fff;
     background-color: darken(#3E92CC, 10%);
-}
+  }
 
-.panel-good a {
+  .panel-good a {
     color: #3E92CC;
-}
+  }
 
-.panel-good a:hover {
+  .panel-good a:hover {
     color: $primary-dark;
+  }
 }

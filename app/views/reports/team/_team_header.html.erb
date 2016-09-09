@@ -7,13 +7,13 @@
             <h1>
               <% manager = @team.agents.where(position: "Manager").first %>
               <% manager.nil? ? (manager = "n.a.") : manager = manager.name %>
-              <%= @team.name %> <small> (manager: <%= manager %>)</small>
+              <%= @team.name.upcase %> <small> (manager: <%= manager %>)</small>
             </h1>
           </div>
         </div>
 
         <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <button type="button" class="btn btn-default dropdown-toggle no-border" data-toggle="dropdown">
             Select another team<span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">

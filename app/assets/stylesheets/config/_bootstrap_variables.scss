@@ -26,3 +26,39 @@ $border-radius-small: 0px;
   border-bottom:none;
   margin-bottom: 0px;
 }
+
+.panel{
+  border: 0px;
+  .panel-heading {
+    box-shadow: none;
+    border: none;
+  }
+  .panel-body {
+    box-shadow: none;
+    border: none;
+    background-color: #5F5F5F;
+    color: white;
+  }
+}
+
+.panel-default{
+  .panel-heading{
+    background-color: #9A9A9A;
+    color: white;
+    letter-spacing: 1px;
+  }
+}
+
+.table {
+  background-color: #5F5F5F;
+  color: white;
+  thead{
+    th{
+      font-weight: normal;
+    }
+  }
+}
+
+.label {
+  border-radius: 0px;
+}

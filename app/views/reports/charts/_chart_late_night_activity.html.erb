@@ -3,14 +3,19 @@
 <% content_for :javascript do %>
 
 <script type="text/javascript">
-  $(function () {
-    var chart = new Highcharts.chart({
-      chart: {
-        type: 'area',
-        renderTo: '<%= chart_id %>'
-      },
-      title: {
-        text: '<%= title %>',
+
+// Apply the theme
+<%= render file: "#{Rails.root}/app/assets/javascripts/highcharts_theme.js" %>
+Highcharts.setOptions(Highcharts.theme);
+
+$(function () {
+  var chart = new Highcharts.chart({
+    chart: {
+      type: 'area',
+      renderTo: '<%= chart_id %>'
+    },
+    title: {
+      text: '<%= title %>',
         x: -20 //center
       },
       xAxis: {
@@ -40,11 +45,11 @@
             plotBands: [{ // Light air
               from: 16,
               to: 20,
-              color: 'rgba(68, 170, 213, 0.1)',
+              color: 'rgba(68, 170, 213, 0.5)',
               label: {
                 text: 'Standard hours',
                 style: {
-                  color: 'grey'
+                  color: 'white'
                 }
               }
             }, { // Gentle breeze
@@ -89,7 +94,10 @@
           <% end %>
           ]
         });
-  });
+});
+
 </script>
+
+
 
 <% end %>

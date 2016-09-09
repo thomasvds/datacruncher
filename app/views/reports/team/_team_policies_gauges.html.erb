@@ -1,8 +1,8 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "individual-history", title: "How well has the team enforced the company sustainability guidelines?", explanation: "These gauges show what percentage of team members have benefitted from the company sustainability policies, for each policy." %>
+  <%= render 'reports/shared/panel_heading', id: "individual-history", title: "TEAM SUSTAINABILITY DRIVERS", explanation: "These gauges show what percentage of team members have benefitted from the company sustainability policies, for each policy." %>
 
-  <div class="panel-body">
+  <div class="panel-body" style="padding-left: 50px; padding-top: 0px; padding-bottom: 0px;">
     <div class="container">
       <div class="row">
         <% @policies_enforcement.each do |k, v| %>
