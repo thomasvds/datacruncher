@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+<%= render 'reports/shared/panel_heading', id: "individual-ops-metrics", title: "OPERATIONAL METRICS", explanation: "These metrics tell you <b>how you work</b>. Indeed, your ways of working ultimately shape your work/life balance. Compare them with peers, and set your own benchmarks!" %>
+</div>
+
+<div class="row">
+  <div class="col-lg-3 col-md-6">
+    <%= render 'shared/scorebox', metric_range: "danger", current_metric: "87%", last_metric: "71%", metric_trend: "up", metric_description: "Time in <b>meetings</b>", icon_name: "ops-meetings.png" %>
+  </div>
+  <div class="col-lg-3 col-md-6">
+  <%= render 'shared/scorebox', metric_range: "warning", current_metric: "3", last_metric: "5", metric_trend: "down", metric_description: "Timezones <b>travelled</b>", icon_name: "ops-timezones.png" %>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <%= render 'shared/scorebox', metric_range: "good", current_metric: "21", last_metric: "29", metric_trend: "down", metric_description: "People <b>interacted</b> with", icon_name: "ops-connections.png" %>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <%= render 'shared/scorebox', metric_range: "good", current_metric: "1", last_metric: "0", metric_trend: "up", metric_description: "Meetings <b>rescheduled</b>", icon_name: "ops-cancelled.png" %>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <%= render 'shared/scorebox', metric_range: "great", current_metric: "2.3", last_metric: "1.8", metric_trend: "up", metric_description: "Mails <b>sent:received</b> ratio", icon_name: "ops-mails.png" %>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <%= render 'shared/scorebox', metric_range: "good", current_metric: "3", last_metric: "4", metric_trend: "down", metric_description: "Meetings <b>after 7PM</b>", icon_name: "ops-latemeetings.png" %>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <%= render 'shared/scorebox', metric_range: "warning", current_metric: "10h", last_metric: "4h", metric_trend: "up", metric_description: "Mails <b>reply delay</b>", icon_name: "ops-delay.png" %>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <%= render 'shared/scorebox', metric_range: "danger", current_metric: "2days", last_metric: "1.5days", metric_trend: "up", metric_description: "Meetings <b>notice time</b>", icon_name: "ops-meetingsnotice.png" %>
+  </div>
+</div>
