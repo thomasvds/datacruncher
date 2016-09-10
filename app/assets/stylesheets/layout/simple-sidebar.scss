@@ -1,12 +1,13 @@
 /* Toggle Styles */
 #wrapper {
   padding-left: 0;
+  padding-top: 50px;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
   overflow: hidden;
-  background:#1B1E24;
+  background: #1B1E24;
 }
 
 #wrapper.toggled {
@@ -54,7 +55,7 @@
 
 .sidebar-nav {
   position: absolute;
-  top: 0px;
+  top: 10px;
   width: 230px;
   margin: 0;
   padding: 0;

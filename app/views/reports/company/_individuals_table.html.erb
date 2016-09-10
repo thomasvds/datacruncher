@@ -19,7 +19,7 @@
         <tr>
           <td><%= link_to values["employee"]["name"], individual_report_path(id) %></td>
           <% values["scores"].each do |v| %>
-          <td><div class="label label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
+          <td><div class="label label-sm label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
           <% end %>
         </tr>
         <% end %>

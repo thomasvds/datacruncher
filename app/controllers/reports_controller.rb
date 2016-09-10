@@ -87,7 +87,7 @@ class ReportsController < ApplicationController
     @score_ranges_boxes_data = score_range_boxes(last_week)
 
     # DATA FOR POLICIES TABLE PER TEAM
-    @policies_per_team_data = {}
+    @policies_per_team_data = []
     @policies_headers = []
 
     Policy.all.each do |policy|
@@ -101,9 +101,6 @@ class ReportsController < ApplicationController
       score = team_score(team, last_week)
       range = Score.range(score)
 
-      members = team.agents
-      number_of_members = members.count
-
       values = []
       ranges = []
 
@@ -115,20 +112,25 @@ class ReportsController < ApplicationController
         end
       end
 
-      @policies_per_team_data.merge!(team.id => {
+      team_results =
+      {
         "team" => {
           "id" => team.id,
           "name" => team.name,
-          },
-          "policy scores" => {
-            "values" => values,
-            "ranges" => ranges
-            },
-            "total score" => {
-              "value" => score,
-              "range" => range
-            }
-            })
+        },
+        "total score" => {
+          "value" => score,
+          "range" => range
+        },
+        "policy scores" => {
+          "values" => values,
+          "ranges" => ranges
+        }
+      }
+
+      p team_results
+
+      @policies_per_team_data.push(team_results)
     end
 
   end
@@ -277,7 +279,7 @@ class ReportsController < ApplicationController
   end
 
   def team_policy_percentage(team, policy, week)
-    number_enforced = PolicyCheck.where(week: week, policy: p, agent: team.agents, enforced: true).count
+    number_enforced = PolicyCheck.where(week: week, policy: policy, agent: team.agents, enforced: true).count
     return (number_enforced.fdiv(team.agents.count) * 100).round
   end
 

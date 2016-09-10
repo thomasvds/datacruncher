@@ -1,7 +1,7 @@
 <div class="row">
   <% @score_ranges_boxes_data.each do |e| %>
   <div class="col-lg-3 col-md-6">
-    <%= render 'shared/scorebox', metric_range: e["range_name"], current_metric: e["week_count"], last_metric: e["previous_week_count"], metric_trend: e["evolution"], metric_description: "People in <b>#{e["range_name"]}</b> zone", icon_name: "#{e["range_name"]}-icon.png" %>
+    <%= render 'shared/scorebox', metric_range: e["range_name"], current_metric: e["week_count"], last_metric: e["previous_week_count"], metric_trend: e["evolution"], metric_description: "People in <b>#{e["range_name"]}</b> zone", icon_name: "#{e["range_name"]}-icon", metric_explanation: "This shows you the number of people in each sustainability zone. The more people in the \"great\" and \"good\" zones, the better. You'll find below the detailed breakdown for each zone, by team and individuals."%>
   </div>
   <% end %>
 </div>

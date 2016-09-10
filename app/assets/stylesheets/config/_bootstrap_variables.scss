@@ -24,7 +24,6 @@ $border-radius-small: 0px;
 
 .page-header {
   border-bottom:none;
-  margin-bottom: 0px;
 }
 
 .panel{
@@ -61,4 +60,8 @@ $border-radius-small: 0px;
 
 .label {
   border-radius: 0px;
+}
+
+.label-sm {
+  font-weight: normal;
 }
