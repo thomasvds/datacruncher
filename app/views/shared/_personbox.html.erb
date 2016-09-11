@@ -1,0 +1,25 @@
+<div class="panel panel-<%= time_since_last_meeting_range %> panel-person">
+  <div class="panel-heading" style="height: 75px;">
+    <div class="row">
+      <div class="col-xs-3">
+        <%= image_tag person_picture, class: 'individual-small-card-avatar' %>
+      </div>
+      <div class="col-xs-9 text-right">
+        <div class="name"><%= person_name %></div>
+        <div><%= person_role %></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <span class="pull-left">
+      <b><%= time_since_last_meeting %></b> since last 1:1
+    </span>
+    <span class="pull-right info">
+      <i class="fa fa-envelope" style="cursor: pointer;"></i>
+      <i data-toggle="modal" data-target=".<%= person_name %>" class="fa fa-info-circle" style="cursor: pointer;"></i>
+    </span>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+  <%= render 'shared/infomodal', id: person_name, message: raw(explanation) %>

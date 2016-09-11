@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "individual-history", title: "SUSTAINABILITY HISTORY", explanation: "This chart shows your weekly sustainability score, with a 4-weeks moving average score for longer-term scoring." %>
+  <%= render 'reports/shared/panel_heading', id: "individual-history", title: "SUSTAINABILITY HISTORY", explanation: "This chart shows your weekly <b>sustainability score history</b>, with a 4-weeks moving average score for longer-term scoring." %>
 
   <div class="panel-body">
     <%= render 'reports/charts/chart_score_history', chart_id: "long_chart", title: '', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks, data: @scores_by_week %>

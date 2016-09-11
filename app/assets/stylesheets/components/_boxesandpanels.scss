@@ -65,6 +65,19 @@
   width: 55px;
 }
 
+.panel-person {
+  border-color: #5F5F5F !important;
+  .panel-heading {
+    border-color: #9A9A9A !important;
+    color: white !important;
+    background-color: #5F5F5F !important;
+  }
+
+  .name{
+    font-size: 16px;
+  }
+}
+
 .panel-great {
   border-color: #5cb85c;
 
@@ -75,7 +88,7 @@
   }
 
   .panel-footer {
-    border-color: #5cb85c;
+    border-color: darken(#5cb85c, 10%);
     color: #fff;
     background-color: darken(#5cb85c, 10%);
   }
@@ -99,7 +112,7 @@
   }
 
   .panel-footer {
-    border-color: #d9534f;
+    border-color: darken(#d9534f, 10%);
     color: #fff;
     background-color: darken(#d9534f, 10%);
   }
@@ -123,7 +136,7 @@
   }
 
   .panel-footer {
-    border-color: #f0ad4e;
+    border-color: darken(#f0ad4e, 10%);
     color: #fff;
     background-color: darken(#f0ad4e, 10%);
   }
@@ -147,7 +160,7 @@
   }
 
   .panel-footer {
-    border-color: #3E92CC;
+    border-color: darken(#3E92CC, 10%);
     color: #fff;
     background-color: darken(#3E92CC, 10%);
   }
@@ -158,5 +171,68 @@
 
   .panel-good a:hover {
     color: $primary-dark;
+  }
+}
+
+.mbti-panel {
+  background-color: darken(#3E92CC, 10%);
+  color: white;
+  padding-top: 3px;
+  min-height: 90px;
+  .description{
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 10px;
+  }
+  .style{
+    text-align: center;
+    padding-bottom: 8px;
+    font-size: 40px;
+  }
+}
+
+.user-content-panel {
+  background-color: lighten(#3E92CC, 10%);
+  color: white;
+  padding: 3px 10px 10px 10px;
+  font-size: 14px;
+  min-height: 90px;
+  .title{
+    font-weight: bold;
+  }
+  .content{
+    font-style: italic;
+  }
+}
+
+.strengths-panel {
+  background-color: darken(#5cb85c, 10%);
+  color: white;
+  font-size: 14px;
+  .title{
+    font-weight: bold;
+    padding: 10px;
+  }
+  .item{
+    background-color: #5cb85c;
+    font-style: italic;
+    padding: 10px;
+    border-top: 2px solid white;
+  }
+}
+
+.development-points-panel {
+  background-color: darken(#3E92CC, 10%);
+  color: white;
+  font-size: 14px;
+  .title{
+    font-weight: bold;
+    padding: 10px;
+  }
+  .item{
+    background-color: #3E92CC;
+    font-style: italic;
+    padding: 10px;
+    border-top: 2px solid white;
   }
 }
