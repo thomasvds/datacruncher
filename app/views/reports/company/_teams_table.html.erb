@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "teams-table", title: "What is the sustainability situation in each team this week?", explanation: "This chart shows for each team the share of employees that benefitted from the company sustainability policy." %>
+  <%= render 'reports/shared/panel_heading', id: "teams-table", title: "SITUATION PER TEAM", explanation: "This chart shows for each team the share of employees that benefitted from the company sustainability policy." %>
 
   <table class="table">
     <thead>
@@ -11,13 +11,13 @@
       <% end %>
     </thead>
     <tbody>
-      <% @policies_per_team_data.each do |id, team_data| %>
+      <% @policies_per_team_data.each do |data| %>
       <tr>
-        <td><%= link_to team_data["team"]["name"], team_report_path(id) %></td>
-        <td><div class="label label-<%= team_data["total score"]["range"]%>"><%= team_data["total score"]["value"]%>%</div></td>
+        <td><%= link_to data["team"]["name"], team_report_path(data["team"]["id"]) %></td>
+        <td><div class="label label-sm label-<%= data["total score"]["range"]%>"><%= data["total score"]["value"]%>%</div></td>
         <% i = 0 %>
-        <% team_data["policy scores"]["values"].each do |v| %>
-        <td><div class="label label-<%= team_data["policy scores"]["ranges"][i]%>"><%=v%>%</div></td>
+        <% data["policy scores"]["values"].each do |v| %>
+        <td><div class="label label-sm label-<%= data["policy scores"]["ranges"][i]%>"><%=v%>%</div></td>
         <% i += 1 %>
         <% end %>
       </tr>

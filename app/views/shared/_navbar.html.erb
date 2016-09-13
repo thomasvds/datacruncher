@@ -1,16 +1,34 @@
+<div class="navbar-wagon navbar-wagon-fixed">
+  <!-- Logo -->
+  <a href="/" class="navbar-wagon-brand">
+    <%= image_tag "icon.png", class: "brand-icon" %>
+    &nbsp;
+    <b>FLARE</b>SIGHTS
+  </a>
 
-<nav class="navbar navbar-default no-margin">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header fixed-brand">
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle">
-      <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-    </button>
-    <a class="navbar-brand" style="color: white", href="#"><i class="fa fa-fire fa-4"></i> FLARESIGHTS™ vBeta</a>
-  </div><!-- navbar-header-->
+  <!-- Right Navigation -->
+  <div class="navbar-wagon-right hidden-xs hidden-sm">
+    <!-- Text link -->
+    <div class="navbar-wagon-item">Welcome, <b style="color: white">Dorothée</b></div>
 
- <!--  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-      <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li>
-    </ul>
-  </div> --><!-- bs-example-navbar-collapse-1 -->
-</nav>
+    <!-- Profile picture and dropdown -->
+    <div class="navbar-wagon-item">
+        <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/02f/305/197edcd.jpg" class="navbar-avatar-user dropdown-toggle" id="navbar-wagon-menu" data-toggle="dropdown">
+    </div>
+
+    <!-- Button (call-to-action) -->
+    <div class="navbar-wagon-item navbar-wagon-button btn">Feedback</div>
+  </div>
+
+  <!-- Dropdown appearing on mobile only -->
+  <div class="navbar-wagon-item hidden-md hidden-lg">
+    <div class="dropdown">
+      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+      <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+        <li><a href="#">Some mobile link</a></li>
+        <li><a href="#">Other one</a></li>
+        <li><a href="#">Other one</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

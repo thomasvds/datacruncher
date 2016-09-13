@@ -1,5 +1,18 @@
 <%= render 'reports/individual/individual_header' %>
 
-<%= render 'reports/individual/individual_week_policies_and_activity' %>
+<div class="row">
+  <div class="col-xs-12 col-md-3">
+    <%= render 'reports/individual/individual_checklist' %>
+  </div>
+  <div class="col-xs-12 col-md-9">
+    <%= render 'reports/individual/individual_late_night' %>
+  </div>
+</div>
+
+<%= render 'reports/individual/individual_ops_metrics' %>
+
+<%= render 'reports/individual/individual_support_crew' %>
+
+<%= render 'reports/individual/individual_aspirations_and_development' %>
 
 <%= render 'reports/individual/individual_score_history' %>

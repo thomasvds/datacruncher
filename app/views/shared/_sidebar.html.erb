@@ -56,13 +56,13 @@
 
 <% content_for :javascript do %>
 <script>
-$(function() {
-        $('#menu li a').click(function() {
-           $('#menu li').removeClass('active');
-           $(this).parent().addClass('active');
-        });
-     });
+  $(function() {
+    $('#menu li a').click(function() {
+     $('#menu li').removeClass('active');
+     $(this).parent().addClass('active');
+   });
+  });
 
-$("#<%="#{params[:controller]}-#{params[:action]}".gsub('_', '-')%>").addClass('active');
+  $("#<%="#{params[:controller]}-#{params[:action]}".gsub('_', '-')%>").addClass('active');
 </script>
 <% end %>

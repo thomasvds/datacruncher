@@ -90,40 +90,47 @@ class ReportsController < ApplicationController
     @policies_per_team_data = []
     @policies_headers = []
 
+    Policy.all.each do |policy|
+      if policy.policy_setting.enabled
+        @policies_headers << policy.name
+      end
+    end
+
     Team.all.each do |team|
 
       score = team_score(team, last_week)
       range = Score.range(score)
 
-      members = t.agents
-      number_of_members = members.count
-
       values = []
       ranges = []
 
       Policy.all.each do |policy|
-        @policies_headers << p.name
-        if p.policy_setting.enabled
+        if policy.policy_setting.enabled
           policy_score = team_policy_percentage(team, policy, last_week)
           values << policy_score
           ranges << Score.range(policy_score)
         end
       end
 
-      @policies_per_team_data.merge!(t.id => {
+      team_results =
+      {
         "team" => {
-          "id" => t.id,
-          "name" => t.name,
-          },
-          "policy scores" => {
-            "values" => values,
-            "ranges" => ranges
-            },
-            "total score" => {
-              "value" => score.round,
-              "range" => Score.range(score)
-            }
-            })
+          "id" => team.id,
+          "name" => team.name,
+        },
+        "total score" => {
+          "value" => score,
+          "range" => range
+        },
+        "policy scores" => {
+          "values" => values,
+          "ranges" => ranges
+        }
+      }
+
+      p team_results
+
+      @policies_per_team_data.push(team_results)
     end
 
   end
@@ -267,12 +274,12 @@ class ReportsController < ApplicationController
   end
 
   def team_score(team, week)
-    members_scores = Score.where(agents: team.agents, week: week).pluck[:weekly_value]
+    members_scores = Score.where(agent: team.agents, week: week).pluck(:weekly_value)
     return members_scores.sum.fdiv(members_scores.count).round
   end
 
   def team_policy_percentage(team, policy, week)
-    number_enforced = PolicyCheck.where(week: week, policy: p, agent: team.agents, enforced: true).count
+    number_enforced = PolicyCheck.where(week: week, policy: policy, agent: team.agents, enforced: true).count
     return (number_enforced.fdiv(team.agents.count) * 100).round
   end
 

@@ -1,12 +1,13 @@
 /* Toggle Styles */
-
 #wrapper {
   padding-left: 0;
+  padding-top: 50px;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
   overflow: hidden;
+  background: #1B1E24;
 }
 
 #wrapper.toggled {
@@ -16,13 +17,14 @@
 
 #sidebar-wrapper {
   z-index: 1000;
-  position: absolute;
+  position: fixed;
   left: 250px;
   width: 0;
   height: 100%;
   margin-left: -250px;
   overflow-y: auto;
-  background: rgb(34, 34, 34);
+  background: #1B1E24;
+  color: rgb(139, 145, 160);
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -37,6 +39,7 @@
   padding: 15px;
   width: 100%;
   overflow-x: hidden;
+  background-color: #F5F5F5;
 }
 .xyz{
   min-width: 360px;
@@ -52,7 +55,7 @@
 
 .sidebar-nav {
   position: absolute;
-  top: 0;
+  top: 10px;
   width: 230px;
   margin: 0;
   padding: 0;

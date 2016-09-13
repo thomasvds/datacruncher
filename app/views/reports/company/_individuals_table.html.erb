@@ -2,7 +2,7 @@
 
 <div class="panel panel-default" >
 
- <%= render 'reports/shared/panel_heading', id: "individuals-table", title: "What is the sustainability situation per employee?", explanation: "This table shows the individual sustainability scores for all employees. You can find their detailed individual sustainability reports by clicking on any employee's name." %>
+ <%= render 'reports/shared/panel_heading', id: "individuals-table", title:"SITUATION PER EMPLOYEE", explanation: "This table shows the individual sustainability scores for all employees. You can find their detailed individual sustainability reports by clicking on any employee's name." %>
 
   <div class="panel-content" style="padding:10px;">
 
@@ -19,7 +19,7 @@
         <tr>
           <td><%= link_to values["employee"]["name"], individual_report_path(id) %></td>
           <% values["scores"].each do |v| %>
-          <td><div class="label label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
+          <td><div class="label label-sm label-<%= v[1]["score_range"]%>"><%=v[1]["score"]%>%</div></td>
           <% end %>
         </tr>
         <% end %>
