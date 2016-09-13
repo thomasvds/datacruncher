@@ -1,9 +1,10 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "company-average", title: "COMPANY SUSTAINABILITY HISTORY", explanation: "This chart shows the average sustainability score of your company, based on the average of all individual weekly sustainability scores." %>
+  <%= render 'reports/shared/panel_heading', modal_id: "modal-company-average", collapse_id: "collapse-company-average", title: "COMPANY SUSTAINABILITY HISTORY", explanation: "This chart shows the average sustainability score of your company, based on the average of all individual weekly sustainability scores." %>
 
-  <div class="panel-body">
-    <%= render 'reports/charts/chart_score_history', chart_id: "long_chart", title: '', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks, data: @company_average_weekly_score_by_week %>
+  <div class="collapse in" id="collapse-company-average">
+    <div class="panel-body">
+      <%= render 'reports/charts/chart_score_history', chart_id: "long_chart", title: '', yaxistitle: 'Weekly sustainability score', xaxis: @list_of_weeks, data: @company_average_weekly_score_by_week %>
+    </div>
   </div>
-
 </div>

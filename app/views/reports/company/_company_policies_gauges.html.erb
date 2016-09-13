@@ -1,18 +1,19 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "company-gauges", title: "WORK/LIFE BALANCE DRIVERS", explanation: "This tells you when your employees work, and thus when they don't work and have time to unplug and rest. Each gauge shows what percentage of employees have benefitted from each company sustainability policy." %>
+  <%= render 'reports/shared/panel_heading', modal_id: "modal-company-gauges", collapse_id: "collapse-company-gauges", title: "WORK/LIFE BALANCE DRIVERS", explanation: "This tells you when your employees work, and thus when they don't work and have time to unplug and rest. Each gauge shows what percentage of employees have benefitted from each company sustainability policy." %>
 
-  <div class="panel-body" style="padding-left: 50px; padding-top: 0px; padding-bottom: 0px;">
-    <div class="container">
-      <div class="row">
-        <% @policies_enforcement.each do |k, v| %>
-        <div class="col-xs-2">
-          <% chart_id = k %>
-          <%= render 'reports/charts/chart_policy_gauge', chart_id: chart_id, policy: v["name"], value: v["score"], weight: v["weight"], title_suffix: "%", sub_title: "of employees" %>
+  <div class="collapse in" id="collapse-company-gauges">
+    <div class="panel-body" style="padding-left: 50px; padding-top: 0px; padding-bottom: 0px;">
+      <div class="container">
+        <div class="row">
+          <% @policies_enforcement.each do |k, v| %>
+          <div class="col-xs-2">
+            <% chart_id = k %>
+            <%= render 'reports/charts/chart_policy_gauge', chart_id: chart_id, policy: v["name"], value: v["score"], weight: v["weight"], title_suffix: "%", sub_title: "of employees" %>
+          </div>
+          <% end %>
         </div>
-        <% end %>
       </div>
     </div>
   </div>
-
 </div>

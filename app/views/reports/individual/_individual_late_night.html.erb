@@ -1,9 +1,11 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "individual-week", title: "LATE-NIGHT ACTIVITY", explanation: "This chart shows your latest action accomplished everyday, by category of action." %>
+  <%= render 'reports/shared/panel_heading', modal_id: "modal-individual-week", collapse_id: "collapse-individual-week", title: "LATE-NIGHT ACTIVITY", explanation: "This chart shows your latest action accomplished everyday, by category of action." %>
 
-  <div class="panel-body">
+  <div class="collapse in" id="collapse-individual-week">
+    <div class="panel-body">
 
-    <%= render 'reports/charts/chart_late_night_activity', chart_id: "latenight", title: '', yaxistitle: 'Hour of last actions', xaxis: @list_of_dates, data: @hour_of_last_event_by_date %>
+      <%= render 'reports/charts/chart_late_night_activity', chart_id: "latenight", title: '', yaxistitle: 'Hour of last actions', xaxis: @list_of_dates, data: @hour_of_last_event_by_date %>
+    </div>
   </div>
 </div>

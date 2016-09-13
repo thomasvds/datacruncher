@@ -1,8 +1,12 @@
 <div class="panel-heading">
   <div class="panel-title">
-    <button type="button" class="btn btn-xs btn-default no-border" data-toggle="modal" data-target=".<%= id %>"><i class="fa fa-info-circle fa-1x"></i></button>
+    <button type="button" class="btn btn-xs btn-default no-border" data-toggle="modal" data-target=".<%= modal_id %>"><i class="fa fa-info-circle fa-1x"></i></button>
+    <% if !(defined?(collapse_id)).nil? %>
+    <a href="#<%= collapse_id %>" data-toggle="collapse">&nbsp; <%= title %></a>
+    <% else  %>
     &nbsp; <%= title %>
+    <% end %>
   </div>
 </div>
 
-<%= render 'shared/infomodal', id: id, message: raw(explanation) %>
+<%= render 'shared/infomodal', id: modal_id, message: raw(explanation) %>

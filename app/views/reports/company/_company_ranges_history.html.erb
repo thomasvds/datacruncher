@@ -1,8 +1,10 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "company-ranges", title: "COMPANY SUSTAINABILITY ZONES", explanation: "This chart shows for each week the share and number of employees that fall in the different sustainability score ranges. Use it to monitor the overall sustainability health of your company, aiming at having the highest shares in \"Good\" and \"Great\" ranges." %>
+  <%= render 'reports/shared/panel_heading', modal_id: "modal-company-ranges", collapse_id: "collapse-company-ranges", title: "COMPANY SUSTAINABILITY ZONES", explanation: "This chart shows for each week the share and number of employees that fall in the different sustainability score ranges. Use it to monitor the overall sustainability health of your company, aiming at having the highest shares in \"Good\" and \"Great\" ranges." %>
 
-  <div class="panel-body">
-    <%= render 'reports/charts/chart_score_ranges_history', chart_id: "ranges_chart", title: '', yaxistitle: 'Weekly share of score ranges', xaxis: @list_of_weeks, data: @company_score_ranges_share_by_week %>
+  <div class="collapse in" id="collapse-company-ranges">
+    <div class="panel-body">
+      <%= render 'reports/charts/chart_score_ranges_history', chart_id: "ranges_chart", title: '', yaxistitle: 'Weekly share of score ranges', xaxis: @list_of_weeks, data: @company_score_ranges_share_by_week %>
+    </div>
   </div>
 </div>

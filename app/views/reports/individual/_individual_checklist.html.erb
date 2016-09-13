@@ -1,9 +1,11 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "individual-checklist", title: "BALANCE CHECKLIST", explanation: "This cheklist shows you <b>when you work</b>, and thus when you don't work and have time to rest and unplug. Based on the relative importance of each element in the list, you find your overall sustainability score for the week." %>
+  <%= render 'reports/shared/panel_heading', modal_id: "modal-individual-checklist", collapse_id: "collapse-individual-checklist", title: "BALANCE CHECKLIST", explanation: "This cheklist shows you <b>when you work</b>, and thus when you don't work and have time to rest and unplug. Based on the relative importance of each element in the list, you find your overall sustainability score for the week." %>
 
-  <div class="panel-body">
+  <div class="collapse in" id="collapse-individual-checklist">
+    <div class="panel-body">
 
-    <%= render 'reports/individual/individual_policies_checklist', score: @current_weekly_score, score_range: @current_weekly_score_range, policies_check_list: @policies_check_list %>
+      <%= render 'reports/individual/individual_policies_checklist', score: @current_weekly_score, score_range: @current_weekly_score_range, policies_check_list: @policies_check_list %>
+    </div>
   </div>
 </div>

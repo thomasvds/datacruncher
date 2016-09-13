@@ -1,7 +1,8 @@
 <div class="panel panel-default">
-<%= render 'reports/shared/panel_heading', id: "individual-ops-metrics", title: "OPERATIONAL METRICS", explanation: "These metrics tell you <b>how you work</b>. Indeed, your ways of working ultimately shape your work/life balance. Compare them with peers, and set your own benchmarks!" %>
+<%= render 'reports/shared/panel_heading', modal_id: "modal-individual-ops-metrics", collapse_id: "collapse-individual-ops-metrics", title: "OPERATIONAL METRICS", explanation: "These metrics tell you <b>how you work</b>. Indeed, your ways of working ultimately shape your work/life balance. Compare them with peers, and set your own benchmarks!" %>
 </div>
 
+<div class="collapse in" id="collapse-individual-ops-metrics">
 <div class="row">
   <div class="col-lg-3 col-md-6">
     <%= render 'shared/scorebox', metric_range: "danger", current_metric: "87%", last_metric: "71%", metric_trend: "up", metric_description: "Time in <b>meetings</b>", icon_name: "ops-meetings", metric_explanation: "lolilol", metric_explanation: "lolilol" %>
@@ -27,4 +28,5 @@
   <div class="col-lg-3 col-md-6">
     <%= render 'shared/scorebox', metric_range: "danger", current_metric: "2days", last_metric: "1.5days", metric_trend: "up", metric_description: "Meetings <b>notice time</b>", icon_name: "ops-meetingsnotice", metric_explanation: "lolilol" %>
   </div>
+</div>
 </div>
