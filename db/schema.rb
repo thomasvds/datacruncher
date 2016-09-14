@@ -25,8 +25,9 @@ ActiveRecord::Schema.define(version: 20160704085409) do
     t.string   "trello_id"
     t.string   "gmail_id"
     t.string   "picture_url"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "super_care",  default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160704085409) do
     t.string   "category"
     t.datetime "time"
     t.date     "date"
+    t.integer  "year"
     t.integer  "week"
     t.integer  "day"
     t.integer  "hour"
@@ -104,16 +106,18 @@ ActiveRecord::Schema.define(version: 20160704085409) do
 
   create_table "tasks", force: :cascade do |t|
     t.string   "description"
+    t.string   "comments"
     t.string   "owner"
+    t.string   "category"
+    t.datetime "due_date"
+    t.datetime "done_date"
     t.boolean  "done",        default: false
-    t.integer  "score_id"
     t.integer  "agent_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
 
   add_index "tasks", ["agent_id"], name: "index_tasks_on_agent_id", using: :btree
-  add_index "tasks", ["score_id"], name: "index_tasks_on_score_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -129,5 +133,4 @@ ActiveRecord::Schema.define(version: 20160704085409) do
   add_foreign_key "staffings", "agents"
   add_foreign_key "staffings", "teams"
   add_foreign_key "tasks", "agents"
-  add_foreign_key "tasks", "scores"
 end

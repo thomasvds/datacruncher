@@ -1,83 +1,45 @@
+require 'csv'
+
+# Create set of aliases for Hillary Clinton identifiers
+HRC_ALIASES = ["H" ,";H", "Clinton", "Clinton Hillary R", "Clinton Rodham, Hillary", "H2",
+  "Clinton, Hillary R", "Clinton, Hillary Rodham", "Hillary", "Hillary Rodham Clinton",
+  "hr15@mycingular.blackberry.net", "HRC", "hrod17@clintonemail.com", "Madam Secretary",
+  "Secretary", "Secretary Clinton", "Secretary Hillary R Clinton", "Secretary of State"]
+
 Agent.destroy_all
 Event.destroy_all
 
-# Generate random employees
-url = "https://randomuser.me/api/"
-uri = URI.parse(url)
+puts "starting"
 
-50.times do |i|
-  response = Net::HTTP.get(uri)
-  results = JSON.parse(response)["results"]
-  name = "#{results[0]["name"]["first"].capitalize} #{results[0]["name"]["last"].capitalize}"
-  picture_url = results[0]["picture"]["large"]
-  p = rand(0)
-  case p
-  when 0..0.2
-    position = "Manager"
-  when 0.2..0.5
-    position = "Consultant"
-  when 0.5..1
-    position = "Analyst"
-  end
-  Agent.create(name: name, picture_url: picture_url, position: position)
-end
+# # Generate Hillary Clinton agent
+hillary = Agent.create(name: "Hillary Clinton", picture_url: "https://yt3.ggpht.com/-eXKU4UhFusI/AAAAAAAAAAI/AAAAAAAAAAA/7AcPlXaWCoU/s100-c-k-no-mo-rj-c0xffffff/photo.jpg", position: "Secretary of State")
+p "#{hillary.name} created"
+p " ------- Hillary Id #{hillary.id} ----------"
 
-# Generate teams
-team_names = ["Market taskforce", "Growth support", "Customer success", "Multi-channel", "Procurement", "Finance"]
-team_sizes = [5, 12, 6, 8, 10, 9]
+counter = 0
 
-team_names.each do |t|
-  Team.create(name: t)
-end
+# Generate events, taking all curated emails from the CSV file
+CSV.foreach('db/curated_emails.csv', col_sep: "," , headers: :first_row) do |row|
+  begin
+    # Create counter for debugging purposes
 
-# Staff employees
-current_agent_id = 1
-6.times do |i|
-  t = Team.find(i+1)
-  team_sizes[i].times do |j|
-    Staffing.create(team: t, agent: Agent.find(current_agent_id))
-    current_agent_id += 1
-  end
-end
-
-# Generate events
-date_from  = Date.parse('2016-07-04')
-date_range = date_from..Date.parse('2016-08-14')
-
-date_range.each do |d|
-  if (d.saturday? || d.sunday?)
-    p = 0.1 #less likely that agents will work on week-ends
-    q = 0.3 #even if there is work on the week-end, it is less than during the week
-  else
-    p = 1
-    q = 1
-  end
-  Agent.all.each do |a|
-    if rand(0) < p
-      #go through the hours of the day, with a decreasing probability for work after hours
-      (9..18).each do |h|
-        if rand(0) < 0.5 * q
-          if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h)
-        end
-      end
-      (19..20).each do |h|
-        if rand(0) < 0.3 * q
-          if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h)
-        end
-      end
-      (21..23).each do |h|
-        if rand(0) < 0.1 * q
-          if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h)
-        end
-      end
+    # If the sender is Hillary Clinton (or one if her aliases)
+    if HRC_ALIASES.include?(row["From"])
+          p counter += 1
+      # Create a datetime object from date email is sent
+      d =  DateTime.parse(row["Sent"])
+      # Create event with required aatributes
+      event = Event.create(source: 'HRC', category: 'communication', agent: Agent.where(name: "Hillary Clinton").first,
+          date: d, year: d.year, week: d.cweek, day: d.wday, hour: d.hour
+        )
+      p "#{event.source} event created at #{d} for email nr #{counter}"
     end
+  rescue
+    p $!.message
   end
 end
 
-# Generate policies
+# # # Generate sets of pre-determined policies
 p = Policy.create(name: "No work on weekends", timeframe: "on weekends", adverb: "at all")
 PolicySetting.create(policy: p, weight: 0.5, enabled: true)
 
