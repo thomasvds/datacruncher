@@ -58,19 +58,19 @@ date_range.each do |d|
       (9..18).each do |h|
         if rand(0) < 0.5 * q
           if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h)
+          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h, year: d.year)
         end
       end
       (19..20).each do |h|
         if rand(0) < 0.3 * q
           if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h)
+          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h, year: d.year)
         end
       end
       (21..23).each do |h|
         if rand(0) < 0.1 * q
           if rand(0) < 0.3 then category = 'production' else category = 'communication' end
-          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h)
+          Event.create(source: 'seed',category: category, agent: a, date: d, week: d.cweek, day: d.wday, hour: h, year: d.year)
         end
       end
     end

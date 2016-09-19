@@ -2,6 +2,16 @@ class Policy < ActiveRecord::Base
   has_one :policy_setting
   has_many :policy_checks
 
+  # Returns only the enabled policies
+  def self.enabled
+    all.select { |policy| policy.enabled? == true }
+  end
+
+  # Shortcut to check whether policy is enabled
+  def enabled?
+    return policy_setting.enabled
+  end
+
   # This method checks whether a series of events complies with the policy,
   # and should be used on a weekly basis only. That is, events provided in input
   # should only belong to one specific week.

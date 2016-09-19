@@ -16,10 +16,8 @@
         <tr>
           <td><%= link_to data["team"]["name"], team_report_path(data["team"]["id"]) %></td>
           <td><div class="label label-sm label-<%= data["total score"]["range"]%>"><%= data["total score"]["value"]%>%</div></td>
-          <% i = 0 %>
-          <% data["policy scores"]["values"].each do |v| %>
-          <td><div class="label label-sm label-<%= data["policy scores"]["ranges"][i]%>"><%=v%>%</div></td>
-          <% i += 1 %>
+          <% data["policy values"].each do |policy| %>
+          <td><div class="label label-sm label-<%= policy["range"]%>"><%= policy["value"]%>%</div></td>
           <% end %>
         </tr>
         <% end %>

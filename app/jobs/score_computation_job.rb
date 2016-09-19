@@ -5,34 +5,38 @@
 class ScoreComputationJob < ActiveJob::Base
   def perform(events)
     # First compute the weekly value for each score
-    ordered_events = events.order(:week)
-    start_week = ordered_events.first.week
-    end_week = ordered_events.last.week
-    (start_week..end_week).each do |w|
-      # Retrieve the check lists for the policies
-      week_policy_checks = PolicyCheck.where(week: w)
-      Agent.all.each do |a|
-        agent_week_policy_checks = week_policy_checks.where(agent: a)
-        weekly_value = 0
-        # Check for each policy whether it is enabled and is enforced
-        Policy.all.each do |p|
-          settings = PolicySetting.where(policy: p).first
-          # Only consider the policy for score computation if it is enabled
-          if settings.enabled
-            enforced = agent_week_policy_checks.where(policy: p).first.enforced
-            if enforced
-              # If the policy has been enforced, use its weight to add up to the score
-              weekly_value += settings.weight
+    ordered_events = events.order(:year).order(:week)
+    start_year = ordered_events.first.year
+    end_year = ordered_events.last.year
+    (start_year..end_year).each do |y|
+      year_events = ordered_events.where(year: y)
+      start_week = year_events.first.week
+      end_week = year_events.last.week
+      (start_week..end_week).each do |w|
+        # Retrieve the check lists for the policies
+        week_policy_checks = PolicyCheck.where(week: w, year: y)
+        Agent.all.each do |a|
+          agent_week_policy_checks = week_policy_checks.where(agent: a)
+          weekly_value = 0
+          # Check for each policy whether it is enabled and is enforced
+          Policy.all.each do |p|
+            # Only consider the policy for score computation if it is enabled
+            if p.enabled?
+              enforced = agent_week_policy_checks.where(policy: p).first.enforced
+              if enforced
+                # If the policy has been enforced, use its weight to add up to the score
+                weekly_value += p.policy_setting.weight
+              end
             end
           end
+          # Create the score element, indexing it on a 100% basis
+          Score.create(agent: a, week: w, weekly_value: weekly_value * 100, year: y)
         end
-        # Create the score element, indexing it on a 100% basis
-        Score.create(agent: a, week: w, weekly_value: weekly_value * 100)
       end
     end
     # Then compute the 4-weeks moving average linked to each weekly score
     Agent.all.each do |a|
-      scores = Score.where(agent: a).order(:week)
+      scores = Score.where(agent: a).order(:year).order(:week)
       # Handle irregular starting conditions
       # Retrieve the 3 first scores
       one = scores.first.weekly_value

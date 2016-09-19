@@ -53,11 +53,11 @@ Highcharts.setOptions(Highcharts.theme);
   {
     name: '<%= k %>',
     data: <%= v.to_json %>,
-    color: <% if k == "Danger" %>
+    color: <% if k == "danger" %>
     'rgba(217, 83, 79, 0.5)'
-    <% elsif k == "Warning" %>
+    <% elsif k == "warning" %>
     'rgba(240, 173, 78, 0.5)'
-    <% elsif k == "Good" %>
+    <% elsif k == "good" %>
     'rgba(62,146,204,0.3)'
     <% else %>
     'rgba(92, 184, 92, 0.5)'

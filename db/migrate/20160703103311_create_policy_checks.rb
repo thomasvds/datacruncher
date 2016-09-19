@@ -5,6 +5,7 @@ class CreatePolicyChecks < ActiveRecord::Migration
       t.references :agent, index: true, foreign_key: true
       t.boolean :enforced
       t.integer :week
+      t.integer :year
 
       t.timestamps null: false
     end

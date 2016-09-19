@@ -62,6 +62,14 @@ $border-radius-small: 0px;
   border-radius: 0px;
 }
 
+.label-great {
+  background-color: $green;
+}
+
+.label-good {
+  background-color: $primary;
+}
+
 .label-sm {
   font-weight: normal;
 }

@@ -34,14 +34,14 @@
     <div class="row">
       <div class="col-xs-4">
         <% if @agent.super_care %>
-        <%= render 'reports/shared/iconbox', score: @current_moving_average_score, score_range: "supercare", title: "Supercare" %>
+        <%= render 'reports/shared/iconbox', score: "", score_range: "supercare", title: "Supercare" %>
         <% end %>
       </div>
       <div class="col-xs-4">
-        <%= render 'reports/shared/iconbox', score: @current_moving_average_score, score_range: @current_moving_average_score_range, title: "Last month" %>
+        <%= render 'reports/shared/iconbox', score: @scores["all time"]["score"], score_range: @scores["all time"]["range"], title: "Last month" %>
       </div>
       <div class="col-xs-4">
-        <%= render 'reports/shared/iconbox', score: @current_weekly_score, score_range: @current_weekly_score_range, title: "Last week" %>
+        <%= render 'reports/shared/iconbox', score: @scores["last week"]["score"], score_range: @scores["last week"]["range"], title: "Last week" %>
       </div>
     </div>
   </div>

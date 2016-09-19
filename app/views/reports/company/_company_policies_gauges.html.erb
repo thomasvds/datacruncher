@@ -6,10 +6,10 @@
     <div class="panel-body" style="padding-left: 50px; padding-top: 0px; padding-bottom: 0px;">
       <div class="container">
         <div class="row">
-          <% @policies_enforcement.each do |k, v| %>
+          <% @policies_enforcement_data.each do |p| %>
           <div class="col-xs-2">
-            <% chart_id = k %>
-            <%= render 'reports/charts/chart_policy_gauge', chart_id: chart_id, policy: v["name"], value: v["score"], weight: v["weight"], title_suffix: "%", sub_title: "of employees" %>
+            <% chart_id = "gauge_#{p["name"]}" %>
+            <%= render 'reports/charts/chart_policy_gauge', chart_id: chart_id, policy: p["name"], value: p["value"], weight: p["weight"], title_suffix: "%", sub_title: "of employees" %>
           </div>
           <% end %>
         </div>
