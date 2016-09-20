@@ -27,20 +27,14 @@ class ReportsController < ApplicationController
       score = group_score(members, @week, @year)
       range = value_range(score)
       @policies_per_team_data << {
-        "team" => team.info_hash,
-        "total score" => {"value" => score, "range" => range},
-        "policy values" => all_policies_weekly_percentage_overview(members, @week, @year)
+        'team' => team.info_hash,
+        'total score' => {'value' => score, 'range' => range},
+        'policy values' => all_policies_weekly_percentage_overview(members, @week, @year)
       }
     end
 
     # INDIVIDUAL SCORES TABLE
-    @per_agents_data = []
-    agents.each do |a|
-      @per_agents_data << {
-        "agent" => a.info_hash,
-        "scores" => individual_scores_snapshot(a, @week, @year)
-      }
-    end
+    @per_agents_data = group_array_of_info_and_scores(agents, @week, @year)
 
     # COMPANY SUSTAINABILITY SCORE & RANGES EVOLUTION
     @list_of_weeks = (1..@week).to_a
@@ -50,20 +44,14 @@ class ReportsController < ApplicationController
       Calculations::RANGE.each do |range_name, range_values|
         @company_score_ranges_share_by_week[range_name] << count_per_score_range(agents, range_name, w, @year)
       end
-      @company_average_weekly_score_by_week["Company average"] << group_score(agents, w, @year)
+      @company_average_weekly_score_by_week['Company average'] << group_score(agents, w, @year)
     end
   end
 
   def team
 
     # INDIVIDUAL TEAM MEMBERS SCORES
-    @team_members_scores_data = []
-    @members.each do |m|
-      @team_members_scores_data << {
-        "agent" => m.info_hash,
-        "scores" => individual_scores_snapshot(m, @week, @year)
-      }
-    end
+    @team_members_scores_data = group_array_of_info_and_scores(@members, @week, @year)
 
     # TEAM POLICIES GAUGES
     @policies_enforcement_data = all_policies_weekly_percentage_overview(@members, @week, @year)
@@ -78,10 +66,10 @@ class ReportsController < ApplicationController
     # individual weekly scores
     score = {}
     @members.each do |m|
-      score[m.name] = Score.where(agent: m, week: @list_of_weeks, year: @year).pluck(:weekly_value)
+      score[m.name] = Score.where(agent: m, week: @list_of_weeks, year: @year).order(:week).pluck(:weekly_value)
     end
-    @team_score_by_week = {"Team average" => team_average}.merge(score)
-    @current_team_average_score = {"value" => team_average.last, "range" => value_range(team_average.last)}
+    @team_score_by_week = {'Team average' => team_average}.merge(score)
+    @current_team_average_score = {'score' => team_average.last, 'range' => value_range(team_average.last)}
 
     # DROP-DOWN SELECTOR
     @teams = Team.all
@@ -103,8 +91,8 @@ class ReportsController < ApplicationController
     @list_of_weeks = (1..@week).to_a
     agent_scores_by_week = Score.where(agent: @agent, week: @list_of_weeks).order(:week)
     @scores_by_week = {
-      "weekly" => agent_scores_by_week.pluck(:weekly_value),
-      "4 wks. avg." => agent_scores_by_week.pluck(:moving_average_value)
+      'weekly' => agent_scores_by_week.pluck(:weekly_value),
+      '4-weeks average' => agent_scores_by_week.pluck(:moving_average_value)
     }
 
     # DROP-DOWN SELECTOR

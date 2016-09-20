@@ -7,22 +7,22 @@
       <div class="row">
         <%@team_members_scores_data.each do |data| %>
         <div class="col-xs-3">
-          <% if (data["scores"]["last week"]["range"] == "danger" || data["scores"]["last week"]["range"] == "warning")%>
+          <% if (data["scores"]["week"]["range"] == "danger" || data["scores"]["week"]["range"] == "warning")%>
           <%= link_to individual_report_path(data["agent"]["id"]) do %>
           <%= render 'reports/team/team_member_small_card',
           name: data["agent"]["name"],
           position: data["agent"]["position"],
           picture: data["agent"]["picture_url"],
-          score: data["scores"]["last week"]["score"],
-          range: data["scores"]["last week"]["range"]%>
+          score: data["scores"]["week"]["score"],
+          range: data["scores"]["week"]["range"]%>
           <% end %>
           <% else %>
           <%= render 'reports/team/team_member_small_card',
           name: data["agent"]["name"],
           position: data["agent"]["position"],
           picture: data["agent"]["picture_url"],
-          score: data["scores"]["last week"]["score"],
-          range: data["scores"]["last week"]["range"]%>
+          score: data["scores"]["week"]["score"],
+          range: data["scores"]["week"]["range"]%>
           <% end %>
         </div>
         <% end %>

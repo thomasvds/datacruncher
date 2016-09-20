@@ -38,10 +38,10 @@
         <% end %>
       </div>
       <div class="col-xs-4">
-        <%= render 'reports/shared/iconbox', score: @scores["all time"]["score"], score_range: @scores["all time"]["range"], title: "Last month" %>
+        <%= render 'reports/shared/iconbox', score: @scores["moving_average"]["score"], score_range: @scores["moving_average"]["range"], title: "Last month" %>
       </div>
       <div class="col-xs-4">
-        <%= render 'reports/shared/iconbox', score: @scores["last week"]["score"], score_range: @scores["last week"]["range"], title: "Last week" %>
+        <%= render 'reports/shared/iconbox', score: @scores["week"]["score"], score_range: @scores["week"]["range"], title: "week" %>
       </div>
     </div>
   </div>
