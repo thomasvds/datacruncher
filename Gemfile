@@ -49,14 +49,21 @@ gem 'activesupport'
 
 gem 'simple_form'
 
-group :development, :test do
+group :development do
   gem 'binding_of_caller'
   gem 'better_errors'
-  gem 'quiet_assets'
+  gem 'letter_opener'
   gem 'pry-byebug'
   gem 'pry-rails'
+end
+
+group :development, :test do
+  gem 'quiet_assets'
   gem 'spring'
-  gem 'letter_opener'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'launchy'
+  gem 'minitest-reporters'
 end
 
 group :production do
