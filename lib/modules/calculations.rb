@@ -103,9 +103,9 @@ module Calculations
       # and for the week before, along with a trend description
       def score_range_weekly_evolution_snapshot(agents, range, week, year = 2016)
         response = {}
-        response['week_count'] = count_per_score_range(agents, range, week, year)
-        response['previous_week_count'] = count_per_score_range(agents, range, week - 1, year)
-        response['evolution'] = trend(response['previous_week_count'], response['week_count'])
+        response[:week_count] = count_per_score_range(agents, range, week, year)
+        response[:previous_week_count] = count_per_score_range(agents, range, week - 1, year)
+        response[:evolution] = trend(response[:previous_week_count], response[:week_count])
         return response
       end
 
@@ -115,7 +115,7 @@ module Calculations
       def all_score_ranges_weekly_evolution_overview(agents, week, year = 2016)
         response = []
         Calculations::RANGE.each do |range_name, range_values|
-          element = {'range' => range_name}
+          element = { range: range_name }
           response << element.merge(score_range_weekly_evolution_snapshot(agents, range_name, week, year))
         end
         return response
@@ -174,13 +174,13 @@ module Calculations
     # font-awesome icons. Any change in the naming will thus break the view style.
     def trend(value_before, value_after)
       delta = value_after - value_before
-      case
-      when delta == 0
-        return 'right'
+      case delta
+      when 0
+        return "right"
       when delta > 0
-        return 'up'
+        return "up"
       when delta < 0
-        return 'down'
+        return "down"
       end
     end
   end
