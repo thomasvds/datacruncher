@@ -1,28 +1,28 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "teams-table", title: "SITUATION PER TEAM", explanation: "This chart shows for each team the share of employees that benefitted from the company sustainability policy." %>
+  <%= render 'reports/shared/panel_heading', modal_id: "modal-teams-table", collapse_id: "collapse-teams-table", title: "SITUATION PER TEAM", explanation: "This chart shows for each team the share of employees that benefitted from the company sustainability policy." %>
 
-  <table class="table">
-    <thead>
-      <th>Team</th>
-      <th>Last week score</th>
-      <% @policies_headers.each do |p| %>
-      <th><%= p %></th>
-      <% end %>
-    </thead>
-    <tbody>
-      <% @policies_per_team_data.each do |data| %>
-      <tr>
-        <td><%= link_to data["team"]["name"], team_report_path(data["team"]["id"]) %></td>
-        <td><div class="label label-sm label-<%= data["total score"]["range"]%>"><%= data["total score"]["value"]%>%</div></td>
-        <% i = 0 %>
-        <% data["policy scores"]["values"].each do |v| %>
-        <td><div class="label label-sm label-<%= data["policy scores"]["ranges"][i]%>"><%=v%>%</div></td>
-        <% i += 1 %>
+  <div class="collapse in" id="collapse-teams-table">
+    <table class="table">
+      <thead>
+        <th>Team</th>
+        <th>Last week score</th>
+        <% @policies_headers.each do |p| %>
+        <th><%= p %></th>
         <% end %>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @policies_per_team_data.each do |data| %>
+        <tr>
+          <td><%= link_to data["team"]["name"], team_report_path(data["team"]["id"]) %></td>
+          <td><div class="label label-sm label-<%= data["total score"]["range"]%>"><%= data["total score"]["value"]%>%</div></td>
+          <% data["policy values"].each do |policy| %>
+          <td><div class="label label-sm label-<%= policy["range"]%>"><%= policy["value"]%>%</div></td>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
 </div>

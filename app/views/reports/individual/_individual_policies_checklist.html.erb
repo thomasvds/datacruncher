@@ -6,14 +6,14 @@
   </div>
   <div class="checks">
     <ul class="fa-ul">
-      <% policies_check_list.each do |name, enforced| %>
+      <% policies_check_list.each do |policy| %>
       <li>
-        <% if enforced %>
+        <% if policy["value"] == 100 %>
         <i class="fa-li fa fa-check good"></i>
         <% else %>
         <i class="fa-li fa fa-times danger"></i>
         <% end %>
-        <%= name %>
+        <%= policy["name"] %>
       </li>
       <% end %>
     </ul>

@@ -1,30 +1,32 @@
 <div class="panel panel-default">
 
-  <%= render 'reports/shared/panel_heading', id: "individual-history", title: "TEAM MEMBERS OVERVIEW", explanation: "This box shows the individual score for all team tembers. You can consult the detailed individual reports for low-scoring members by clicking on their name." %>
+  <%= render 'reports/shared/panel_heading', modal_id: "modal-team-members", collapse_id: "collapse-team-members", title: "TEAM MEMBERS OVERVIEW", explanation: "This box shows the individual score for all team tembers. You can consult the detailed individual reports for low-scoring members by clicking on their name." %>
 
-  <div class="panel-body">
-    <div class="row">
-      <%@team_results.each do |k, v| %>
-      <div class="col-xs-3">
-        <% if (v["scores"]["last week"]["range"] == "danger" || v["scores"]["last week"]["range"] == "warning")%>
-        <%= link_to individual_report_path(v["employee"]["id"]) do %>
-        <%= render 'reports/team/team_member_small_card',
-        name: v["employee"]["name"],
-        position: v["employee"]["position"],
-        picture: v["employee"]["picture"],
-        score: v["scores"]["last week"]["value"],
-        range: v["scores"]["last week"]["range"]%>
-        <% end %>
-        <% else %>
-        <%= render 'reports/team/team_member_small_card',
-        name: v["employee"]["name"],
-        position: v["employee"]["position"],
-        picture: v["employee"]["picture"],
-        score: v["scores"]["last week"]["value"],
-        range: v["scores"]["last week"]["range"]%>
+  <div class="collapse in" id="collapse-team-members">
+    <div class="panel-body">
+      <div class="row">
+        <%@team_members_scores_data.each do |data| %>
+        <div class="col-xs-3">
+          <% if (data["scores"]["week"]["range"] == "danger" || data["scores"]["week"]["range"] == "warning")%>
+          <%= link_to individual_report_path(data["agent"]["id"]) do %>
+          <%= render 'reports/team/team_member_small_card',
+          name: data["agent"]["name"],
+          position: data["agent"]["position"],
+          picture: data["agent"]["picture_url"],
+          score: data["scores"]["week"]["score"],
+          range: data["scores"]["week"]["range"]%>
+          <% end %>
+          <% else %>
+          <%= render 'reports/team/team_member_small_card',
+          name: data["agent"]["name"],
+          position: data["agent"]["position"],
+          picture: data["agent"]["picture_url"],
+          score: data["scores"]["week"]["score"],
+          range: data["scores"]["week"]["range"]%>
+          <% end %>
+        </div>
         <% end %>
       </div>
-      <% end %>
     </div>
   </div>
 </div>

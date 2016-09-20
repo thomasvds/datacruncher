@@ -5,6 +5,7 @@ class CreateScores < ActiveRecord::Migration
       t.float :weekly_value
       t.float :moving_average_value
       t.integer :week
+      t.integer :year
 
       t.timestamps null: false
     end

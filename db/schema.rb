@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20160704085409) do
     t.integer  "agent_id"
     t.boolean  "enforced"
     t.integer  "week"
+    t.integer  "year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(version: 20160704085409) do
     t.float    "weekly_value"
     t.float    "moving_average_value"
     t.integer  "week"
+    t.integer  "year"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
