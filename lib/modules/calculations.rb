@@ -146,10 +146,10 @@ module Calculations
         Policy.enabled.each do |policy|
           value = group_policy_percentage(agents, policy, week, year)
           response << {
-            'name' => policy.name,
-            'weight' => (policy.policy_setting.weight * 100).round(1),
-            'value' => value,
-            'range' => value_range(value)
+            name: policy.name,
+            weight: (policy.policy_setting.weight * 100).round(1),
+            value: value,
+            range: value_range(value)
           }
         end
         return response
