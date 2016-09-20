@@ -8,10 +8,10 @@ class Agent < ActiveRecord::Base
 
   def info_hash
     return {
-      "name" => name,
-      "id" => id,
-      "position" => position,
-      "picture_url" => picture_url
+      name: name,
+      id: id,
+      position: position,
+      picture_url: picture_url
     }
   end
 end

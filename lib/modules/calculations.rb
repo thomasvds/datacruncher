@@ -85,8 +85,8 @@ module Calculations
         response = []
         agents.each do |a|
           response << {
-            'agent' => a.info_hash,
-            'scores' => individual_scores_snapshot(a, week, year)
+            agent: a.info_hash,
+            scores: individual_scores_snapshot(a, week, year)
           }
         end
         return response

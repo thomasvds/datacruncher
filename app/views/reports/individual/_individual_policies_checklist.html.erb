@@ -2,13 +2,11 @@
   <div class="total-score">
     <div class="label label-<%=score_range%>">
       Last week score: <%= score %> %
-      <%= @scores %>
     </div>
   </div>
   <div class="checks">
     <ul class="fa-ul">
       <% policies_check_list.each do |policy| %>
-      <%= policy[:value] %>
       <li>
         <% if policy[:value] == 100 %>
           <i class="fa-li fa fa-check good"></i>
