@@ -64,6 +64,7 @@ group :development, :test do
   gem 'poltergeist'
   gem 'launchy'
   gem 'minitest-reporters'
+  gem 'factory_girl_rails'
 end
 
 group :production do
