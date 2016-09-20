@@ -27,9 +27,9 @@ class ReportsController < ApplicationController
       score = group_score(members, @week, @year)
       range = value_range(score)
       @policies_per_team_data << {
-        'team' => team.info_hash,
-        'total score' => {'value' => score, 'range' => range},
-        'policy values' => all_policies_weekly_percentage_overview(members, @week, @year)
+        team: team.info_hash,
+        total_score: { value: score, range: range},
+        policy_values: all_policies_weekly_percentage_overview(members, @week, @year)
       }
     end
 
