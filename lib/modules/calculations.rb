@@ -42,7 +42,7 @@ module Calculations
     end
 
     # Return the moving average value for the given week
-    def moving_average_score_and_range(agent, week, year)
+    def individual_moving_average_score_and_range(agent, week, year)
       score = Score.where(agent: agent, week: week, year: year).first.moving_average_value.round(Calculations::METRICS_ROUNDING_LEVEL)
       range = value_range(score)
       return { score: score, range: range }
@@ -54,7 +54,7 @@ module Calculations
       return {
         week: individual_week_score_and_range(agent, week, year),
         previous_week: individual_week_score_and_range(agent, week - 1, year),
-        moving_average: moving_average_score_and_range(agent, week, year)
+        moving_average: individual_moving_average_score_and_range(agent, week, year)
       }
     end
   end
