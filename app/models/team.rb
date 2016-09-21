@@ -4,8 +4,8 @@ class Team < ActiveRecord::Base
 
   def info_hash
     return {
-      "name" => name,
-      "id" => id
+      name: name,
+      id: id
     }
   end
 end

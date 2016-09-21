@@ -34,25 +34,27 @@ module Calculations
 
   # For all calculation covering exactly 1 individual
   module Individuals
-    # Returns hash with the score and its range during a given week, with the
-    # option to return the moving average value for the given week
-    def individual_week_score_and_range(agent, week, year, moving_average = '')
-      if moving_average == 'moving_average'
-        score = Score.where(agent: agent, week: week, year: year).first.moving_average_value.round(Calculations::METRICS_ROUNDING_LEVEL)
-      else
-        score = Score.where(agent: agent, week: week, year: year).first.weekly_value.round(Calculations::METRICS_ROUNDING_LEVEL)
-      end
+    # Return hash with the score and its range during a given week
+    def individual_week_score_and_range(agent, week, year)
+      score = Score.where(agent: agent, week: week, year: year).first.weekly_value.round(Calculations::METRICS_ROUNDING_LEVEL)
       range = value_range(score)
-      return {'score' => score, 'range' => range}
+      return { score: score, range: range }
+    end
+
+    # Return the moving average value for the given week
+    def moving_average_score_and_range(agent, week, year)
+      score = Score.where(agent: agent, week: week, year: year).first.moving_average_value.round(Calculations::METRICS_ROUNDING_LEVEL)
+      range = value_range(score)
+      return { score: score, range: range }
     end
 
     # Returns hash with the three most commonly used score values and ranges:
     # weekly score, previous week score, and current moving average score
     def individual_scores_snapshot(agent, week, year)
       return {
-        'week' => individual_week_score_and_range(agent, week, year),
-        'previous_week' => individual_week_score_and_range(agent, week-1, year),
-        'moving_average' => individual_week_score_and_range(agent, week, year, 'moving_average')
+        week: individual_week_score_and_range(agent, week, year),
+        previous_week: individual_week_score_and_range(agent, week - 1, year),
+        moving_average: moving_average_score_and_range(agent, week, year)
       }
     end
   end
@@ -83,8 +85,8 @@ module Calculations
         response = []
         agents.each do |a|
           response << {
-            'agent' => a.info_hash,
-            'scores' => individual_scores_snapshot(a, week, year)
+            agent: a.info_hash,
+            scores: individual_scores_snapshot(a, week, year)
           }
         end
         return response
@@ -101,9 +103,9 @@ module Calculations
       # and for the week before, along with a trend description
       def score_range_weekly_evolution_snapshot(agents, range, week, year = 2016)
         response = {}
-        response['week_count'] = count_per_score_range(agents, range, week, year)
-        response['previous_week_count'] = count_per_score_range(agents, range, week - 1, year)
-        response['evolution'] = trend(response['previous_week_count'], response['week_count'])
+        response[:week_count] = count_per_score_range(agents, range, week, year)
+        response[:previous_week_count] = count_per_score_range(agents, range, week - 1, year)
+        response[:evolution] = trend(response[:previous_week_count], response[:week_count])
         return response
       end
 
@@ -113,7 +115,7 @@ module Calculations
       def all_score_ranges_weekly_evolution_overview(agents, week, year = 2016)
         response = []
         Calculations::RANGE.each do |range_name, range_values|
-          element = {'range' => range_name}
+          element = { range: range_name }
           response << element.merge(score_range_weekly_evolution_snapshot(agents, range_name, week, year))
         end
         return response
@@ -144,10 +146,10 @@ module Calculations
         Policy.enabled.each do |policy|
           value = group_policy_percentage(agents, policy, week, year)
           response << {
-            'name' => policy.name,
-            'weight' => (policy.policy_setting.weight * 100).round(1),
-            'value' => value,
-            'range' => value_range(value)
+            name: policy.name,
+            weight: (policy.policy_setting.weight * 100).round(1),
+            value: value,
+            range: value_range(value)
           }
         end
         return response
@@ -172,14 +174,9 @@ module Calculations
     # font-awesome icons. Any change in the naming will thus break the view style.
     def trend(value_before, value_after)
       delta = value_after - value_before
-      case
-      when delta == 0
-        return 'right'
-      when delta > 0
-        return 'up'
-      when delta < 0
-        return 'down'
-      end
+      return "right" if delta == 0
+      return "up" if delta > 0
+      return "down" if delta < 0
     end
   end
 end
