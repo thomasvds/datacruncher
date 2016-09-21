@@ -126,8 +126,13 @@ module Calculations
     module Policies
 
       # Returns the percentage of enforcement of the given policy for the
-      # given group during the given week of the given year
+      # given group during the given week of the given year. Note that this
+      # method is agnostic of the enabled/disabled state of the policy
       def group_policy_percentage(agents, policy, week, year)
+
+        raise ArgumentError, 'Agents must be a collection, not a single agent' unless agents.respond_to?(:count)
+        raise ArgumentError, 'Agents must contain at least one agent' unless agents.count > 0
+
         number_enforced = PolicyCheck.where(week: week, year: year, policy: policy, agent: agents, enforced: true).count
         return (number_enforced.fdiv(agents.count) * 100).round(Calculations::METRICS_ROUNDING_LEVEL)
       end

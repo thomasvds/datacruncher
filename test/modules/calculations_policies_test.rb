@@ -19,9 +19,26 @@ class CalculationsPoliciesTest < ActiveSupport::TestCase
     @disabled_policy = Policy.create(name: "disabled", timeframe: "on weekends", adverb: "at all")
     @disabled_setting = PolicySetting.create(policy: @disabled_policy, weight: 0.5, enabled: false)
     @check = PolicyCheck.create(agent: @agent, policy: @policy, week: @week, year: @year, enforced: true)
+    @check_2 = PolicyCheck.create(agent: @agent_2, policy: @policy, week: @week, year: @year, enforced: false)
   end
 
-  test "all_policies_weekly_percentage_overview should raise an error if agents contains zero agents" do
+  test "group_policy_percentage raises an error if agents contains zero agents" do
+    assert_raise ArgumentError do
+      group_policy_percentage([], @week, @year)
+    end
+  end
+
+  test "group_policy_percentage raises an error if agents is a single agent not part of a collection" do
+    assert_raise ArgumentError do
+      group_policy_percentage(@agent, @week, @year)
+    end
+  end
+
+  test "group_policy_percentage returns the proportion of policies enforced" do
+    assert group_policy_percentage(Agent.all, @policy, @week, @year), 50
+  end
+
+  test "all_policies_weekly_percentage_overview raises an error if agents contains zero agents" do
     assert_raise ArgumentError do
       all_policies_weekly_percentage_overview([], @week, @year)
     end
