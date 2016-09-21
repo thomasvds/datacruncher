@@ -36,6 +36,9 @@ module Calculations
   module Individuals
     # Return hash with the score and its range during a given week
     def individual_week_score_and_range(agent, week, year)
+
+      raise ArgumentError, 'Agent must be a single Agent, not a collection' unless agent.instance_of?(Agent)
+
       score = Score.where(agent: agent, week: week, year: year).first.weekly_value.round(Calculations::METRICS_ROUNDING_LEVEL)
       range = value_range(score)
       return { score: score, range: range }
