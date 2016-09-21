@@ -8,8 +8,8 @@
         <div class="row">
           <% @policies_enforcement_data.each do |p| %>
           <div class="col-xs-2">
-            <% chart_id = "gauge_#{p["name"]}" %>
-            <%= render 'reports/charts/chart_policy_gauge', chart_id: chart_id, policy: p["name"], value: p["value"], weight: p["weight"], title_suffix: "%", sub_title: "of employees" %>
+            <% chart_id = "gauge_#{p[:name]}" %>
+            <%= render 'reports/charts/chart_policy_gauge', chart_id: chart_id, policy: p[:name], value: p[:value], weight: p[:weight], title_suffix: "%", sub_title: "of employees" %>
           </div>
           <% end %>
         </div>

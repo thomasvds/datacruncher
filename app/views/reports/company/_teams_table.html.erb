@@ -14,10 +14,10 @@
       <tbody>
         <% @policies_per_team_data.each do |data| %>
         <tr>
-          <td><%= link_to data["team"]["name"], team_report_path(data["team"]["id"]) %></td>
-          <td><div class="label label-sm label-<%= data["total score"]["range"]%>"><%= data["total score"]["value"]%>%</div></td>
-          <% data["policy values"].each do |policy| %>
-          <td><div class="label label-sm label-<%= policy["range"]%>"><%= policy["value"]%>%</div></td>
+          <td><%= link_to data[:team][:name], team_report_path(data[:team][:id]) %></td>
+          <td><div class="label label-sm label-<%= data[:total_score][:range]%>"><%= data[:total_score][:value]%>%</div></td>
+          <% data[:policy_values].each do |policy| %>
+          <td><div class="label label-sm label-<%= policy[:range]%>"><%= policy[:value]%>%</div></td>
           <% end %>
         </tr>
         <% end %>

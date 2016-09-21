@@ -18,9 +18,9 @@
         <tbody>
           <% @per_agents_data.each do |data| %>
           <tr>
-            <td><%= link_to data["agent"]["name"], individual_report_path(data["agent"]["id"]) %></td>
-            <% data["scores"].each do |s| %>
-            <td><div class="label label-sm label-<%= s[1]["range"]%>"><%=s[1]["score"]%>%</div></td>
+            <td><%= link_to data[:agent][:name], individual_report_path(data[:agent][:id]) %></td>
+            <% data[:scores].each do |s| %>
+            <td><div class="label label-sm label-<%= s[1][:range]%>"><%=s[1][:score]%>%</div></td>
             <% end %>
           </tr>
           <% end %>
