@@ -174,14 +174,9 @@ module Calculations
     # font-awesome icons. Any change in the naming will thus break the view style.
     def trend(value_before, value_after)
       delta = value_after - value_before
-      case delta
-      when 0
-        return "right"
-      when delta > 0
-        return "up"
-      when delta < 0
-        return "down"
-      end
+      return "right" if delta == 0
+      return "up" if delta > 0
+      return "down" if delta < 0
     end
   end
 end
