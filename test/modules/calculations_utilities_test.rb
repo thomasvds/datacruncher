@@ -83,12 +83,19 @@ class CalculationsUtilitiesTest < ActiveSupport::TestCase
     assert_equal 'right', trend(before, after)
   end
 
-  RANGE = {
-    'great' => 81..100,
-    'good' => 61..80,
-    'warning' => 41..60,
-    'danger' => 0..40
-  }
+  test "range raises an exception for negative value" do
+    value = -1
+    assert_raises ArgumentError do
+      value_range(value)
+    end
+  end
+
+  test "range raises an exception for value above 100" do
+    value = 101
+    assert_raises ArgumentError do
+      value_range(value)
+    end
+  end
 
   test "range returns 'great' for value of 81" do
     value = 81
@@ -103,6 +110,51 @@ class CalculationsUtilitiesTest < ActiveSupport::TestCase
   test "range returns 'great' for a random value between 82 and 99 included" do
     value = 82 + rand(18)
     assert_equal 'great', value_range(value)
+  end
+
+  test "range returns 'good' for value of 61" do
+    value = 61
+    assert_equal 'good', value_range(value)
+  end
+
+  test "range returns 'good' for value of 80" do
+    value = 80
+    assert_equal 'good', value_range(value)
+  end
+
+  test "range returns 'good' for a random value between 62 and 79 included" do
+    value = 62 + rand(18)
+    assert_equal 'good', value_range(value)
+  end
+
+  test "range returns 'warning' for value of 41" do
+    value = 41
+    assert_equal 'warning', value_range(value)
+  end
+
+  test "range returns 'warning' for value of 60" do
+    value = 60
+    assert_equal 'warning', value_range(value)
+  end
+
+  test "range returns 'warning' for a random value between 42 and 59 included" do
+    value = 42 + rand(18)
+    assert_equal 'warning', value_range(value)
+  end
+
+  test "range returns 'danger' for value of 0" do
+    value = 0
+    assert_equal 'danger', value_range(value)
+  end
+
+  test "range returns 'danger' for value of 40" do
+    value = 40
+    assert_equal 'danger', value_range(value)
+  end
+
+  test "range returns 'danger' for a random value between 1 and 39 included" do
+    value = 1 + rand(39)
+    assert_equal 'danger', value_range(value)
   end
 
 end

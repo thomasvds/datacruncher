@@ -162,6 +162,7 @@ module Calculations
 
     # Returns the range name for a given value
     def value_range(value)
+      raise ArgumentError, 'Value should be comprised between 0 and 100' unless (0..100).cover?(value)
       Calculations::RANGE.each do |range_name, range_values|
         if range_values.cover?(value)
           return range_name
