@@ -46,14 +46,20 @@ module Calculations
 
     # Return the moving average value for the given week
     def individual_moving_average_score_and_range(agent, week, year)
+
+      raise ArgumentError, 'Agent must be a single Agent, not a collection' unless agent.instance_of?(Agent)
+
       score = Score.where(agent: agent, week: week, year: year).first.moving_average_value.round(Calculations::METRICS_ROUNDING_LEVEL)
       range = value_range(score)
       return { score: score, range: range }
     end
 
-    # Returns hash with the three most commonly used score values and ranges:
+    # Returns hash with the three hashes of most commonly used score values and ranges:
     # weekly score, previous week score, and current moving average score
     def individual_scores_snapshot(agent, week, year)
+
+      raise ArgumentError, 'Agent must be a single Agent, not a collection' unless agent.instance_of?(Agent)
+
       return {
         week: individual_week_score_and_range(agent, week, year),
         previous_week: individual_week_score_and_range(agent, week - 1, year),
