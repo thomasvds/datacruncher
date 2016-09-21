@@ -15,4 +15,9 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
+// Vendor Files
+//= require highcharts
+//= require highcharts-more
+//= require highcharts_theme
+//= require solid-gauge
 //= require_tree .
