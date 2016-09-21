@@ -76,21 +76,31 @@ module Calculations
     module Scores
 
       # Returns the average score of the given agents collection during
-      # the given week of the given year
-      # TODO handle the case of no score existing for a given week, currently
-      # put at 100 by default
-      def group_score(agents, week, year)
+      # the given week of the given year, for the agents that have a score
+      # for this week (other agents filtered out). If there is no score at all
+      # that exists for this week, "nil" is returned instead; it appears as
+      # a blank point in the highcharts charts in the view.
+      def group_weekly_score(agents, week, year)
+
+        raise ArgumentError, 'Agents must be a collection, not a single agent' unless agents.respond_to?(:count)
+        raise ArgumentError, 'Agents must contain at least one agent' unless agents.count > 0
+
         members_scores = Score.where(agent: agents, week: week, year: year).pluck(:weekly_value)
-        if members_scores.count >= 1
-          return members_scores.sum.fdiv(members_scores.count).round(Calculations::METRICS_ROUNDING_LEVEL)
-        else
-          return 100
-        end
+
+        return nil unless members_scores.count > 0
+        # Note: important to use a count of members_scores vs. on agents,
+        # so that agents that don't have a score for the week are not counted
+        # in in the average - they are basically left out
+        return members_scores.sum.fdiv(members_scores.count).round(Calculations::METRICS_ROUNDING_LEVEL)
       end
 
       # Returns array of hashes where each hash contains the agent details
       # and its three common score metrics
       def group_array_of_info_and_scores(agents, week, year)
+
+        raise ArgumentError, 'Agents must be a collection, not a single agent' unless agents.respond_to?(:count)
+        raise ArgumentError, 'Agents must contain at least one agent' unless agents.count > 0
+
         response = []
         agents.each do |a|
           response << {
@@ -104,6 +114,11 @@ module Calculations
       # Returns integer number of agents within a certain score range during
       # the given week of the given year
       def count_per_score_range(agents, range, week, year)
+
+        raise ArgumentError, 'Agents must be a collection, not a single agent' unless agents.respond_to?(:count)
+        raise ArgumentError, 'Agents must contain at least one agent' unless agents.count > 0
+        raise ArgumentError, 'This range does not exist, check the spelling' unless Calculations::RANGE.include?(range)
+
         value = Calculations::RANGE[range]
         return Score.where(week: week, weekly_value: value, year: year, agent: agents).count
       end
@@ -111,6 +126,11 @@ module Calculations
       # Returns hash containing count per range for the given week
       # and for the week before, along with a trend description
       def score_range_weekly_evolution_snapshot(agents, range, week, year)
+
+        raise ArgumentError, 'Agents must be a collection, not a single agent' unless agents.respond_to?(:count)
+        raise ArgumentError, 'Agents must contain at least one agent' unless agents.count > 0
+        raise ArgumentError, 'This range does not exist, check the spelling' unless Calculations::RANGE.include?(range)
+
         response = {}
         response[:week_count] = count_per_score_range(agents, range, week, year)
         response[:previous_week_count] = count_per_score_range(agents, range, week - 1, year)
@@ -122,6 +142,10 @@ module Calculations
       # evolutions for the given week, where each hash contains the range name,
       # weekly and previous weekly value, and the weekly trend
       def all_score_ranges_weekly_evolution_overview(agents, week, year)
+
+        raise ArgumentError, 'Agents must be a collection, not a single agent' unless agents.respond_to?(:count)
+        raise ArgumentError, 'Agents must contain at least one agent' unless agents.count > 0
+
         response = []
         Calculations::RANGE.each do |range_name, range_values|
           element = { range: range_name }
