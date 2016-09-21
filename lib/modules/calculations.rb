@@ -70,7 +70,7 @@ module Calculations
       # the given week of the given year
       # TODO handle the case of no score existing for a given week, currently
       # put at 100 by default
-      def group_score(agents, week, year = 2016)
+      def group_score(agents, week, year)
         members_scores = Score.where(agent: agents, week: week, year: year).pluck(:weekly_value)
         if members_scores.count >= 1
           return members_scores.sum.fdiv(members_scores.count).round(Calculations::METRICS_ROUNDING_LEVEL)
@@ -81,7 +81,7 @@ module Calculations
 
       # Returns array of hashes where each hash contains the agent details
       # and its three common score metrics
-      def group_array_of_info_and_scores(agents, week, year = 2016)
+      def group_array_of_info_and_scores(agents, week, year)
         response = []
         agents.each do |a|
           response << {
@@ -94,14 +94,14 @@ module Calculations
 
       # Returns integer number of agents within a certain score range during
       # the given week of the given year
-      def count_per_score_range(agents, range, week, year = 2016)
-        values = Calculations::RANGE[range]
-        return Score.where(week: week, weekly_value: values, year: year, agent: agents).count
+      def count_per_score_range(agents, range, week, year)
+        value = Calculations::RANGE[range]
+        return Score.where(week: week, weekly_value: value, year: year, agent: agents).count
       end
 
       # Returns hash containing count per range for the given week
       # and for the week before, along with a trend description
-      def score_range_weekly_evolution_snapshot(agents, range, week, year = 2016)
+      def score_range_weekly_evolution_snapshot(agents, range, week, year)
         response = {}
         response[:week_count] = count_per_score_range(agents, range, week, year)
         response[:previous_week_count] = count_per_score_range(agents, range, week - 1, year)
@@ -112,7 +112,7 @@ module Calculations
       # Returns array of hashes that is a full description of all ranges
       # evolutions for the given week, where each hash contains the range name,
       # weekly and previous weekly value, and the weekly trend
-      def all_score_ranges_weekly_evolution_overview(agents, week, year = 2016)
+      def all_score_ranges_weekly_evolution_overview(agents, week, year)
         response = []
         Calculations::RANGE.each do |range_name, range_values|
           element = { range: range_name }
@@ -128,7 +128,7 @@ module Calculations
       # Returns the percentage of enforcement of the given policy for the
       # given group during the given week of the given year
       # TODO: handle 1-agent query in a nicer way
-      def group_policy_percentage(agents, policy, week, year = 2016)
+      def group_policy_percentage(agents, policy, week, year)
         number_enforced = PolicyCheck.where(week: week, year: year, policy: policy, agent: agents, enforced: true).count
         if agents.respond_to?(:count)
           return (number_enforced.fdiv(agents.count) * 100).round(Calculations::METRICS_ROUNDING_LEVEL)
@@ -141,7 +141,7 @@ module Calculations
       # enforcement for the given week, for enabled policies only. Each hash
       # contains the policy name, weekly value, weekly value range, and the
       # policy weight normalized to 100
-      def all_policies_weekly_percentage_overview(agents, week, year = 2016)
+      def all_policies_weekly_percentage_overview(agents, week, year)
         response = []
         Policy.enabled.each do |policy|
           value = group_policy_percentage(agents, policy, week, year)
