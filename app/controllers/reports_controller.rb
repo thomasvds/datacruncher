@@ -24,7 +24,7 @@ class ReportsController < ApplicationController
     @policies_per_team_data = []
     Team.all.each do |team|
       members = team.agents
-      score = group_score(members, @week, @year)
+      score = group_weekly_score(members, @week, @year)
       range = value_range(score)
       @policies_per_team_data << {
         team: team.info_hash,
@@ -44,7 +44,7 @@ class ReportsController < ApplicationController
       Calculations::RANGE.each do |range_name, range_values|
         @company_score_ranges_share_by_week[range_name] << count_per_score_range(agents, range_name, w, @year)
       end
-      @company_average_weekly_score_by_week['Company average'] << group_score(agents, w, @year)
+      @company_average_weekly_score_by_week['Company average'] << group_weekly_score(agents, w, @year)
     end
   end
 
@@ -61,7 +61,7 @@ class ReportsController < ApplicationController
     # team average score
     team_average = []
     @list_of_weeks.each do |w|
-      team_average << group_score(@members, w, @year)
+      team_average << group_weekly_score(@members, w, @year)
     end
     # individual weekly scores
     score = {}
