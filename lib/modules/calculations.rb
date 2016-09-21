@@ -127,14 +127,9 @@ module Calculations
 
       # Returns the percentage of enforcement of the given policy for the
       # given group during the given week of the given year
-      # TODO: handle 1-agent query in a nicer way
       def group_policy_percentage(agents, policy, week, year)
         number_enforced = PolicyCheck.where(week: week, year: year, policy: policy, agent: agents, enforced: true).count
-        if agents.respond_to?(:count)
-          return (number_enforced.fdiv(agents.count) * 100).round(Calculations::METRICS_ROUNDING_LEVEL)
-        else
-          return number_enforced * 100
-        end
+        return (number_enforced.fdiv(agents.count) * 100).round(Calculations::METRICS_ROUNDING_LEVEL)
       end
 
       # Returns an array of hashes that is a full description of all policies
@@ -142,6 +137,12 @@ module Calculations
       # contains the policy name, weekly value, weekly value range, and the
       # policy weight normalized to 100
       def all_policies_weekly_percentage_overview(agents, week, year)
+        # Convert the agents argument to an array, as this enable to
+        # reuse the method for individuals too
+        agents = [agents] unless agents.respond_to?(:count)
+
+        raise ArgumentError, 'Agents must contain at least one agent' unless agents.count > 0
+
         response = []
         Policy.enabled.each do |policy|
           value = group_policy_percentage(agents, policy, week, year)
@@ -162,7 +163,9 @@ module Calculations
 
     # Returns the range name for a given value
     def value_range(value)
+
       raise ArgumentError, 'Value should be comprised between 0 and 100' unless (0..100).cover?(value)
+
       Calculations::RANGE.each do |range_name, range_values|
         if range_values.cover?(value)
           return range_name
