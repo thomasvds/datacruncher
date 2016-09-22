@@ -2,102 +2,105 @@
 
 <% content_for :javascript do %>
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
-// Apply the theme
-<%= render file: "#{Rails.root}/app/assets/javascripts/highcharts_theme.js" %>
-Highcharts.setOptions(Highcharts.theme);
+    $("#<%= chart_id %>").ready(function () {
 
-$(function () {
-  var chart = new Highcharts.chart({
-    chart: {
-      type: 'area',
-      renderTo: '<%= chart_id %>'
-    },
-    title: {
-      text: '<%= title %>',
-        x: -20 //center
-      },
-      xAxis: {
-        categories: <%= raw(xaxis) %>
-      },
-      exporting: {
-       enabled: false
-     },
-     credits: {
-      enabled: false
-    },
-    yAxis: {
-      min: 16,
-      max: 24,
-      tickInterval: 2,
-      title: {
-        text: '<%= yaxistitle %>'
-      },
-      labels: {
-        formatter: function() {
-         return this.value+":00";
-       }
-     },
-     minorGridLineWidth: 0,
-     gridLineWidth: 0,
-     alternateGridColor: null,
-            plotBands: [{ // Light air
-              from: 16,
-              to: 20,
-              color: 'rgba(68, 170, 213, 0.5)',
-              label: {
-                text: 'Standard hours',
-                style: {
-                  color: 'white'
-                }
-              }
-            }, { // Gentle breeze
-              from: 20,
-              to: 22,
-              color: 'rgba(240, 173, 78, 0.5)',
-              label: {
-                text: 'Late night',
-                style: {
-                  color: 'white'
-                }
-              }
-            }, { // Moderate breeze
-              from: 22,
-              to: 25,
-              color: 'rgba(217, 83, 79, 0.5)',
-              label: {
-                text: 'Danger zone',
-                style: {
-                  color: 'white'
-                }
-              }
-            }]
+      // Apply the theme
+      <%= render file: "#{Rails.root}/vendor/assets/javascripts/highcharts_theme.js" %>
+      Highcharts.setOptions(Highcharts.theme);
+
+      $(function () {
+        var chart = new Highcharts.chart({
+          chart: {
+            type: 'area',
+            renderTo: '<%= chart_id %>'
           },
-          plotOptions: {
-            area: {
-              fillOpacity: 0.2
-            }
+          title: {
+            text: '<%= title %>',
+              x: -20 //center
+            },
+            xAxis: {
+              categories: <%= raw(xaxis) %>
+            },
+            exporting: {
+             enabled: false
+           },
+           credits: {
+            enabled: false
           },
-          legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-          },
-          series: [
-          <% data.each do |k, v| %>
-          {
-            name: '<%= k %>',
-            data: <%= v.to_json %>
-          },
-          <% end %>
-          ]
-        });
-});
+          yAxis: {
+            min: 16,
+            max: 24,
+            tickInterval: 2,
+            title: {
+              text: '<%= yaxistitle %>'
+            },
+            labels: {
+              formatter: function() {
+               return this.value+":00";
+             }
+           },
+           minorGridLineWidth: 0,
+           gridLineWidth: 0,
+           alternateGridColor: null,
+                  plotBands: [{ // Light air
+                    from: 16,
+                    to: 20,
+                    color: 'rgba(68, 170, 213, 0.5)',
+                    label: {
+                      text: 'Standard hours',
+                      style: {
+                        color: 'white'
+                      }
+                    }
+                  }, { // Gentle breeze
+                    from: 20,
+                    to: 22,
+                    color: 'rgba(240, 173, 78, 0.5)',
+                    label: {
+                      text: 'Late night',
+                      style: {
+                        color: 'white'
+                      }
+                    }
+                  }, { // Moderate breeze
+                    from: 22,
+                    to: 25,
+                    color: 'rgba(217, 83, 79, 0.5)',
+                    label: {
+                      text: 'Danger zone',
+                      style: {
+                        color: 'white'
+                      }
+                    }
+                  }]
+                },
+                plotOptions: {
+                  area: {
+                    fillOpacity: 0.2
+                  }
+                },
+                legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'middle',
+                  borderWidth: 0
+                },
+                series: [
+                <% data.each do |k, v| %>
+                {
+                  name: '<%= k %>',
+                  data: <%= v.to_json %>
+                },
+                <% end %>
+                ]
+              });
+      });
 
-</script>
 
+    });
 
+  </script>
 
 <% end %>
