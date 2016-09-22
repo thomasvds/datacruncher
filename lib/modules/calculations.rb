@@ -29,6 +29,10 @@ module Calculations
     'danger' => 0..40
   }
 
+  # Default score and range in case no score exists
+  DEFAULT_SCORE = nil
+  DEFAULT_SCORE_RANGE = 'none'
+
   # Rounding level: use no decimals
   METRICS_ROUNDING_LEVEL = 0
 
@@ -39,7 +43,8 @@ module Calculations
 
       raise ArgumentError, 'Agent must be a single Agent, not a collection' unless agent.instance_of?(Agent)
 
-      score = Score.where(agent: agent, week: week, year: year).first.weekly_value.round(Calculations::METRICS_ROUNDING_LEVEL)
+      score = Score.where(agent: agent, week: week, year: year).first
+      score.nil? ? score = Calculations::DEFAULT_SCORE : score = score.weekly_value.round(Calculations::METRICS_ROUNDING_LEVEL)
       range = value_range(score)
       return { score: score, range: range }
     end
@@ -49,7 +54,8 @@ module Calculations
 
       raise ArgumentError, 'Agent must be a single Agent, not a collection' unless agent.instance_of?(Agent)
 
-      score = Score.where(agent: agent, week: week, year: year).first.moving_average_value.round(Calculations::METRICS_ROUNDING_LEVEL)
+      score = Score.where(agent: agent, week: week, year: year).first
+      score.nil? ? score = Calculations::DEFAULT_SCORE : score = score.moving_average_value.round(Calculations::METRICS_ROUNDING_LEVEL)
       range = value_range(score)
       return { score: score, range: range }
     end
@@ -202,7 +208,9 @@ module Calculations
     # Returns the range name for a given value
     def value_range(value)
 
-      raise ArgumentError, 'Value should be comprised between 0 and 100' unless (0..100).cover?(value)
+      return Calculations::DEFAULT_SCORE_RANGE if value == Calculations::DEFAULT_SCORE
+
+      raise ArgumentError, 'Value should be comprised between 0 and 100, or be the default score if no score exists' unless (0..100).cover?(value)
 
       Calculations::RANGE.each do |range_name, range_values|
         if range_values.cover?(value)

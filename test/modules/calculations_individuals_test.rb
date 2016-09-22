@@ -1,4 +1,5 @@
 require 'test_helper'
+include Calculations
 include Calculations::Individuals
 # Note that Calculations::Utilities needs to be included as it is used in
 # the Individuals submodules
@@ -10,6 +11,7 @@ include Calculations::Utilities
 class CalculationsIndividualsTest < ActiveSupport::TestCase
   def setup
     @week = 32
+    @week_with_no_score = 33
     @year = 2016
     @agent = Agent.create(name: "John Doe")
     @agent_2 = Agent.create(name: "Smith Anderson")
@@ -30,6 +32,11 @@ class CalculationsIndividualsTest < ActiveSupport::TestCase
     end
   end
 
+  test "individual_week_score_and_range returns the default score and range if no score exists" do
+    expected = {score: Calculations::DEFAULT_SCORE, range: Calculations::DEFAULT_SCORE_RANGE}
+    assert_equal expected, individual_week_score_and_range(@agent, @week_with_no_score, @year)
+  end
+
   test "individual_moving_average_score_and_range returns a hash with score and range" do
     result = individual_moving_average_score_and_range(@agent, @week, @year)
     assert_instance_of Hash, result
@@ -41,6 +48,11 @@ class CalculationsIndividualsTest < ActiveSupport::TestCase
     assert_raise ArgumentError do
       individual_moving_average_score_and_range(Agent.all, @week, @year)
     end
+  end
+
+  test "individual_moving_average_score_and_range returns the default score and range if no score exists" do
+    expected = {score: Calculations::DEFAULT_SCORE, range: Calculations::DEFAULT_SCORE_RANGE}
+    assert_equal expected, individual_moving_average_score_and_range(@agent, @week_with_no_score, @year)
   end
 
   test "individual_scores_snapshot raises an error if given a collection of agents" do
