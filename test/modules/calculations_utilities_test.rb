@@ -1,4 +1,5 @@
 require 'test_helper'
+include Calculations
 include Calculations::Utilities
 
 # To run this specific test only, run:
@@ -95,6 +96,11 @@ class CalculationsUtilitiesTest < ActiveSupport::TestCase
     assert_raises ArgumentError do
       value_range(value)
     end
+  end
+
+  test "range returns the default score range for the default score value" do
+    value = Calculations::DEFAULT_SCORE
+    assert_equal value_range(value), Calculations::DEFAULT_SCORE_RANGE
   end
 
   test "range returns 'great' for value of 81" do
