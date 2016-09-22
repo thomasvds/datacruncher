@@ -1,0 +1,12 @@
+sophia:
+  id: 1
+  name: "Sophia Wright"
+  position: "Consultant"
+  picture_url: "https://randomuser.me/api/portraits/women/70.jpg"
+  super_care: false
+sara:
+  id: 50
+  name: "Sara Savela"
+  position: "Consultant"
+  picture_url: "https://randomuser.me/api/portraits/women/87.jpg"
+  super_care: true

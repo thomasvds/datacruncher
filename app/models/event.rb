@@ -1,7 +1,22 @@
 class Event < ActiveRecord::Base
-  belongs_to :agent
+  # == Constants ============================================================
   CATEGORIES = ['production', 'communication', 'consultation', 'other']
 
+  # == Attributes ===========================================================
+
+  # == Extensions ===========================================================
+
+  # == Relationships ========================================================
+  belongs_to :agent
+
+  # == Validations ==========================================================
+  validates :date, presence: true
+
+  # == Scopes ===============================================================
+
+  # == Callbacks ============================================================
+
+  # == Class Methods ========================================================
   def self.volume_by_date(agent, start_date, end_date)
     date_range = start_date..end_date
     dates = date_range.map {|d| d.strftime '%d/%m' }
@@ -77,4 +92,7 @@ class Event < ActiveRecord::Base
     end
     return false
   end
+
+  # == Instance Methods =====================================================
+
 end
