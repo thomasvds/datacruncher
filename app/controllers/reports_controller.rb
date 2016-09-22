@@ -112,7 +112,7 @@ class ReportsController < ApplicationController
 
   # TODO: handle the case of week 1
   def set_date
-    params[:date].nil? ? @today = Date.parse('2016-08-14') : @today = Date.parse(params[:date])
+    params[:date].nil? ? @today = Date.parse('2016-09-18') : @today = Date.parse(params[:date])
     @week  = @today.cweek
     @year = @today.year
     one_week_ago = @today - 6
