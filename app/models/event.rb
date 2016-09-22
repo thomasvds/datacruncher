@@ -10,7 +10,7 @@ class Event < ActiveRecord::Base
   belongs_to :agent
 
   # == Validations ==========================================================
-  validates :date, presence: true
+  validates :agent, presence: true
 
   # == Scopes ===============================================================
 
