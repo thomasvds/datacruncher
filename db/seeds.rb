@@ -32,7 +32,8 @@ team_names.each do |t|
 end
 
 # Staff employees
-current_agent_id = 1
+agents = Agent.all
+current_agent_id = 0
 Team.all.count.times do |i|
   if i == 0  # count of i starts at zero!
     t = Team.first
@@ -40,7 +41,7 @@ Team.all.count.times do |i|
     t = Team.second
   end
   team_sizes[i].times do |j|
-    Staffing.create(team: t, agent: Agent.find(current_agent_id))
+    Staffing.create(team: t, agent: agents[current_agent_id])
     current_agent_id += 1
   end
 end

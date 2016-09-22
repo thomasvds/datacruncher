@@ -13,11 +13,6 @@ class ReportsController < ApplicationController
   def company
     agents = Agent.all
 
-    p "**********"
-    p "=====In controller, the Agent.all command returns:====="
-    p Agent.all
-    p "**********"
-
     # NUMBER OF AGENTS PER SCORE BOX AND TRENDS
     @score_ranges_boxes_data = all_score_ranges_weekly_evolution_overview(agents, @week, @year)
 
