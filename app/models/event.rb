@@ -1,22 +1,22 @@
 class Event < ActiveRecord::Base
-  belongs_to :agent
+  # == Constants ============================================================
   CATEGORIES = ['production', 'communication', 'consultation', 'other']
 
-  def self.volume_by_date(agent, start_date, end_date)
-    date_range = start_date..end_date
-    dates = date_range.map {|d| d.strftime '%d/%m' }
+  # == Attributes ===========================================================
 
-    data = Hash.new { |h, k| h[k] = []}
+  # == Extensions ===========================================================
 
-    CATEGORIES.each do |c|
-      date_range.each do |date|
-        data[c] << Event.where(agent: agent, date: date).count
-      end
-    end
+  # == Relationships ========================================================
+  belongs_to :agent
 
-    return dates, data
-  end
+  # == Validations ==========================================================
+  validates :agent, presence: true
 
+  # == Scopes ===============================================================
+
+  # == Callbacks ============================================================
+
+  # == Class Methods ========================================================
   def self.hour_of_last_event_by_date(agent, date_range)
     result = Hash.new { |h, k| h[k] = []}
 
@@ -77,4 +77,7 @@ class Event < ActiveRecord::Base
     end
     return false
   end
+
+  # == Instance Methods =====================================================
+
 end

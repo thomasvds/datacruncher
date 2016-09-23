@@ -1,12 +1,28 @@
 class Policy < ActiveRecord::Base
+  # == Constants ============================================================
+
+  # == Attributes ===========================================================
   has_one :policy_setting
   has_many :policy_checks
 
+  # == Extensions ===========================================================
+
+  # == Relationships ========================================================
+
+  # == Validations ==========================================================
+  validates :name, presence: true
+
+  # == Scopes ===============================================================
+
+  # == Callbacks ============================================================
+
+  # == Class Methods ========================================================
   # Returns only the enabled policies
   def self.enabled
     all.select { |policy| policy.enabled? == true }
   end
 
+  # == Instance Methods =====================================================
   # Shortcut to check whether policy is enabled
   def enabled?
     return policy_setting.enabled
