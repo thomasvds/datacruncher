@@ -18,5 +18,8 @@ Rails.application.routes.draw do
   get 'orchestractor/slack'
   get 'orchestractor/github'
 
+  get 'reports/data'
+  get 'reports/testjson'
+
   root to: 'reports#company'
 end

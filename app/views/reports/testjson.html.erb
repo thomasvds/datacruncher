@@ -1,0 +1,35 @@
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<button id="3button" type="button" class="btn btn-default">3 days</button>
+<button id="5button" type="button" class="btn btn-default">5 days</button>
+
+
+<script>
+  $(document).ready(function() {
+    $( "#3button" ).click(function() {
+      loadChartData("13/09/2016", "15/09/2016");
+    })
+  });
+
+  $( "#5button" ).click(function() {
+    loadChartData("10/09/2016", "15/09/2016");
+  });
+
+  function loadChartData (startDate, endDate) {
+    $.getJSON("data.json", {startdate: startDate, enddate: endDate}, function(data) {
+      $("#container").highcharts().xAxis[0].setCategories(data.categories)
+      $("#container").highcharts().series[0].setData(data.values)
+    })
+  }
+
+  $(function () {
+    $('#container').highcharts({
+      xAxis: {
+        categories: ['A', 'B', 'C']
+      },
+      series: [{
+        data: [5, 10, 8]
+      }]
+    });
+  });
+</script>

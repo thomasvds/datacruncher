@@ -10,6 +10,28 @@ class ReportsController < ApplicationController
   include Calculations::Groups::Scores
   include Calculations::Groups::Policies
 
+  def data
+    agent = Agent.first
+
+    start_date = Date.parse(params[:startdate])
+    end_date = Date.parse(params[:enddate])
+    dates = start_date..end_date
+
+    categories = dates.map {|d| d.strftime '%a %d/%m' }
+    # TODO: somehow there is an infinite db query to retrieve events
+    p "***********"
+    p Event.where(agent: agent).count
+    p "***********"
+    # values = Event.hour_of_last_event_by_date(agent, [Date.today])[:production]
+
+    response = {values: values, categories: categories}
+
+    render json: data
+  end
+
+  def testjson
+  end
+
   def company
     agents = Agent.all
 
