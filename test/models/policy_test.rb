@@ -4,6 +4,10 @@ class PolicyTest < ActiveSupport::TestCase
   def setup
     @name = "Random policy name"
     @params = { name: @name }
+    @enabled_policy = Policy.create(@params)
+    @disabled_policy = Policy.create(@params)
+    PolicySetting.create(policy: @enabled_policy, enabled: true)
+    PolicySetting.create(policy: @disabled_policy, enabled: false)
   end
 
   test "policy validates presence of name" do
@@ -13,11 +17,14 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   test "instance method enabled? check whether policy enables" do
-    policy = Policy.create(@params)
-    enabled_policy = PolicySetting.create(policy: policy, enabled: true)
-    assert_equal enabled_policy.enabled?, true
-    disabled_policy = PolicySetting.create(policy: policy, enabled: false)
-    assert_not_equal disabled_policy.enabled?, true
+    assert_equal @enabled_policy.policy_setting.enabled?, true
+    assert_not_equal @disabled_policy.policy_setting.enabled?, true
+  end
+
+  test "class method enabled to return all and only all enabled policies" do
+    assert_equal Policy.enabled.count, 1
+    assert_includes Policy.enabled, @enabled_policy
+    assert_not_includes Policy.enabled, @disabled_policy
   end
 
   test "policy is invalid when invalid param" do
