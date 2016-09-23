@@ -9,6 +9,8 @@ class PolicyCheckTest < ActiveSupport::TestCase
     @params = { policy: @policy, agent: @agent, week: @week, year: @year }
   end
 
+  # == Validations ==========================================================
+
   test "policy_check validates presence of week" do
     @params[:week] = nil
     policy_check = PolicyCheck.create(@params)

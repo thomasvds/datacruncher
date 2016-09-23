@@ -6,6 +6,11 @@ class EventTest < ActiveSupport::TestCase
     @params = { agent: @agent }
   end
 
+  # == Class Methods =======================================================
+
+
+  # == Validations ==========================================================
+
   test "event validates presence of an agent" do
     @params[:agent] = nil
     event = Event.create(@params)

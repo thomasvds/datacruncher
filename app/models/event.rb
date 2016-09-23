@@ -17,21 +17,6 @@ class Event < ActiveRecord::Base
   # == Callbacks ============================================================
 
   # == Class Methods ========================================================
-  def self.volume_by_date(agent, start_date, end_date)
-    date_range = start_date..end_date
-    dates = date_range.map {|d| d.strftime '%d/%m' }
-
-    data = Hash.new { |h, k| h[k] = []}
-
-    CATEGORIES.each do |c|
-      date_range.each do |date|
-        data[c] << Event.where(agent: agent, date: date).count
-      end
-    end
-
-    return dates, data
-  end
-
   def self.hour_of_last_event_by_date(agent, date_range)
     result = Hash.new { |h, k| h[k] = []}
 

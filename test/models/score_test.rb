@@ -11,6 +11,8 @@ class ScoreTest < ActiveSupport::TestCase
       moving_average_value: @moving_average_value }
   end
 
+  # == Validations ==========================================================
+
   test "score validates presence of agent" do
     @params[:agent] = nil
     score = Score.create(@params)
