@@ -6,14 +6,19 @@ class EventTest < ActiveSupport::TestCase
     @params = { agent: @agent }
   end
 
-  test "event has to be associated with an agent" do
+  test "event validates presence of an agent" do
     @params[:agent] = nil
     event = Event.create(@params)
     assert_includes event.errors.messages[:agent], "can't be blank"
   end
 
-  test "event is valid" do
-    event = Event.create(@params)
-    assert event.valid?
+  test "event is invalid when invalid param" do
+    @params.merge!(invalid_key: nil)
+    assert_raises(ActiveRecord::UnknownAttributeError) { Event.create(@params) }
+  end
+
+  test "event is valid when valid params" do
+    assert_nothing_raised { Event.create(@params) }
+    puts "  => params which have been tested: #{@params.keys}"
   end
 end

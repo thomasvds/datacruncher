@@ -30,7 +30,7 @@ class ScoreTest < ActiveSupport::TestCase
   end
 
   test "score validates week comprised between the WEEKS constant" do
-    @params[:week] = 53
+    @params[:week] = Score::WEEKS.last + 1
     score = Score.create(@params)
     assert_includes score.errors.messages[:week], "is not included in the list"
   end
@@ -48,7 +48,7 @@ class ScoreTest < ActiveSupport::TestCase
   end
 
   test "score validates week comprised between the YEARS constant" do
-    @params[:year] = 2018
+    @params[:year] = Score::YEARS.last + 1
     score = Score.create(@params)
     assert_includes score.errors.messages[:year], "is not included in the list"
   end
@@ -72,7 +72,7 @@ class ScoreTest < ActiveSupport::TestCase
   end
 
   test "score validates weekly_value comprised between the PERCENTAGES constant" do
-    @params[:weekly_value] = 101
+    @params[:weekly_value] = Score::PERCENTAGES.last + 1
     score = Score.create(@params)
     assert_includes score.errors.messages[:weekly_value], "is not included in the list"
   end
@@ -90,13 +90,18 @@ class ScoreTest < ActiveSupport::TestCase
   end
 
   test "score validates moving_average_value comprised between the PERCENTAGES constant" do
-    @params[:moving_average_value] = 101
+    @params[:moving_average_value] = Score::PERCENTAGES.last + 1
     score = Score.create(@params)
     assert_includes score.errors.messages[:moving_average_value], "is not included in the list"
   end
 
-  test "score is valid" do
-    score = Score.create(@params)
-    assert score.valid?
+  test "score is invalid when invalid param" do
+    @params.merge!(invalid_key: nil)
+    assert_raises(ActiveRecord::UnknownAttributeError) { Score.create(@params) }
+  end
+
+  test "score is valid when valid params" do
+    assert_nothing_raised { Score.create(@params) }
+    puts "  => params which have been tested: #{@params.keys}"
   end
 end

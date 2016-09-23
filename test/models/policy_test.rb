@@ -12,8 +12,13 @@ class PolicyTest < ActiveSupport::TestCase
     assert_includes policy.errors.messages[:name], "can't be blank"
   end
 
-  test "policy is valid" do
-    policy = Policy.create(@params)
-    assert policy.valid?
+  test "policy is invalid when invalid param" do
+    @params.merge!(invalid_key: nil)
+    assert_raises(ActiveRecord::UnknownAttributeError) { Policy.create(@params) }
+  end
+
+  test "policy is valid when valid params" do
+    assert_nothing_raised { Policy.create(@params) }
+    puts "  => params which have been tested: #{@params.keys}"
   end
 end
