@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ScoreTest < ActiveSupport::TestCase
   def setup
-    @agent = agents(:sophia)
+    @agent = Agent.create(name: "Sophia")
     @week = 9
     @year = 2016
     @weekly_value = 65.45
