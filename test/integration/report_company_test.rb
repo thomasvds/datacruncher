@@ -123,11 +123,12 @@ class ReportCompanyTest < ActionDispatch::IntegrationTest
     Calculations::RANGE.each do |range_name, range_value|
       page.all("#collapse-teams-table table tbody tr td .label-#{range_name}").each do |item|
          value = item.text
-         regex = /\d{1,3}%/
-         # Note that value =~ regex returns the index of the element
-         # matching the regex. Here the index should always be zero,
-         # as for example if we have 1000% the index will be 1.
-         assert_equal 0, value =~ regex
+
+         matching = value.match(/\A\d{1,3}%\z/)
+         assert_not matching.nil?
+
+         number = matching[0].match(/\d/)
+         assert_includes 0..100 , number[0].to_i
       end
     end
   end
@@ -184,11 +185,12 @@ class ReportCompanyTest < ActionDispatch::IntegrationTest
     Calculations::RANGE.each do |range_name, range_value|
       page.all("#employeestable tbody tr td .label-#{range_name}").each do |item|
          value = item.text
-         regex = /\d{1,3}%/
-         # Note that value =~ regex returns the index of the element
-         # matching the regex. Here the index should always be zero,
-         # as for example if we have 1000% the index will be 1.
-         assert_equal 0, value =~ regex
+
+         matching = value.match(/\A\d{1,3}%\z/)
+         assert_not matching.nil?
+
+         number = matching[0].match(/\d/)
+         assert_includes 0..100 , number[0].to_i
       end
     end
   end
