@@ -18,6 +18,11 @@ Capybara.register_driver :poltergeist do |app|
     Capybara::Poltergeist::Driver.new(app, options)
 end
 
+# CONFIG WITH PHANTOM.JS
+Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path)
+end
+
 # Warden.test_mode!
 
 # TOP-LEVEL TEST CLASSES SETTINGS

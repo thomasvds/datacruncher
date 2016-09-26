@@ -62,6 +62,7 @@ group :development, :test do
   gem 'spring'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
   gem 'launchy'
   gem 'minitest-reporters'
   gem 'factory_girl_rails'

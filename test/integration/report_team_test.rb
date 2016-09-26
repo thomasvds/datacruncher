@@ -11,8 +11,9 @@ class ReportTeamTestTest < ActionDispatch::IntegrationTest
 
   # Setup a team
   def setup
-    super # <-- Required to load the seeds
-    @team = Team.first
+    super # <-- Required to load the seeds, Rails.application.load_seed
+    rand_number = rand(1..Team.count)
+    @team = Team.where(id: rand_number).first
   end
 
   # Debug an integration test
@@ -26,4 +27,8 @@ class ReportTeamTestTest < ActionDispatch::IntegrationTest
     visit "reports/team/#{@team.id}"
     assert_equal 200 , page.status_code
   end
+
+  # test "display overvview of all team members sustainability scores" do
+  #   ""
+  # end
 end
