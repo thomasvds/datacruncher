@@ -13,14 +13,9 @@ Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 DatabaseCleaner.strategy = :truncation
 
 Capybara.default_driver = :poltergeist
-options = {:js_errors => false}
+options = { js_errors: false, phantomjs: Phantomjs.path } # <-- phantom.js enabled
 Capybara.register_driver :poltergeist do |app|
     Capybara::Poltergeist::Driver.new(app, options)
-end
-
-# CONFIG WITH PHANTOM.JS
-Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path)
 end
 
 # Warden.test_mode!
