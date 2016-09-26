@@ -43,16 +43,13 @@ class ReportCompanyTest < ActionDispatch::IntegrationTest
   test "displays one gauge for each enabled policy" do
     visit 'reports/company'
     Policy.enabled.each do |policy|
-      assert page.first(".panel-default").has_content?(policy.name)
+      assert page.first("#collapse-company-gauges").has_content?(policy.name)
     end
   end
 
   test "does not display gauges for policies that are not enabled" do
     visit 'reports/company'
-    Policy.enabled.each do |policy|
-      assert page.first(".panel-default").has_content?(policy.name)
-    end
-    assert page.first(".panel-default").has_selector?(".highcharts-container", count: Policy.enabled.count)
+    assert page.first("#collapse-company-gauges").has_selector?(".highcharts-container", count: Policy.enabled.count)
   end
 
   test "gauge policy scores are all comprised between 0 and 100%" do
@@ -127,7 +124,7 @@ class ReportCompanyTest < ActionDispatch::IntegrationTest
          matching = value.match(/\A\d{1,3}%\z/)
          assert_not matching.nil?
 
-         number = matching[0].match(/\d/)
+         number = matching[0].match(/\d+/)
          assert_includes 0..100 , number[0].to_i
       end
     end

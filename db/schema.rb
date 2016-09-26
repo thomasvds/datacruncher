@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160704085409) do
+ActiveRecord::Schema.define(version: 20160923090906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,10 +76,10 @@ ActiveRecord::Schema.define(version: 20160704085409) do
 
   create_table "policy_settings", force: :cascade do |t|
     t.float    "weight"
-    t.boolean  "enabled"
+    t.boolean  "enabled",    default: false
     t.integer  "policy_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "policy_settings", ["policy_id"], name: "index_policy_settings_on_policy_id", using: :btree
